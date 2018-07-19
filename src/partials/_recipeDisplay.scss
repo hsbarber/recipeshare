@@ -1,0 +1,153 @@
+
+@import "variables";
+
+//buttons for date and category
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  > * {
+    margin-right: 2.5rem;
+  }
+  select {
+    flex-basis: 15%;
+  }
+  h3 {
+    color: $body-primary;
+  }
+  h3.date, h3.category {
+    cursor: pointer;
+    padding: 0.5rem;
+    border: 1px solid $body-primary;
+  }
+}
+
+.CategoryLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+  > * {
+    cursor: pointer;
+    padding: 1rem;
+    flex-basis: 12%;
+    margin-right: 2rem;
+    color: $body-primary;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: $box-shadow;
+    h4 {
+      margin: 0;
+      color: $body-primary;
+    }
+    &:hover {
+      box-shadow: $box-shadow-hover;
+    }
+  }
+}
+
+
+.display-recipes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    width: 100%;
+  }
+  button {
+    width: 100%;
+    display: block;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    width: 75%;
+    min-height: 200px;
+  }
+  li {
+    display: flex;
+    flex-direction: column;
+    width: calc(33.33% - 50px);
+    list-style-type: none;
+    margin-right: 50px;
+    color: #000;
+    margin-bottom: 30px;
+    @media (max-width: $medium) {
+      width: calc(100% - 50px);
+    }
+    @media (max-width: $large) {
+      width: calc(50% - 50px);
+    }
+    a {
+      text-decoration: none;
+      color: none;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12), 0 1px 8px 0 rgba(0,0,0,.2);
+      &:hover {
+        box-shadow: $box-shadow-deep;
+      }
+      h3 {
+        font-family: 'Open Sans Condensed', sans-serif;
+        margin: 0;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 300;
+        padding: 15px;
+      }
+      h3.title-block {
+        background:  $fourth;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px
+      }
+      h3.category {
+        background: rgba(white, 0.7);
+        color: $body-primary;
+        position: absolute;
+        margin: 0.5rem;
+      }
+      .bgImage {
+        height: 300px;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+      button {
+        align-self: flex-end;
+      }
+    }
+
+    .remove {
+      margin-top: 1rem;
+      box-shadow: $box-shadow;
+      &:hover {
+        box-shadow: $box-shadow-hover;
+      }
+    }
+  }
+}
+.deleteDrop {
+  p {
+    text-align: center;
+  }
+  .deleteButtons {
+    display: flex;
+    justify-content: space-between;
+  }
+  button {
+    background: white;
+    color: $primary;
+    width: 40%;
+    margin: 0;
+    padding: 0.5rem;
+    border: 1px solid $primary;
+  }
+}
+
+
+
+

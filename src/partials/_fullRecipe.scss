@@ -1,0 +1,102 @@
+@import "variables";
+
+.fullRecipe {
+
+
+        h1 {
+            text-align: center;
+        }
+        h1, h2, p {
+            color: $body-primary;
+        }
+        .topContainer {
+            display: flex;
+            position: relative;
+            @media (max-width: $large) {
+                flex-direction: column;
+            }
+            .fullImage {
+                border-radius: 8px;
+                position: relative;
+                width: 100%;
+                height: 300px;
+                max-width: 1200px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                z-index: 0;
+                @media (max-width: $large) {
+                    border-radius: 0px;
+                }
+            }
+            .titleBox {
+                position: absolute;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 1;
+                background-color: rgba(256, 256, 256, 0.8);
+                height: 300px;
+                width: 40%;
+                @media (max-width: $medium) {
+                    position: relative;
+                    width: 100%;
+                    height: 150px;
+                    background-color: lighten(lightgrey, 10%);
+                }
+                h1 {
+                    color: $body-primary;
+                    padding: 0 4rem;
+                }
+                h2 {
+
+                    padding: 0.5rem;
+                    span {
+                        color: white;
+                        padding: 0.5rem;
+                        background-color: $fourth;
+                    }
+                    span.catName {
+                        padding: 0.5rem 1rem;
+                        color: $body-primary;
+                        background-color: white;
+
+                    }
+                }
+            }
+
+        }
+
+        .ingredientContainer {
+            padding: 2rem 2rem 0 2rem;
+
+            .fullIngredientList {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                max-height: 500px;
+                border-bottom: 2px solid $body-primary;
+                padding-bottom: 2rem;
+                @media (max-width: $medium) {
+                    max-height: none;
+                }
+
+                p {
+                    width: 25%;
+                    @media (max-width: $medium) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        .methodContainer {
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            h2 {
+                margin-top: 0;
+            }
+        }
+}
