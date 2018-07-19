@@ -1,7 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 #images
-src/img
+src/img/*
 
 # dependencies
 /node_modules
