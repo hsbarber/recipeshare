@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function FormErrors (props) {
     return (
@@ -16,5 +17,8 @@ function FormErrors (props) {
         })}
         </div>
     );
+}
+FormErrors.PropTypes = {
+    formErrors: PropTypes.objectOf(PropTypes.string)
 }
 export default FormErrors;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CategoryAPI from '../categories'
 
 function CategoryButtons (props) {
@@ -15,5 +16,7 @@ function CategoryButtons (props) {
     )
 
 }
-
+CategoryButtons.PropTypes = {
+	handleFilter: PropTypes.func
+}
 export default CategoryButtons;

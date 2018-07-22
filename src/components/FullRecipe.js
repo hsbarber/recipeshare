@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 
 function FullRecipe(props){
@@ -21,7 +22,7 @@ function FullRecipe(props){
 
                   <div className="fullImage" style= { {
                       backgroundImage:
-                      `url(${recipe.image })` } }>
+                      `url(${recipe.imageURL })` } }>
                   </div>
                   <div className="titleBox">
                     <h1>{recipe.title}</h1>
@@ -53,7 +54,11 @@ function FullRecipe(props){
     )
 
 }
-
+FullRecipe.PropTypes = {
+  recipes: PropTypes.array,
+  title: PropTypes.object,
+  recipe: PropTypes.arrayOf(PropTypes.string)
+}
 export default FullRecipe;
 
 // const name = rec.map(r => r.title);

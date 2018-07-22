@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CategoryAPI from '../categories'
 import ImageUpload from './ImageUpload.js';
 import ListForm from './ListForm.js';
@@ -58,5 +59,17 @@ function RecipeForm (props) {
     </div>
   )
 }
-
+RecipeForm.PropTypes = {
+  toggleCollapse: PropTypes.func,
+  collapse: PropTypes.bool,
+  handleSubmit: PropTypes.func,
+  formErrors: PropTypes.objectOf(PropTypes.string),
+  handleChange: PropTypes.func,
+  title:PropTypes.string,
+  category: PropTypes.string,
+  handleSelect: PropTypes.func,
+  ingredients: PropTypes.array,
+  steps: PropTypes.array,
+  formValid: PropTypes.bool,
+}
 export default RecipeForm;

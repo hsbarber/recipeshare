@@ -12,9 +12,13 @@ class Main extends Component {
 	      username: '',
 				user: null,
 				collapse: true,
-	      title: '',
-	      img: '',
-	      image: '',
+				title: '',
+				//image upload
+				image: '',
+				isUploading: false,
+				progress: 0,
+				imageURL: '',
+				//
 				category: 'American',
 				error: '',
 	      steps: [],
@@ -41,9 +45,13 @@ class Main extends Component {
 			this.toggleCollapse = this.toggleCollapse.bind(this);
 	    this.handleChange = this.handleChange.bind(this);
 	    this.handleSelect = this.handleSelect.bind(this);
-	    this.handleSubmit = this.handleSubmit.bind(this);
-	    this.handleFileSelect = this.handleFileSelect.bind(this);
-	    this.handleFileUpload = this.handleFileUpload.bind(this);
+			this.handleSubmit = this.handleSubmit.bind(this);
+			this.handleUploadStart = this.handleUploadStart.bind(this);
+			this.handleProgress = this.handleProgress.bind(this);
+			this.handleUploadError = this.handleUploadError.bind(this);
+			this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
+	    //this.handleFileSelect = this.handleFileSelect.bind(this);
+	    //this.handleFileUpload = this.handleFileUpload.bind(this);
 	    this.printImage = this.printImage.bind(this);
 	    this.addItemArray = this.addItemArray.bind(this);
 	    this.handleRemove = this.handleRemove.bind(this);
@@ -71,8 +79,7 @@ class Main extends Component {
 						id: recipe,
 						user: recipes[recipe].user,
 	          title: recipes[recipe].title,
-						img: recipes[recipe].img,
-						image: recipes[recipe].image,
+						imageURL: recipes[recipe].imageURL,
 	          category: recipes[recipe].category,
 	          steps: recipes[recipe].steps,
 	          ingredients: recipes[recipe].ingredients,
@@ -121,8 +128,7 @@ class Main extends Component {
 	    const recipe = {
 				user: this.state.user.email,
 	      title: this.state.title,
-				img: this.state.img,
-				image: this.state.image,
+				imageURL: this.state.imageURL,
 	      category: this.state.category,
 	      ingredients: this.state.ingredients,
 	      steps: this.state.steps,
@@ -131,9 +137,9 @@ class Main extends Component {
 			recipesRef.push(recipe);
 			// this.printImage(e);
 	    this.setState({
+				user: '',
 	      title: '',
-				img: '',
-				image: '',
+				imageURL: '',
 	      category: 'American',
 	      ingredients: [],
 	      steps: [],
@@ -188,29 +194,24 @@ class Main extends Component {
 
 	}
 
-	handleFileSelect(e) {
-    	this.setState({file: e.target.files[0]})
-		}
+	// handleFileSelect(e) {
+  //   	this.setState({file: e.target.files[0]})
+	// 	}
 	printImage(e) {
 		e.preventDefault();
 		const file = this.state.file;
 		const thisRef = firebase.storage().ref().child("images/" + file.name);
 		thisRef.getDownloadURL().then(url => this.setState({image: url}))
 	}
-	handleFileUpload(e) {
-			e.preventDefault();
-				const storageRef = firebase.storage().ref();
-				const file = this.state.file;
-
-				const thisRef = storageRef.child("images/" + file.name);
-				thisRef.put(file).then(
-						this.setState({uploaded: true})
-				)
-				//.then(thisRef.getDownloadURL().then(url => this.setState({image: url})))
-				// const newRef = firebase.storage().ref().child("images/" + file.name);
-				// newRef.getDownloadURL().then(url => this.setState({image: url}))
-				.catch(err => this.setState({error: err.message}))
-
+	handleUploadStart = () => this.setState({isUploading: true, progress: 0});
+	handleProgress = (progress) => this.setState({progress});
+	handleUploadError = (error) => {
+		this.setState({isUploading: false});
+		console.error(error);
+	}
+	handleUploadSuccess = (filename) => {
+			this.setState({image: filename, progress: 100, isUploading: false});
+			firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({imageURL: url}));
 	}
 
 	handleRemove(id, name){
@@ -262,41 +263,47 @@ class Main extends Component {
 						toggleCollapse={this.toggleCollapse}
 						title={this.state.title}
 						error={this.state.error}
-		      	img={this.state.img}
-						image={this.state.image}
-		      	file={this.state.file}
-						uploaded={this.state.uploaded}
+		      	//file={this.state.file}
+						//uploaded={this.state.uploaded}
 		      	category={this.state.category}
-	            steps={this.state.steps}
-	            handleChange={this.handleChange}
-	            handleFileSelect={this.handleFileSelect}
-	            handleFileUpload={this.handleFileUpload}
-	            printImage={this.printImage}
-	            handleSelect={this.handleSelect}
-	            handleFilter={this.handleFilter}
-	            handleSubmit={this.handleSubmit}
-	            addItemArray={this.addItemArray}
-	            ingredients={this.state.ingredients}
-							ingredValue={this.state.ingredValue}
-							stepsValue={this.state.stepsValue}
-	            remove={this.handleRemove.bind(this)}
-	            recipes={this.state.recipes}
-	            time={this.state.time}
-	            handleRemove={this.handleRemove}
-	            removeItem={this.removeItem}
-	            selectedCat={this.state.selectedCat}
-	            filtered={this.state.filtered}
-	            dateChange={this.state.dateChange}
-	            toggleDate={this.toggleDate}
-	            toggleCategoryButtons={this.toggleCategoryButtons}
-	            removeFilter={this.removeFilter}
-							formErrors={this.state.formErrors}
-							formValid={this.state.formValid}
-							errorMessage={this.state.errorMessage}
-							closeModal={this.closeModal}
-							openModal={this.openModal}
-							isModalOpen={this.state.isModalOpen}
-							removeID={this.state.removeID}
+	          steps={this.state.steps}
+						handleChange={this.handleChange}
+						handleUploadStart = {this.handleUploadStart}
+						handleProgress = {this.handleProgress}
+						handleUploadError = {this.handleUploadError}
+						handleUploadSuccess = {this.handleUploadSuccess}
+	            //handleFileSelect={this.handleFileSelect}
+							//handleFileUpload={this.handleFileUpload}
+						image = {this.state.image}
+						isUploading = {this.state.isUploading}
+						progress = {this.state.progress }
+						imageURL = {this.state.imageURL}
+						printImage={this.printImage}
+						handleSelect={this.handleSelect}
+						handleFilter={this.handleFilter}
+						handleSubmit={this.handleSubmit}
+						addItemArray={this.addItemArray}
+						ingredients={this.state.ingredients}
+						ingredValue={this.state.ingredValue}
+						stepsValue={this.state.stepsValue}
+						remove={this.handleRemove.bind(this)}
+						recipes={this.state.recipes}
+						time={this.state.time}
+						handleRemove={this.handleRemove}
+						removeItem={this.removeItem}
+						selectedCat={this.state.selectedCat}
+						filtered={this.state.filtered}
+						dateChange={this.state.dateChange}
+						toggleDate={this.toggleDate}
+						toggleCategoryButtons={this.toggleCategoryButtons}
+						removeFilter={this.removeFilter}
+						formErrors={this.state.formErrors}
+						formValid={this.state.formValid}
+						errorMessage={this.state.errorMessage}
+						closeModal={this.closeModal}
+						openModal={this.openModal}
+						isModalOpen={this.state.isModalOpen}
+						removeID={this.state.removeID}
 
 		      	/>}/>
 		      <Route path='/:title' component={(props) => <FullRecipe {...props} recipes={this.state.recipes}/>} />

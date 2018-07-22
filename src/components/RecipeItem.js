@@ -1,26 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 
 function RecipeItem(props) {
     const NoImage = "http://i63.tinypic.com/2j8tpy.png";
-    // const recipe = props.recipe;
+    const {id, title, imageURL, category, user, email} = props.recipe;
     return (
-        <li key={props.recipe.id}>
-            <Link to={`/${props.recipe.title.split(' ').join('')}`}>
+        <li key={id}>
+            <Link to={`/${title.split(' ').join('')}`}>
             <div className="bgImage" style= { {
                 backgroundImage:
-                `url(${props.recipe.image})` } }>
+                `url(${imageURL})` } }>
             </div>
-            <h3 className="category">{props.recipe.category}</h3>
-            <h3 className="title-block">{props.recipe.title}</h3>
+            <h3 className="category">{category}</h3>
+            <div className="title-block"><h3>{title}</h3><h3>{user}</h3></div>
             </Link>
-            {props.recipe.user === props.user.email ?
-                <button className="remove" onClick={() => props.openModal(props.recipe.id)}>Remove Recipe </button>
+            {user === email ?
+                <button className="remove" onClick={() => props.openModal(id)}>Remove Recipe </button>
              : null}
-            {props.isModalOpen && props.recipe.id === props.removeID ?
+            {props.isModalOpen && id === props.removeID ?
                 <div className="deleteDrop">
                     <p>Are you sure you want to Delete?</p>
-                    <p className="deleteButtons"><button onClick={() => props.removeItem(props.recipe.id)}>Delete</button>
+                    <p className="deleteButtons"><button onClick={() => props.removeItem(id)}>Delete</button>
                     <button onClick={() => props.closeModal()}>Close</button></p>
                 </div>
                 : ''
@@ -28,7 +29,14 @@ function RecipeItem(props) {
         </li>
     )
 }
-
+RecipeItem.PropTypes = {
+    recipe: PropTypes.arrayOf(PropTypes.string),
+    openModal: PropTypes.func,
+    isModalOpen: PropTypes.bool,
+    removeID: PropTypes.string,
+    removeItem: PropTypes.func,
+    closeModal: PropTypes.func
+}
 export default RecipeItem;
 // backgroundImage:
 // `url(${props.recipe.image === undefined ? NoImage : props.recipe.image })` } }>

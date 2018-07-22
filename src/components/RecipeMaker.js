@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RecipeForm from './RecipeForm.js';
 import DisplayRecipe from './DisplayRecipe.js';
 import CategoryButtons from './CategoryButtons.js';
@@ -47,7 +48,20 @@ function RecipeMaker(props) {
 
       )
 }
-
+RecipeMaker.PropTypes = {
+  user: PropTypes.shape({
+      displayName: PropTypes.string,
+      email: PropTypes.string,
+      photoURL: PropTypes.string
+  }),
+  login: PropTypes.func,
+  logout: PropTypes.func,
+  toggleDate: PropTypes.func,
+  dateChange: PropTypes.bool,
+  toggleCategoryButtons: PropTypes.func,
+  filtered: PropTypes.bool,
+  selectedCat: PropTypes.string,
+}
 export default RecipeMaker;
 
 

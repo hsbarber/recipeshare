@@ -97,13 +97,15 @@
         font-weight: 300;
         padding: 15px;
       }
-      h3.title-block {
+      .title-block {
         background:  $fourth;
         text-decoration: none;
         font-weight: bold;
-        font-size: 18px
+        font-size: 18px;
+        display: flex;
+        justify-content: space-between;
       }
-      h3.category {
+      .category {
         background: rgba(white, 0.7);
         color: $body-primary;
         position: absolute;

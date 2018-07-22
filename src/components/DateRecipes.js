@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RecipeItem from './RecipeItem'
 
 function DateRecipes (props) {
@@ -18,5 +19,13 @@ function DateRecipes (props) {
 
 
 }
-
+DateRecipes.PropTypes = {
+	recipes: PropTypes.arrayOf(PropTypes.string),
+	isModalOpen: PropTypes.bool,
+	user: PropTypes.object,
+	openModal: PropTypes.func,
+    removeID: PropTypes.string,
+    removeItem: PropTypes.func,
+    closeModal: PropTypes.func
+}
 export default DateRecipes;

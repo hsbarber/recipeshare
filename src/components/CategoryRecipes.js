@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RecipeItem from './RecipeItem'
 
 function CategoryRecipes (props) {
@@ -22,5 +23,14 @@ function CategoryRecipes (props) {
   		</ul>
   	)
 }
-
+CategoryRecipes.PropTypes = {
+	recipes: PropTypes.arrayOf(PropTypes.string),
+	selectedCat: PropTypes.string,
+	isModalOpen: PropTypes.bool,
+	user: PropTypes.object,
+	openModal: PropTypes.func,
+	closeModal: PropTypes.func,
+	removeID: PropTypes.string,
+	removeItem: PropTypes.func
+}
 export default CategoryRecipes;
