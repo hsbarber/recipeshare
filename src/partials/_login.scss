@@ -1,0 +1,27 @@
+
+.login {
+    display: block;
+    margin-left: 4rem;
+}
+.login .logged-in-as {
+        p {
+            margin-top: -0.2rem;
+            font-size: 12px;
+            color: white;
+        }
+}
+.login .logIn-Out {
+    // margin-left: 6rem;
+    // margin-top: 2rem;
+}
+.login .user-profile {
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    width: 100px;
+    height: 100px;
+    img {
+        border-radius: 50%;
+        max-width: 100%;
+      }
+}
