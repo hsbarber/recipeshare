@@ -9,7 +9,7 @@ function DisplayRecipe (props) {
 	return (
 		<ul>
 			{sortRecipes.map((recipe, index) =>
-					<RecipeItem key={index} recipe={recipe} isModalOpen={props.isModalOpen}
+					<RecipeItem {...props} key={index} recipe={recipe} isModalOpen={props.isModalOpen}
 					user={props.user} openModal={props.openModal} closeModal={props.closeModal}
 					removeID={props.removeID} removeItem={props.removeItem} />
 				)

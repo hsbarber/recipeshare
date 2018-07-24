@@ -15,13 +15,12 @@ function RecipeForm (props) {
     return <option key={index} value={category}><h5>{category}</h5></option>
   })
 
-
-  return (
+    return (
     <div>
       <div className="recipeIntro">
         <h1>Create a Recipe</h1>
-        <div className="collapse" onClick={props.toggleCollapse}>
-          {props.collapse ? <span><h3>Open Recipe Form </h3><ChevronDown /></span>  : <span><h3>Close Recipe Form </h3><Remove /></span> }
+        <div className="collapse" >
+          {props.collapse ? <span onClick={props.toggleCollapse}><h3>Open Recipe Form </h3><ChevronDown /></span>  : <span onClick={props.toggleCollapse}><h3>Close Recipe Form </h3><Remove /></span> }
         </div>
       </div>
       <main className="recipeForm">
@@ -42,18 +41,24 @@ function RecipeForm (props) {
                   {CategorySelect}
                 </select>
               </div>
-              <ListForm {...props} name="ingredient"/>
-              <PrintCurrentList
-                {...props}
-                list={props.ingredients}
-                name='ingredients'
-              />
-              <ListForm {...props} name="step"/>
-              <PrintCurrentList
-                {...props}
-                list={props.steps}
-                name='steps'
-              />
+              <div className="ingredientsWrapper">
+                <h4>Add your ingredients</h4>
+                <ListForm {...props} name="ingredient"/>
+                <PrintCurrentList
+                  {...props}
+                  list={props.ingredients}
+                  name='ingredients'
+                />
+              </div>
+              <div className="stepsWrapper">
+                <h4>Add the steps to your recipe</h4>
+                <ListForm {...props} name="step"/>
+                <PrintCurrentList
+                  {...props}
+                  list={props.steps}
+                  name='steps'
+                />
+              </div>
               <button disabled={!props.formValid}>Add Recipe</button>
 
           </form>
@@ -61,7 +66,7 @@ function RecipeForm (props) {
         </AnimateHeight>
       </main>
     </div>
-  )
+    )
 }
 RecipeForm.PropTypes = {
   toggleCollapse: PropTypes.func,
@@ -76,4 +81,4 @@ RecipeForm.PropTypes = {
   steps: PropTypes.array,
   formValid: PropTypes.bool,
 }
-export default RecipeForm;
+export default RecipeForm
