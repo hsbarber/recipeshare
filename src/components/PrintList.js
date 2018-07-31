@@ -1,37 +1,28 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import Remove from '../icons/Remove.js';
 
-// const ListItem = ({item, remove, index, name}) => {
-//   return (<li onClick={() => {remove(item.id, name)}}>{index +1} - {item.text}</li>);
-// }
-const grid = 8;
 
+const getListStyle = isDraggingOver => ({
+  background: isDraggingOver ? 'rgb(185, 185, 185)' : 'none',
+});
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
 
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
+  background: isDragging ? '#D0ACDC' : ' rgb(247, 247, 247)',
 
   // styles we need to apply on draggables
   ...draggableStyle,
 });
-
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: grid,
-  width: 250,
+const getContentStyle = (isDragging, draggableStyle) => ({
+  color: isDragging ? '#FFFFFF' : '#5F5F5F ',
+  ...draggableStyle,
 });
-function PrintIngredients (props) {
-
-  // Map through the list
-  // const listNode = list.map((item, index) => {
-  //   return (<ListItem item={item} key={item.id} remove={remove} index={index} name="ingredients"/> )
-  // });
+function PrintList ({list, dragEnd, remove, name}) {
   return (
-  <DragDropContext onDragEnd={props.onDragEnd}>
+  <DragDropContext onDragEnd={dragEnd}>
     <Droppable droppableId="droppable">
       {(provided, snapshot) => (
         <ul
@@ -39,10 +30,10 @@ function PrintIngredients (props) {
           style={getListStyle(snapshot.isDraggingOver)}
           className={"ingredients"}
         >
-          {props.ingredients.map((item, index) => (
+          {list.map((item, index) => (
             <Draggable key={item.id} draggableId={item.id} index={index}>
               {(provided, snapshot) => (
-                <div
+                <li
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
@@ -51,8 +42,14 @@ function PrintIngredients (props) {
                     provided.draggableProps.style
                   )}
                 >
+                <span className="listNumber">
+                    {index + 1}
+                </span>
+                <span className="listContent" >
                   {item.content}
-                </div>
+                </span>
+                  <span  className="remove" onClick={() => {remove(item.id, name)}}><Remove /></span>
+                </li>
               )}
             </Draggable>
           ))}
@@ -64,4 +61,4 @@ function PrintIngredients (props) {
   );
 
 }
-export default PrintIngredients;
+export default PrintList;

@@ -9,17 +9,15 @@ function DisplayRecipe (props) {
 	return (
 		<ul>
 			{sortRecipes.map((recipe, index) =>
-					<RecipeItem {...props} key={index} recipe={recipe} isModalOpen={props.isModalOpen}
-					user={props.user} openModal={props.openModal} closeModal={props.closeModal}
-					removeID={props.removeID} removeItem={props.removeItem} />
+					<RecipeItem {...props} key={index} recipe={recipe} />
 				)
 			}
 		</ul>
 	)
 
 }
-DisplayRecipe.PropTypes = {
-	recipes: PropTypes.arrayOf(PropTypes.string),
+DisplayRecipe.propTypes = {
+	recipes: PropTypes.array,
 	isModalOpen: PropTypes.bool,
 	user: PropTypes.object,
 	openModal: PropTypes.func,

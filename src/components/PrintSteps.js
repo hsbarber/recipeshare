@@ -24,14 +24,14 @@ const getListStyle = isDraggingOver => ({
   padding: grid,
   width: 250,
 });
-function PrintIngredients (props) {
+function PrintSteps(props){
 
   // Map through the list
-  // const listNode = list.map((item, index) => {
-  //   return (<ListItem item={item} key={item.id} remove={remove} index={index} name="ingredients"/> )
-  // });
+//   const listNode = list.map((item, index) => {
+//     return (<ListItem item={item} key={item.id} remove={remove} index={index} name="steps"/> )
+//   });
   return (
-  <DragDropContext onDragEnd={props.onDragEnd}>
+    <DragDropContext  onDragEnd={props.onDragEndSteps}>
     <Droppable droppableId="droppable">
       {(provided, snapshot) => (
         <ul
@@ -39,7 +39,7 @@ function PrintIngredients (props) {
           style={getListStyle(snapshot.isDraggingOver)}
           className={"ingredients"}
         >
-          {props.ingredients.map((item, index) => (
+          {props.steps.map((item, index) => (
             <Draggable key={item.id} draggableId={item.id} index={index}>
               {(provided, snapshot) => (
                 <div
@@ -60,8 +60,8 @@ function PrintIngredients (props) {
         </ul>
       )}
     </Droppable>
-  </DragDropContext>
+    </DragDropContext>
   );
 
 }
-export default PrintIngredients;
+export default PrintSteps;

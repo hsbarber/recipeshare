@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CategoryAPI from '../categories'
 import ImageUpload from './ImageUpload.js';
 import ListForm from './ListForm.js';
-import PrintCurrentList from './PrintCurrentList.js';
+import PrintList from './PrintList.js';
 import FormErrors from './FormErrors.js';
 import AnimateHeight from 'react-animate-height';
 import ChevronDown from '../icons/ChevronDown.js';
@@ -12,7 +12,7 @@ import Remove from '../icons/Remove.js';
 function RecipeForm (props) {
   const CategoryShift = CategoryAPI.all().slice(1);
   const CategorySelect = CategoryShift.map((category, index) => {
-    return <option key={index} value={category}><h5>{category}</h5></option>
+    return <option key={index} value={category}>{category}</option>
   })
 
     return (
@@ -43,20 +43,32 @@ function RecipeForm (props) {
               </div>
               <div className="ingredientsWrapper">
                 <h4>Add your ingredients</h4>
-                <ListForm {...props} name="ingredient"/>
-                <PrintCurrentList
-                  {...props}
+                <ListForm
+                  addItemArray={props.addItemArray}
+                  checkButton={props.checkButton}
+                  inputName="ingredient"
+                  buttonValid={props.ingredientsValid}
+                />
+                <PrintList
                   list={props.ingredients}
-                  name='ingredients'
+                  dragEnd={props.onDragEnd}
+                  remove={props.remove}
+                  name="ingredients"
                 />
               </div>
               <div className="stepsWrapper">
                 <h4>Add the steps to your recipe</h4>
-                <ListForm {...props} name="step"/>
-                <PrintCurrentList
-                  {...props}
+                <ListForm
+                  addItemArray={props.addItemArray}
+                  checkButton={props.checkButton}
+                  inputName="step"
+                  buttonValid={props.stepsValid}
+                />
+                <PrintList
                   list={props.steps}
-                  name='steps'
+                  dragEnd={props.onDragEndSteps}
+                  remove={props.remove}
+                  name="steps"
                 />
               </div>
               <button disabled={!props.formValid}>Add Recipe</button>
@@ -68,7 +80,7 @@ function RecipeForm (props) {
     </div>
     )
 }
-RecipeForm.PropTypes = {
+RecipeForm.propTypes = {
   toggleCollapse: PropTypes.func,
   collapse: PropTypes.bool,
   handleSubmit: PropTypes.func,

@@ -16,7 +16,7 @@ function CategoryButtons (props) {
     )
 
 }
-CategoryButtons.PropTypes = {
+CategoryButtons.propTypes = {
 	handleFilter: PropTypes.func
 }
 export default CategoryButtons;

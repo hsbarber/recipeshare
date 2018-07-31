@@ -18,19 +18,18 @@ function RecipeItem(props) {
             {user === props.user.email ?
                 <button className="remove" onClick={() => props.openModal(id)}>Remove Recipe </button>
               : null}
-            {props.isModalOpen && props.recipe.id === props.removeID ?
+            {props.isModalOpen && props.recipe.id === props.removeID &&
                  <div className="deleteDrop">
                      <p>Are you sure you want to Delete?</p>
                      <p className="deleteButtons"><button onClick={() => props.removeItem(props.recipe.id)}>Delete</button>
                      <button onClick={() => props.closeModal()}>Close</button></p>
                  </div>
-                 : ''
             }
         </li>
     )
 }
-RecipeItem.PropTypes = {
-    recipe: PropTypes.arrayOf(PropTypes.string),
+RecipeItem.propTypes = {
+    recipe: PropTypes.object,
     openModal: PropTypes.func,
     isModalOpen: PropTypes.bool,
     removeID: PropTypes.string,

@@ -77,6 +77,8 @@ class RecipeMaker extends Component {
               <div className="formWrapper">
                   <RecipeForm
                     {...this.props}
+                    onDragEnd={this.props.onDragEnd}
+                    onDragEndSteps={this.props.onDragEndSteps}
                     handleSubmit={this.props.handleSubmit}
                     collapse={this.state.collapse}
                     toggleCollapse={this.toggleCollapse}
@@ -93,7 +95,7 @@ class RecipeMaker extends Component {
                     <h3 className="category" onClick={this.toggleCategoryButtons}>{this.state.filtered ? `Close ✕` : `Category`}</h3>
                   </div>
                 </div>
-                {this.state.filtered ? <CategoryButtons handleFilter={this.handleFilter} {...this.props}/> : '' }
+                {this.state.filtered && <CategoryButtons handleFilter={this.handleFilter} {...this.props}/> }
                 {this.state.selectedCat ?
                   <CategoryRecipes
                     recipes={this.props.recipes}
@@ -138,7 +140,7 @@ class RecipeMaker extends Component {
     )
   }
 }
-RecipeMaker.PropTypes = {
+RecipeMaker.propTypes = {
   user: PropTypes.shape({
       displayName: PropTypes.string,
       email: PropTypes.string,

@@ -9,9 +9,7 @@ function DateRecipes (props) {
   	return (
       <ul>
 				{sortRecipes.map((recipe, index) =>
-						<RecipeItem key={index} recipe={recipe} isModalOpen={props.isModalOpen}
-						user={props.user} openModal={props.openModal} closeModal={props.closeModal}
-						removeID={props.removeID} removeItem={props.removeItem} />
+						<RecipeItem key={index} recipe={recipe} {...props} />
 					)
 				}
 			</ul>
@@ -19,7 +17,7 @@ function DateRecipes (props) {
 
 
 }
-DateRecipes.PropTypes = {
+DateRecipes.propTypes = {
 	recipes: PropTypes.arrayOf(PropTypes.string),
 	isModalOpen: PropTypes.bool,
 	user: PropTypes.object,

@@ -15,15 +15,13 @@ function CategoryRecipes (props) {
 		{filterByCategory[0] === undefined ?
 			<h4> No results for this category</h4> :
 			filterByCategory.map((recipe, index) =>
-				<RecipeItem key={index} recipe={recipe} isModalOpen={props.isModalOpen}
-				user={props.user} openModal={props.openModal} closeModal={props.closeModal} removeID={props.removeID}
-				removeItem={props.removeItem} />
+				<RecipeItem key={index} recipe={recipe} {...props} />
 			)
 		}
   		</ul>
   	)
 }
-CategoryRecipes.PropTypes = {
+CategoryRecipes.propTypes = {
 	recipes: PropTypes.arrayOf(PropTypes.string),
 	selectedCat: PropTypes.string,
 	isModalOpen: PropTypes.bool,

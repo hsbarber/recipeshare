@@ -88,11 +88,6 @@ button[disabled] {
       .recipeIntro .collapse span svg path {
         fill: white; }
 
-.titleWrapper {
-  display: flex; }
-  .titleWrapper input {
-    width: 100%; }
-
 .recipeForm p {
   font-size: 10px;
   margin: 1rem 0 0; }
@@ -118,12 +113,21 @@ button[disabled] {
   border-radius: 0;
   width: 100%; }
 
+.formErrors {
+  margin: 1rem; }
+
+.titleWrapper {
+  display: flex;
+  margin: 0 1rem; }
+  .titleWrapper input {
+    width: 100%; }
+
 .upload {
   display: flex;
   align-items: center;
-  margin-top: 2rem;
-  background-color: #f4f4f4;
-  padding: 2rem 1rem; }
+  padding: 4rem 0;
+  margin: 0 1rem;
+  border-bottom: 2px solid #e7e7e7; }
   .upload p {
     margin-top: 5px; }
   .upload h4 {
@@ -134,8 +138,9 @@ button[disabled] {
 .chooseCategory {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
-  margin: 0 1rem; }
+  padding: 4rem 0;
+  margin: 0 1rem;
+  border-bottom: 2px solid #e7e7e7; }
   .chooseCategory h4 {
     margin: 0 1rem 0 0; }
   .chooseCategory select {
@@ -150,9 +155,9 @@ button[disabled] {
     border: 1px solid #e7e7e7; }
 
 .ingredientsWrapper {
-  background-color: #f4f4f4;
-  padding: 2rem 1rem;
-  margin-bottom: 2rem; }
+  padding: 4rem 0;
+  margin: 0 1rem 0 1rem;
+  border-bottom: 2px solid #e7e7e7; }
 
 .ingredientsForm {
   display: flex; }
@@ -165,13 +170,14 @@ button[disabled] {
     flex: 2;
     box-shadow: none;
     border-radius: 0;
-    margin-left: 1rem; }
+    margin-left: 1rem;
+    transition: 0.2s ease-in-out; }
     .ingredientsForm button:hover {
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      transition: 0.2s ease-in-out; }
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
 .stepsWrapper {
-  margin: 0 1rem; }
+  padding: 4rem 0;
+  margin: 0 1rem 0 1rem; }
 
 .stepsForm {
   display: flex;
@@ -188,44 +194,51 @@ button[disabled] {
     flex: 2;
     box-shadow: none;
     border-radius: 0;
-    margin-left: 1rem; }
+    margin-left: 1rem;
+    transition: 0.2s ease-in-out; }
     .stepsForm button:hover {
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      transition: 0.2s ease-in-out; }
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
-.ingredients li, .steps li {
-  display: flex;
-  list-style-type: none;
-  border-bottom: 2px solid #e7e7e7;
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.5rem; }
-  .ingredients li:first-child, .steps li:first-child {
-    padding-top: 2rem; }
-  .ingredients li:last-child, .steps li:last-child {
-    margin-bottom: 2rem; }
-  .ingredients li .index, .steps li .index {
-    width: 2em;
-    height: 2em;
-    box-sizing: initial;
-    font-size: 16px;
-    text-align: center;
-    line-height: 2em;
-    position: relative;
-    color: #cecece;
-    border: 2px solid #cecece;
-    border-radius: 50%; }
-  .ingredients li h4, .steps li h4 {
-    color: #5F5F5F;
-    margin: 0 1rem;
-    flex: 1; }
-  .ingredients li span.remove svg, .steps li span.remove svg {
-    height: 1.5rem;
-    margin-top: 0.75rem;
-    cursor: pointer; }
-    .ingredients li span.remove svg path, .steps li span.remove svg path {
-      fill: #E24C3F; }
-      .ingredients li span.remove svg path:hover, .steps li span.remove svg path:hover {
-        fill: #8c1f15; }
+.ingredients, .steps {
+  margin: 0;
+  padding: 0; }
+  .ingredients li, .steps li {
+    display: flex;
+    list-style-type: none;
+    border-bottom: 2px solid #d0abdd;
+    padding: 1rem;
+    margin: 0 0 0.5rem 0;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s ease-in-out; }
+    .ingredients li:first-child, .steps li:first-child {
+      margin-top: 2rem; }
+    .ingredients li:last-child, .steps li:last-child {
+      margin-bottom: 2rem; }
+    .ingredients li:hover, .steps li:hover {
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+    .ingredients li .listNumber, .steps li .listNumber {
+      width: 2em;
+      height: 2em;
+      box-sizing: initial;
+      font-size: 16px;
+      text-align: center;
+      line-height: 2em;
+      position: relative;
+      color: #cecece;
+      border: 2px solid #cecece;
+      border-radius: 50%; }
+    .ingredients li .listContent, .steps li .listContent {
+      color: #5F5F5F;
+      font-size: 1rem;
+      padding: 0 1rem; }
+    .ingredients li span.remove svg, .steps li span.remove svg {
+      height: 1.5rem;
+      cursor: pointer; }
+      .ingredients li span.remove svg path, .steps li span.remove svg path {
+        fill: #E24C3F; }
+        .ingredients li span.remove svg path:hover, .steps li span.remove svg path:hover {
+          fill: #8c1f15; }
 
 .steps li h4 {
   font-size: 16px; }

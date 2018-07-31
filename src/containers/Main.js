@@ -4,7 +4,13 @@ import firebase, { auth, provider } from '../firebase.js'
 import RecipeMaker from './RecipeMaker'
 import FullRecipe from '../components/FullRecipe'
 
-window.id = 0;
+// a function to help with reordering dragEnd result
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+	return result;
+};
 class Main extends Component {
 	constructor() {
 	    super();
@@ -32,30 +38,13 @@ class Main extends Component {
 				//recipes array
 				recipes: [],
 			}
-
-
-			// this.toggleCollapse = this.toggleCollapse.bind(this);
-
-			// this.handleSubmit = this.handleSubmit.bind(this);
-			// this.handleUploadStart = this.handleUploadStart.bind(this);
-			// this.handleProgress = this.handleProgress.bind(this);
-			// this.handleUploadError = this.handleUploadError.bind(this);
-			// this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
-	    // this.addItemArray = this.addItemArray.bind(this);
-	    // this.handleRemove = this.handleRemove.bind(this);
-	    // this.handleFilter = this.handleFilter.bind(this);
-	    // this.toggleCategoryButtons = this.toggleCategoryButtons.bind(this);
-			// this.toggleDate = this.toggleDate.bind(this);
-			// this.validateForm = this.validateForm.bind(this);
-			// this.validate = this.validate.bind(this);
-			// this.openModal = this.openModal.bind(this);
-			// this.closeModal = this.closeModal.bind(this);
 			this.login = this.login.bind(this);
-    	this.logout = this.logout.bind(this);
+    		this.logout = this.logout.bind(this);
 			this.handleUploadStart = this.handleUploadStart.bind(this);
 			this.handleProgress = this.handleProgress.bind(this);
 			this.handleUploadError = this.handleUploadError.bind(this);
 			this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
+			this.checkButton = this.checkButton.bind(this);
 			this.handleSelect = this.handleSelect.bind(this);
 			this.handleChange = this.handleChange.bind(this);
 			this.addItemArray = this.addItemArray.bind(this);
@@ -63,8 +52,8 @@ class Main extends Component {
 			this.validate = this.validate.bind(this);
 			this.handleSubmit = this.handleSubmit.bind(this);
 			this.handleRemove = this.handleRemove.bind(this);
-
-
+			this.onDragEnd = this.onDragEnd.bind(this);
+			this.onDragEndSteps = this.onDragEndSteps.bind(this);
   	}
 	componentDidMount() {
 		//Persisting Login Across Refresh
@@ -136,16 +125,22 @@ class Main extends Component {
 		this.setState({[name]: value},
 				() => { this.validate(name, value) });
 	}
+	// CHECK INGREDIENTS AND STEPS BUTTONS FOR INPUT LENGTH
+	checkButton = (value, name) => {
+		this.validate(name + 's', value);
+	}
 	//ADD ITEMS TO INGREDIENTS OR STEPS ARRAY
-	addItemArray(value, name){
+	addItemArray = (value, name) => {
 		//Assemble data
-		const item = {text: value, id: window.id++}
+		const item = {content: value, id: Date.now()}
 		// Update data
 		this.state[name].push(item);
 		// Update state
-		this.setState({[name]: this.state[name]});
+		this.setState({[name]:
+			this.state[name]
+		});
 		this.validate(name, value);
-	}
+	};
 	//VALIDATE FORM
 	validate(fieldName, value) {
 		// console.log(this.state[fieldName])
@@ -194,7 +189,6 @@ class Main extends Component {
 			time: Date.now()
 		}
 		recipesRef.push(recipe);
-		// this.printImage(e);
 		this.setState({
 			//user: '',
 			title: '',
@@ -218,92 +212,103 @@ class Main extends Component {
 		this.setState({[name]: remainder});
 		this.validate(name, remainder);
 	}
-
+	// THIS IS A FUNCTION FOR REACT-BEAUTIFUL-DND THAT MONITORS THE REORDERING OF THE LIST
+	// AND SETS STATE (FOR INGREDIENTS LIST)
+	onDragEnd = result => {
+		const { destination, source} = result;
+    // dropped outside the list
+    if (!destination) {
+			return;
+	}
+	// dropped in original place
+	if (
+		destination.droppableId === source.droppableId &&
+		destination.index === source.index
+	){
+		return;
+	}
+	const ingredients = reorder(
+		this.state.ingredients,
+		source.index,
+		destination.index
+	);
+	this.setState({
+		ingredients,
+		});
+	};
+	// THIS IS A FUNCTION FOR REACT-BEAUTIFUL-DND THAT MONITORS THE REORDERING OF THE LIST
+	// AND SETS STATE (FOR STEPS LIST)
+	onDragEndSteps(result) {
+		const { destination, source} = result;
+		// dropped outside the list
+		if (!destination) {
+				return;
+		}
+		// dropped in original place
+		if (
+			destination.droppableId === source.droppableId &&
+			destination.index === source.index
+		){
+			return;
+		}
+		const steps = reorder(
+			this.state.steps,
+			source.index,
+			destination.index
+		);
+		this.setState({
+			steps,
+		});
+	}
 	render() {
 	    return (
 
 		    <Switch>
 
-		      <Route exact path='/' render={(props)=><RecipeMaker
-						// //user={this.state.user}
-		      	// //login={this.login}
-						// //logout={this.logout}
-						// collapse={this.state.collapse}
-						// toggleCollapse={this.toggleCollapse}
-						// title={this.state.title}
-						// error={this.state.error}
-		      	// //file={this.state.file}
-						// //uploaded={this.state.uploaded}
-		      	// category={this.state.category}
-	          // steps={this.state.steps}
-						// handleChange={this.handleChange}
-						// handleUploadStart = {this.handleUploadStart}
-						// handleProgress = {this.handleProgress}
-						// handleUploadError = {this.handleUploadError}
-						// handleUploadSuccess = {this.handleUploadSuccess}
-	          //   //handleFileSelect={this.handleFileSelect}
-						// 	//handleFileUpload={this.handleFileUpload}
-						// //image = {this.state.image}
-						// isUploading = {this.state.isUploading}
-						// progress = {this.state.progress }
-						// imageURL = {this.state.imageURL}
-						// //printImage={this.printImage}
-						// handleSelect={this.handleSelect}
-						// handleFilter={this.handleFilter}
-						// handleSubmit={this.handleSubmit}
-						// addItemArray={this.addItemArray}
-						// ingredients={this.state.ingredients}
-						// ingredValue={this.state.ingredValue}
-						// stepsValue={this.state.stepsValue}
-						// remove={this.handleRemove.bind(this)}
-						// recipes={this.state.recipes}
-						// time={this.state.time}
-						// handleRemove={this.handleRemove}
-						// removeItem={this.removeItem}
-						// selectedCat={this.state.selectedCat}
-						// filtered={this.state.filtered}
-						// dateChange={this.state.dateChange}
-						// toggleDate={this.toggleDate}
-						// toggleCategoryButtons={this.toggleCategoryButtons}
-						// removeFilter={this.removeFilter}
-						// formErrors={this.state.formErrors}
-						// formValid={this.state.formValid}
-						// errorMessage={this.state.errorMessage}
-						// closeModal={this.closeModal}
-						// openModal={this.openModal}
-						// isModalOpen={this.state.isModalOpen}
-						// removeID={this.state.removeID}
+		      <Route exact path='/' render={(props)=>
+
+					<RecipeMaker
 							{...props}
+							login={this.login}
+							logout={this.logout}
 							user={this.state.user}
 							title={this.state.title}
-							imageURL={this.state.imageURL}
-							isUploading={this.state.isUploading}
-							progress={this.state.progress}
-							error={this.state.error}
-							category={this.state.category}
-							steps={this.state.steps}
-							ingredients={this.state.ingredients}
+
 							//form validation
 							formErrors={this.state.formErrors}
 							formValid={this.state.formValid}
 							ingredientsValid={this.state.ingredientsValid}
 							stepsValid={this.state.stepsValid}
 							titleValid={this.state.titleValid}
-							recipes={this.state.recipes}
-							login={this.login}
-    					logout={this.logout}
+							validateForm={this.validateForm}
+							validate={this.validate}
+							//image upload
+							imageURL={this.state.imageURL}
+							isUploading={this.state.isUploading}
+							progress={this.state.progress}
+							error={this.state.error}
 							handleUploadStart = {this.handleUploadStart}
 							handleProgress={this.handleProgress}
 							handleUploadError={this.handleUploadError}
 							handleUploadSuccess={this.handleUploadSuccess}
+							// form states
+							category={this.state.category}
+							steps={this.state.steps}
+							ingredients={this.state.ingredients}
+							recipes={this.state.recipes}
+							checkButton={this.checkButton}
+							//handle functions
 							handleSelect={this.handleSelect}
 							handleChange={this.handleChange}
-							addItemArray={this.addItemArray}
-							validateForm={this.validateForm}
-							validate={this.validate}
 							handleSubmit={this.handleSubmit}
+							addItemArray={this.addItemArray}
 							remove={this.handleRemove}
-		      	/>}/>
+							//react-dnd-beautiful functions
+							onDragEnd={this.onDragEnd}
+							onDragEndSteps={this.onDragEndSteps}
+		      	/>
+					}/>
+
 		      <Route path='/:title' component={(props) => <FullRecipe {...props} recipes={this.state.recipes}/>} />
 	    	}
 		    </Switch>
@@ -313,17 +318,3 @@ class Main extends Component {
 }
 
 export default Main
-
-// .then(function (snapshot) {
-// 	console.log(`Uploaded ${file.name}`);
-// });
-// addItemArray(val, name){
-// 	//Assemble data
-// 	const item = {text: val, id: window.id++}
-// 	this.validateField(name, val)
-// 	// Update data
-// 	this.state[name].push(item);
-// 	// Update state
-// 	this.setState({name: this.state.name});
-
-// }

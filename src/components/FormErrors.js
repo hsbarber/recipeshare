@@ -18,7 +18,7 @@ function FormErrors (props) {
         </div>
     );
 }
-FormErrors.PropTypes = {
+FormErrors.propTypes = {
     formErrors: PropTypes.objectOf(PropTypes.string)
 }
 export default FormErrors;

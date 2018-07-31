@@ -54,7 +54,7 @@ function FullRecipe(props){
     )
 
 }
-FullRecipe.PropTypes = {
+FullRecipe.propTypes = {
   recipes: PropTypes.array,
   title: PropTypes.object,
   recipe: PropTypes.arrayOf(PropTypes.string)

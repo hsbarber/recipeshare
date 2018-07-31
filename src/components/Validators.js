@@ -5,7 +5,7 @@ const Validator = {
           test: (value) => {
             return value.length > 2;
           },
-          message: 'Title must be longer than two characters',
+          message: '*Title must be longer than two characters',
         },
       ],
       errors: [],
@@ -18,7 +18,7 @@ const Validator = {
             test: (value) => {
               return value.length > 2;
             },
-            message: 'ingredients must be longer than two characters',
+            message: '*ingredients must be longer than two characters',
         },
       ],
       errors: [],

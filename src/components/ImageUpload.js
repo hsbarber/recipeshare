@@ -9,7 +9,7 @@ function ImageUpload (props) {
 
             <h4>Upload a recipe image</h4>
 
-            <form className="upload--form">
+            <div className="upload--form">
                 {props.isUploading &&
                 <p>Progress: {props.progress}</p>
                 }
@@ -27,12 +27,12 @@ function ImageUpload (props) {
                     onProgress={props.handleProgress}
                 />
                 <p>*Image looks best at width of 1200px or larger</p>
-            </form>
+            </div>
 
         </div>
     )
 }
-ImageUpload.PropTypes = {
+ImageUpload.propTypes = {
     isUploading: PropTypes.bool,
     progress: PropTypes.number,
     imageURL: PropTypes.string,
