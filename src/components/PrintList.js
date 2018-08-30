@@ -28,7 +28,7 @@ function PrintList ({list, dragEnd, remove, name}) {
         <ul
           ref={provided.innerRef}
           style={getListStyle(snapshot.isDraggingOver)}
-          className={"ingredients"}
+          className={"form--list"}
         >
           {list.map((item, index) => (
             <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -43,12 +43,12 @@ function PrintList ({list, dragEnd, remove, name}) {
                   )}
                 >
                 <span className="listNumber">
-                    {index + 1}
+                      {index + 1 + '.'}
                 </span>
                 <span className="listContent" >
                   {item.content}
                 </span>
-                  <span  className="remove" onClick={() => {remove(item.id, name)}}><Remove /></span>
+                  <span  className="remove" onClick={() => {remove(item.id, name)}}><Remove color="#E24C3F" /></span>
                 </li>
               )}
             </Draggable>

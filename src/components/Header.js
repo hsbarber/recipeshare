@@ -1,11 +1,13 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom'
+import RecipeIcon from '../icons/RecipeIcon';
  function Header() {
 	return (
 		<header>
-		    <div className='wrapper'>
-		      <h1>Recipe Share</h1>
-		    </div>
+			<Link to={'/'}>
+				<RecipeIcon />
+				<h3>Recipe Share</h3>
+			</Link>
 		</header>
 	)
 }

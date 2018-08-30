@@ -1,0 +1,40 @@
+.appTitle {
+    color: #fff;
+    padding: 1rem 2rem 1rem 2rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    h3 {
+      margin: 0;
+      color: white;
+    }
+    svg {
+      //height: 50px;
+      transform: scale(1.2);
+      margin-right: 1.5rem;
+    }
+  }
+
+
+
+header {
+    background-color: $secondary;
+    a {
+        display: flex;
+        align-items: center;
+        margin-left: 2rem;
+        text-decoration: none;
+        h3 {
+            color:$heading-primary;
+            margin-left: 1rem;
+        }
+        @media (min-width: $medium-large) {
+            margin-left: 3rem;
+        }
+        @media (min-width: $large) {
+            margin-left: 5rem;
+        }
+    }
+
+}

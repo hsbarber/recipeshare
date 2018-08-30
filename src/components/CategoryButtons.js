@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CategoryAPI from '../categories'
+import Checkbox from './Checkbox'
 
 function CategoryButtons (props) {
-	const CategoryLinks = CategoryAPI.all().map((category, index) => {
-		return <li id={category} key={index} onClick={props.handleFilter.bind(this, category)}><h4>{category}</h4></li>
+	const CategoryLinks = props.displayCategory.map((category, index) => {
+		return (
+			<div key={index}>
+				<Checkbox name={category.text} onChange={() => props.handleFilter(index)} />
+				<label>
+				{category.text}
+				</label>
+			</div>
+		)
 		})
 
   	return (
-  		<div>
-	  		<section className="CategoryLinks">
-	  		{CategoryLinks}
-	  		</section>
-      </div>
+		<div className="CategoryLinks">
+		{CategoryLinks}
+		</div>
     )
 
 }
@@ -20,3 +25,4 @@ CategoryButtons.propTypes = {
 	handleFilter: PropTypes.func
 }
 export default CategoryButtons;
+//<li id={category} key={index} onClick={() => props.handleFilter(category)}><h4>{category}</h4></li>

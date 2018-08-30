@@ -2,28 +2,37 @@
 $darkprimary: darken($primary, 10%);
 $bg-light: rgb(244, 244, 244);
 
-.formWrapper {
-    height: 100%;
-    width: 100%;
-}
 .recipeIntro  {
-    h1 {
-        position: relative;
-        text-align: center;
-        padding-top: 2rem;
-        margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .recipeIntro-title {
         color: white;
-        font-weight: bold;
-        font-style: italic;
-        text-transform: uppercase;
-        font-size: 38px;
-        letter-spacing: 2px;
+        margin: 6rem auto 4rem auto;
+        padding: 2rem 0;
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
+        border-top: 2px solid white;
+        border-bottom: 2px solid white;
+        align-self: center;
+        text-align: center;
+        h2 {
+            letter-spacing: 0.5rem;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+        }
+        h1 {
+            letter-spacing: 1rem;
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+        }
     }
     .collapse {
         display: flex;
-        align-items: center;
         justify-content: center;
-        padding: 2rem 0;
+        margin: 0 0 2rem 0;
         span {
             display: flex;
             align-items: center;
@@ -31,6 +40,7 @@ $bg-light: rgb(244, 244, 244);
                 color: white;
                 cursor: pointer;
                 margin: 0;
+                text-align: center;
             }
             svg {
                 height: 1.5rem;
@@ -45,100 +55,108 @@ $bg-light: rgb(244, 244, 244);
     }
 }
 
-
-
-.recipeForm p {
-    font-size: 10px;
-    margin: 1rem 0 0;
+.form {
+    margin-bottom: 4rem;
 }
-.recipeForm h4 {
+
+.form p {
+    font-size: 10px;
+}
+.form h4 {
     margin-bottom: 1rem;
 }
-.recipeForm .recipeForm--Background {
+.form--bg {
     border-radius: 8px;
-    padding: 2rem 2rem 2rem 2rem;
+    padding: 1rem 0.5rem;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     margin: 0 auto 4rem auto;
-    width: 50%;
+    width: 90%;
     background-color: white;
+    @media (min-width: $medium) {
+        width: 70%;
+        padding: 2rem;
+    }
+    @media (min-width: $large) {
+        width: 50%;
+        padding: 2rem;
+    }
 }
-.recipeForm input, textarea {
+.form input, textarea {
     color: $body-primary;
     padding: 0.8rem;
     font-size: 16px;
     border: 1px solid $body-light;
 }
-.recipeForm button {
+.form button {
     border-radius: 0;
     width: 100%;
 }
 .formErrors {
     margin: 1rem;
 }
-.titleWrapper {
+.form--input {
     display: flex;
+    flex-direction: column;
     margin: 0 1rem;
+    f
     input {
         width: 100%;
     }
 }
-.upload {
+
+.form--img {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     padding: 4rem 0;
     margin: 0 1rem;
-    border-bottom: 2px solid $body-light;
-    p {
-        margin-top: 5px;
+    @media (min-width: $large) {
+        flex-direction: row;
+        align-items: center;
     }
+
     h4 {
-        margin: 0 1rem 0 0;
+        margin: 0 0 1rem 0;
+        @media (min-width: $large) {
+            margin: 0 1rem 0 0;
+        }
     }
-    form {
+    .form--img-input {
+        input[type="file" i] {
+            width: 80%;
+        }
         img {
             max-width: 300px;
         }
-
+        p {
+            margin-top: 5px;
+        }
     }
 }
-.chooseCategory {
+.form--select {
     display: flex;
     align-items: center;
     padding: 4rem 0;
     margin: 0 1rem;
-    border-bottom: 2px solid $body-light;
-    // margin-bottom: 2rem;
+    border-top: 2px solid $body-light;
     h4 {
         margin: 0 1rem 0 0;
     }
     select {
-        flex: 1;
         background: white;
         border: none;
         font-size: 14px;
         height: 29px;
         padding: 5px; /* If you add too much padding here, the options won't show in IE */
-        width: 268px;
         border: 1px solid $body-light;
+        width: 40%;
     }
 }
-
-.ingredientsWrapper {
-    //background-color: $bg-light;
-    padding: 4rem 0 ;
-    margin: 0 1rem 0 1rem;
-    border-bottom: 2px solid $body-light;
-}
-.ingredientsForm {
+.form--input-vertical {
     display: flex;
-
-    // border-bottom: 2px solid $body-light;
-    // padding-bottom: 2rem;
-    input {
-        flex: 3;
-        margin-bottom: 0;
-        padding: 0.5rem;
-    }
+    flex-direction: column;
+    padding: 4rem 0;
+    margin: 0 1rem;
+    border-top: 2px solid $body-light;
     button {
         margin-top: 0;
         flex: 2;
@@ -146,43 +164,35 @@ $bg-light: rgb(244, 244, 244);
         border-radius: 0;
         margin-left: 1rem;
         transition: 0.2s ease-in-out;
-        &:hover {
-            box-shadow: $box-shadow-hover;
-
-        }
-
-    }
-}
-.stepsWrapper {
-    padding: 4rem 0 ;
-    margin: 0 1rem 0 1rem;
-}
-.stepsForm {
-    display: flex;
-    align-items: flex-start;
-    textarea {
-        flex: 3;
-        margin-bottom: 0;
-        height: 5rem;
-        //line-height: 5rem;
-        box-sizing: border-box;
-        resize: none;
-        padding: 0.5rem;
-    }
-    button {
         margin-top: 0;
-        flex: 2;
-        box-shadow: none;
-        border-radius: 0;
-        margin-left: 1rem;
-        transition: 0.2s ease-in-out;
         &:hover {
             box-shadow: $box-shadow-hover;
 
         }
     }
+    .ingredients-input {
+        display: flex;
+        input {
+            flex: 3;
+            margin-bottom: 0;
+            padding: 0.5rem;
+        }
+    }
+    .steps-input {
+        display: flex;
+        align-items: flex-start;
+        textarea {
+            flex: 3;
+            margin-bottom: 0;
+            height: 5rem;
+            box-sizing: border-box;
+            resize: none;
+            padding: 0.5rem;
+        }
+    }
 }
-.ingredients {
+
+.form--list {
     margin: 0;
     padding: 0;
     li {
@@ -192,7 +202,7 @@ $bg-light: rgb(244, 244, 244);
         padding: 1rem;
         margin: 0 0 0.5rem 0;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         transition: 0.2s ease-in-out;
         &:first-child {
             margin-top: 2rem;
@@ -203,43 +213,33 @@ $bg-light: rgb(244, 244, 244);
         &:hover {
             box-shadow: $box-shadow-hover;
         }
-        .listNumber {
-            width: 2em;
-            height: 2em;
-            box-sizing: initial;
-            font-size: 16px;
-            text-align: center;
-            line-height: 2em;
-            position: relative;
-            color: darken($body-light, 10%);
-            border: 2px solid darken($body-light, 10%);
-            border-radius: 50%;
-        }
         .listContent {
             color: $body-primary;
             font-size: 1rem;
-            padding: 0 1rem;
+            padding: 0 2rem;
         }
         span.remove {
             svg {
-
                 path {
-                    fill: $fourth;
                     &:hover {
                         fill: darken($fourth, 25%);
                     }
                 }
                 height: 1.5rem;
-                //margin-top: 0.75rem;
                 cursor: pointer;
             }
         }
     }
 
 }
-.steps {
-    @extend .ingredients;
-    li h4 {
-        font-size: 16px;
-    }
+
+.errorMsg {
+    color: $fourth;
+}
+.errorMsg--form {
+    padding: 1rem;
+    color: $fourth;
+    border: 1px solid lighten($fourth, 30%);
+    border-radius: 8px;
+    margin-bottom: 2rem;
 }

@@ -2,144 +2,183 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import firebase from '../firebase.js'
 import RecipeForm from '../components/RecipeForm.js';
-import DisplayRecipe from '../components/DisplayRecipe.js';
-import CategoryButtons from '../components/CategoryButtons.js';
-import CategoryRecipes from '../components/CategoryRecipes.js';
-import DateRecipes from '../components/DateRecipes.js';
+import DisplayUI from '../components/DisplayUI';
+import CategoryAPI from '../categories';
+import Menu from '../icons/Menu';
+import Remove from '../icons/Remove';
+import RecipeIcon from '../icons/RecipeIcon';
 
 
 class RecipeMaker extends Component {
   constructor() {
     super();
     this.state = {
-    ingredValue: '',
-    stepsValue: '',
+    collapse: true,
+    sideBar: false,
     //filtering of recipe items
     selectedCat: '',
     filtered: false,
     dateChange: false,
+    titleChange: false,
+    displayCategory: CategoryAPI.all(),
+    categoryChecked: false,
+    sorted: false,
+    sorting: 'none',
+    userFilter: 'none',
     //remove recipe items
     isModalOpen: false,
 		removeID: ''
     }
-
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.toggleCategoryButtons = this.toggleCategoryButtons.bind(this);
     this.toggleDate = this.toggleDate.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
+    this.toggleTitle = this.toggleTitle.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.handleSort = this.handleSort.bind(this);
+    this.filterUsers = this.filterUsers.bind(this);
+    this.toggleSidebar = this.toggleSidebar.bind(this);
+   }
 
   toggleCollapse() {
 		this.setState({collapse: !this.state.collapse});
-	}
-	handleFilter(val) {
-		 this.setState({selectedCat: val});
-	}
+  }
+  toggleSidebar() {
+    this.setState({sideBar: !this.state.sideBar});
+  }
 	toggleCategoryButtons() {
 		this.setState({
 			filtered: !this.state.filtered,
-			selectedCat: ''
 		});
 	}
-	toggleDate() {
+	toggleDate(name) {
 		this.setState({
-			dateChange: !this.state.dateChange
+      dateChange: !this.state.dateChange,
+      recipeDisplay: name
+		});
+  }
+  toggleTitle() {
+		this.setState({
+			titleChange: !this.state.titleChange
 		});
 	}
-	removeItem(recipeId) {
+	removeRecipe(recipeId) {
 	    const recipeRef = firebase.database().ref(`/recipes/${recipeId}`);
 	    recipeRef.remove();
 	 }
-	openModal(id) {
+	toggleModal(id) {
 		this.setState({ removeID: id });
-
 		this.setState({ isModalOpen: !this.state.isModalOpen });
 	}
 
-	closeModal() {
-		this.setState({ isModalOpen: false });
-	}
+  // setFilter (category) {
+  //   this.setState((state) => ({
+  //     filters: Object.assign({}, state.filters, { [category]: !state.filters[category] })
+  //   }));
+  // }
+  handleFilter(index, e) {
+      let newItems = this.state.displayCategory.slice();
+      newItems[index].checked = !newItems[index].checked
+      let checked = this.state.displayCategory.find(function (obj) { return obj.checked === true; });
+      checked ? this.setState({ categoryChecked: true }) : this.setState({ categoryChecked: false })
+      this.setState({
+        displayCategory: newItems,
+      })
+  }
+  handleSort(name) {
+    //this.setState({ sorted: true })
+    this.setState({ sorting: name })
+  }
+  filterUsers(name) {
+    this.setState({userFilter: name})
+  }
+  deselectFilters() {
+    this.setState({ sorted: !this.state.sorted })
+    this.setState({ categoryChecked: !this.state.categoryChecked })
+  }
+    //const item = e.target.name;
+    //const isChecked = e.target.checked;
+    //this.setState(prevState => ({ checkedItems: prevState.checkedItems.set( item, isChecked) }));
+    //const filtered = recipes.map(recipe => recipe.category);
+        //recipe.category.map(category => categoryArray.indexOf(category) < 0 && categoryArray.push(category)));
+    // const filtered = this.state.checkedItems.forEach(array =>
+    //   array.filter(item => item[0])
+    // )
+    //const filteredResults = this.state.cards.filter( result => !this.state.filterOut.includes(result.category) )
+    //Array.from(props.checkedItems).filter( item => !item.includes(category) )
+    //const filtered = Array.from(this.state.checkedItems).map(thing => thing.filter(cat => cat[1] === true));
+    //console.log(filtered);
+    //this.setState({displayCategory: this.state.checkedItems});
   render() {
+
     return (
     <div className="app">
+
           {this.props.user ?
-          <div>
+          <React.Fragment>
             <section className="container">
-              <div className="login">
-                  <div className="logged-in-as"><p>Logged in as - {this.props.user.displayName || this.props.user.email}</p> </div>
-                  <button className="logIn-Out" onClick={this.props.logout}>Log Out</button>
-                  <div className='user-profile'>
-                  <img src={this.props.user.photoURL} />
-                  </div>
-              </div>
+              <div className="appTitle"> <RecipeIcon /> <h3>Recipe Share</h3></div>
+
               <div className="formWrapper">
                   <RecipeForm
-                    {...this.props}
-                    onDragEnd={this.props.onDragEnd}
-                    onDragEndSteps={this.props.onDragEndSteps}
-                    handleSubmit={this.props.handleSubmit}
-                    collapse={this.state.collapse}
                     toggleCollapse={this.toggleCollapse}
-                    ingredValue={this.state.ingredValue}
-                    stepsValue={this.state.stepsValue}
+                    collapse={this.state.collapse}
+                    {...this.props}
                   />
               </div>
             </section>
+            <div id="top-bar">
+              <div className="browse">
+                <span onClick={this.toggleSidebar}>{this.state.sideBar ? <Remove color="#273762"/> : <Menu color="#273762"/>}</span>
+                <h3>Browse Recipes</h3>
+              </div>
+              <div className="login">
+                <div className="logged-in-as"><p>Logged in as - {this.props.user.displayName || this.props.user.email}</p> </div>
+                <button className="logIn-Out" onClick={this.props.logout}>Log Out</button>
+                {/* <div className='user-profile'>
+                  <img src={this.props.user.photoURL} />
+                </div> */}
+              </div>
+            </div>
             <section className='display-recipes'>
-                <div className="wrapper">
-                  <div className="filter-wrapper">
-                    <h3>Browse By: </h3>
-                    <h3 className="date" onClick={this.toggleDate}>Date - {this.state.dateChange ? `Latest` : `Oldest`}</h3>
-                    <h3 className="category" onClick={this.toggleCategoryButtons}>{this.state.filtered ? `Close ✕` : `Category`}</h3>
-                  </div>
-                </div>
-                {this.state.filtered && <CategoryButtons handleFilter={this.handleFilter} {...this.props}/> }
-                {this.state.selectedCat ?
-                  <CategoryRecipes
-                    recipes={this.props.recipes}
-                    isModalOpen={this.state.isModalOpen}
-                    openModal={this.openModal}
-                    closeModal={this.closeModal}
-                    removeID={this.state.removeID}
-                    removeItem={this.removeItem}
-                    user={this.props.user}
-                    selectedCat={this.state.selectedCat}
-                    {...this.props}
-                  /> :
-                  this.state.dateChange ?
-                  <DateRecipes
-                    isModalOpen={this.state.isModalOpen}
-                    openModal={this.openModal}
-                    closeModal={this.closeModal}
-                    removeID={this.state.removeID}
-                    removeItem={this.removeItem}
-                    user={this.props.user}
-                    {...this.props}
-                  />
-                  : <DisplayRecipe
-                    isModalOpen={this.state.isModalOpen}
-                    openModal={this.openModal}
-                    closeModal={this.closeModal}
-                    removeID={this.state.removeID}
-                    removeItem={this.removeItem}
-                    user={this.props.user}
-                    {...this.props}
-                  />
-                }
+
+              <DisplayUI
+              setCategory={this.setCategory}
+              displayCategory={this.state.displayCategory}
+              recipes={this.props.recipes}
+              user={this.props.user}
+              filtered={this.state.filtered}
+              handleFilter={this.handleFilter}
+              toggleCategoryButtons={this.toggleCategoryButtons}
+              toggleCheckbox={this.toggleCheckbox}
+              removeID={this.state.removeID}
+              removeRecipe={this.removeRecipe}
+              isModalOpen={this.state.isModalOpen}
+              toggleModal={this.toggleModal}
+              toggleTitle={this.toggleTitle}
+              categoryChecked={this.state.categoryChecked}
+              checkedItems={this.state.checkedItems}
+              userChecked={this.state.userChecked}
+              sorted={this.state.sorted}
+              sorting={this.state.sorting}
+              handleSort={this.handleSort}
+              userFilter={this.state.userFilter}
+              filterUsers={this.filterUsers}
+              toggleSidebar={this.toggleSidebar}
+              sideBar={this.state.sideBar}
+              />
             </section>
-          </div>
+          </React.Fragment>
           : <div>
              <p>You must be logged in to see the Recipe Maker and list.</p>
              <button onClick={this.props.login}>Log In</button>
             </div>
            }
     </div>
-
     )
   }
 }
+
 RecipeMaker.propTypes = {
   user: PropTypes.shape({
       displayName: PropTypes.string,

@@ -1,12 +1,10 @@
 import React from 'react'
-import Header from './components/Header'
 import Main from './containers/Main'
 
 const App = () => (
-  <div>
-    <Header />
+  <React.Fragment>
     <Main />
-  </div>
+  </React.Fragment>
 )
 
 export default App;

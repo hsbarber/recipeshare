@@ -1,19 +1,19 @@
 import React from 'react';
 
-function ListForm ({addItemArray, checkButton, inputName, buttonValid}) {
+function ListForm ({addItemArray, inputName}) {
   // Input tracker
   let input1;
   return (
-    <div className={inputName + 'sForm'}>
+    <div className={inputName + "s-input"}>
       {inputName === 'ingredient' ?
         <input ref={node => {
           input1 = node;
-        }} onChange={() => checkButton(input1.value, inputName)} /> :
+        }}/> :
         <textarea ref={node => {
           input1 = node;
-        }} onChange={() => checkButton(input1.value, inputName)}/>
+        }} />
       }
-      <button disabled={!buttonValid} onClick={(e) => {
+      <button onClick={(e) => {
         e.preventDefault();
         addItemArray(input1.value, inputName + 's');
         input1.value = '';

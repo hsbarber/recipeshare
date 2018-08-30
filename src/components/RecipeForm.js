@@ -4,7 +4,6 @@ import CategoryAPI from '../categories'
 import ImageUpload from './ImageUpload.js';
 import ListForm from './ListForm.js';
 import PrintList from './PrintList.js';
-import FormErrors from './FormErrors.js';
 import AnimateHeight from 'react-animate-height';
 import ChevronDown from '../icons/ChevronDown.js';
 import Remove from '../icons/Remove.js';
@@ -12,43 +11,67 @@ import Remove from '../icons/Remove.js';
 function RecipeForm (props) {
   const CategoryShift = CategoryAPI.all().slice(1);
   const CategorySelect = CategoryShift.map((category, index) => {
-    return <option key={index} value={category}>{category}</option>
+    return <option key={index} value={category.text}>{category.text}</option>
   })
-
+  const recipeTime = [
+		{text: "Short - less than 1 hour"},
+		{text: "Average - less than 2 hours"},
+    {text: "long - over 2 hours"}
+  ];
+  const recipeTimeSelect = recipeTime.slice(1).map((time, index) => {
+    return <option key={index} value={time.text}>{time.text}</option>
+  })
     return (
     <div>
       <div className="recipeIntro">
-        <h1>Create a Recipe</h1>
+        <div className="recipeIntro-title">
+          <h2>Build a</h2>
+          <h1>Recipe</h1>
+        </div>
         <div className="collapse" >
           {props.collapse ? <span onClick={props.toggleCollapse}><h3>Open Recipe Form </h3><ChevronDown /></span>  : <span onClick={props.toggleCollapse}><h3>Close Recipe Form </h3><Remove /></span> }
         </div>
       </div>
-      <main className="recipeForm">
+      <section className="form">
         <AnimateHeight
           duration={ 500 }
           height={props.collapse ? "0" : "auto"}
         >
-          <form className="recipeForm--Background" onSubmit={props.handleSubmit}>
-              <FormErrors formErrors={props.formErrors} />
-              <div className="titleWrapper">
+         <form className="form--bg"  onSubmit={props.handleSubmit}>
+              <div className="form--input">
                 <input className="title" type="text" name="title" placeholder="What's the title of your recipe?" onChange={(e) => props.handleChange(e)} value={props.title}/>
               </div>
+              <div className="errorMsg">{props.errors.title}</div>
               <ImageUpload {...props} />
-              <div className="chooseCategory">
+              <div className="form--select">
                 <h4>Choose a recipe category</h4>
-                <select value={props.category} onChange={props.handleSelect}>
+                <select value={props.category}  onChange={(e) => props.handleSelect(e, "category")}>
                   <option defaultValue="American">American</option>
                   {CategorySelect}
                 </select>
               </div>
-              <div className="ingredientsWrapper">
+              <div className="form--select">
+                <h4>Choose a an approximate time to make</h4>
+                <select value={props.recipeTime} onChange={(e) => props.handleSelect(e, "recipeTime")}>
+                  <option defaultValue="Short - less than 1 hour">Short - less than 1 hour</option>
+                  {recipeTimeSelect}
+                </select>
+              </div>
+              <div className="form--input-vertical">
+                <h4>Add any Recipe Notes</h4>
+                <textarea  name="notes" value={props.notes} onChange={(e) => props.handleChange(e)}/>
+              </div>
+              <div className="form--input-vertical">
+                <h4>Add a link to original recipe</h4>
+                <input name="link" value={props.link} onChange={(e) => props.handleChange(e)}/>
+              </div>
+              <div className="form--input-vertical">
                 <h4>Add your ingredients</h4>
                 <ListForm
                   addItemArray={props.addItemArray}
-                  checkButton={props.checkButton}
                   inputName="ingredient"
-                  buttonValid={props.ingredientsValid}
                 />
+                <div className="errorMsg">{props.errors.ingredients}</div>
                 <PrintList
                   list={props.ingredients}
                   dragEnd={props.onDragEnd}
@@ -56,14 +79,13 @@ function RecipeForm (props) {
                   name="ingredients"
                 />
               </div>
-              <div className="stepsWrapper">
+              <div className="form--input-vertical">
                 <h4>Add the steps to your recipe</h4>
                 <ListForm
                   addItemArray={props.addItemArray}
-                  checkButton={props.checkButton}
                   inputName="step"
-                  buttonValid={props.stepsValid}
                 />
+                <div className="errorMsg">{props.errors.steps}</div>
                 <PrintList
                   list={props.steps}
                   dragEnd={props.onDragEndSteps}
@@ -71,12 +93,17 @@ function RecipeForm (props) {
                   name="steps"
                 />
               </div>
-              <button disabled={!props.formValid}>Add Recipe</button>
-
+              <AnimateHeight
+                duration={ 500 }
+                height={props.errorAnimate ? "auto" : 0}
+              >
+              {props.errorAnimate && <div className="errorMsg--form">{props.errors.form}</div>}
+              </AnimateHeight>
+              <button>Add Recipe</button>
           </form>
 
         </AnimateHeight>
-      </main>
+      </section>
     </div>
     )
 }

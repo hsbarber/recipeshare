@@ -5,16 +5,16 @@ import firebase from '../firebase.js'
 
 function ImageUpload (props) {
     return (
-        <div className="upload">
+        <div className="form--img">
 
             <h4>Upload a recipe image</h4>
 
-            <div className="upload--form">
+            <div className="form--img-input">
                 {props.isUploading &&
                 <p>Progress: {props.progress}</p>
                 }
                 {props.imageURL &&
-                    <img src={props.imageURL} />
+                    <img src={props.imageURL} alt="imageUpload"/>
                 }
                 <FileUploader
                     accept="image/*"

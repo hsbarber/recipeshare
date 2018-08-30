@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom'
+import Header from './Header';
 
 function FullRecipe(props){
 
@@ -8,49 +8,65 @@ function FullRecipe(props){
       const title = props.match.params.title;
 
       const rec = recipes.filter(rec => {
-          if(rec.title.split(' ').join('') === title) {
-              return rec;
-          }})
-      console.log(rec);
+        if(rec.title.split(' ').join('') === title) {
+            return rec;
+        }})
 
-      const List = rec.map((recipe) => {
-        return (
-          <div key={recipe.id} className="fullRecipe">
-              <Link to={'/'}><h2>Back</h2></Link>
+        const List = rec.map((recipe) => {
+          return (
 
-                <div className="topContainer">
+              <div key={recipe.id} className="fullRecipe">
 
-                  <div className="fullImage" style= { {
-                      backgroundImage:
-                      `url(${recipe.imageURL })` } }>
-                  </div>
-                  <div className="titleBox">
-                    <h1>{recipe.title}</h1>
-                    <h2><span>Category</span><span className="catName">{recipe.category}</span></h2>
-                  </div>
-                </div>
-                  <div className="ingredientContainer">
-                      <h2>Ingredients</h2>
-                      <div className="fullIngredientList">
-                      {recipe.ingredients.map(ingredient =>
-                        <p key = {ingredient.id}>{ingredient.text}</p>
-                      )}
+
+                    <div className="fullRecipe--tBlock">
+                      <div className="fullRecipe--tBlock-box">
+                        <div className="titleBox">
+                          <h3>{recipe.title}</h3>
+                          <p><span>Category</span><span>{recipe.category}</span></p>
+                          {recipe.recipeTime && <p><span>Time to Cook</span><span>{recipe.recipeTime}</span></p>}
+                          {recipe.link && <a href={recipe.link}>Link to Original Recipe</a>}
+                          <p>{recipe.notes}</p>
+                        </div>
                       </div>
-                  </div>
+                      {recipe.imageURL ?
+                        <div className="fullRecipe--tBlock-image" style= { {
+                          backgroundImage:
+                          `url(${recipe.imageURL })` } }>
+                        </div>
+                        :
+                        <div className="fullRecipe--tBlock-image" style= { {
+                          backgroundColor:
+                          `#627bc0` } }>
+                            <h3>No Image Available</h3>
+                        </div>
+                    }
+                    </div>
 
-                <div  className="methodContainer">
-                    <h2>Steps</h2>
-                    {recipe.steps.map((step, index) =>
-                      <p key = {step.id}><span>{index + 1}.</span> {step.text}</p>
-                    )}
-                </div>
-          </div>
+
+                    <div  className="fullRecipe--bBlock">
+                        <div className="fullRecipe--bBlock-ingredients">
+                          <h3>Ingredients</h3>
+                          {recipe.ingredients.map(ingredient =>
+                            <p key = {ingredient.id}>{ingredient.content}</p>
+                          )}
+                        </div>
+                        <div className="fullRecipe--bBlock-steps">
+                          <h3>Steps</h3>
+                          {recipe.steps.map((step, index) =>
+                            <p key = {step.id}><span>{index + 1}.</span> {step.content}</p>
+                          )}
+                        </div>
+                    </div>
+              </div>
+
         )
     })
     return (
-      <div className="wrapper">
-      {List}
-      </div>
+
+      <React.Fragment>
+        <Header />
+        {List}
+      </React.Fragment>
     )
 
 }
