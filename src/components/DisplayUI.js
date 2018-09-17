@@ -6,7 +6,7 @@ import Remove from '../icons/Remove.js';
 import AnimateHeight from 'react-animate-height';
 
 function DisplayUI (props) {
-  const filteredCategories = props.displayCategory.filter(item => item.checked);
+  const filteredCategories = props.displayCategory.filter(item => item.isChecked);
   const filteredText = filteredCategories.map(item => item.text);
 
   let userList = props.recipes.map(recipe =>
@@ -39,11 +39,25 @@ function DisplayUI (props) {
         }
       });
   }
+  let noRecipes = false;
   if (props.categoryChecked){
-    recipes = recipes.filter(recipe =>  filteredText.indexOf(recipe.category) > -1);
+    let newrecipes = recipes.filter(recipe =>
+     filteredText.indexOf(recipe.category) > -1 )
+     if (!Array.isArray(newrecipes) || !newrecipes.length) {
+      noRecipes = true;
+     } else {
+      recipes = newrecipes
+      noRecipes = false;
+     }
+  }
+  if (props.categoryChecked === false) {
+    recipes = recipes;
   }
   if (props.userFilter != "none") {
     recipes = recipes.filter(recipe => recipe.user === props.userFilter);
+  }
+  if (props.timeCookFilter != "none") {
+    recipes = recipes.filter(recipe => recipe.recipeTime === props.timeCookFilter);
   }
   return (
   <React.Fragment>
@@ -55,7 +69,12 @@ function DisplayUI (props) {
                   duration={ 500 }
                   height={props.filtered ? 'auto' : 0}
               >
-                    <CategoryButtons displayCategory={props.displayCategory} handleFilter={props.handleFilter} />
+                <CategoryButtons
+                  handleAllChecked={props.handleAllChecked}
+                  displayCategory={props.displayCategory}
+                  handleCheck={props.handleCheck}
+                  categoryChecked={props.categoryChecked}
+                />
               </AnimateHeight>
             </div>
             <div className="option">
@@ -81,10 +100,22 @@ function DisplayUI (props) {
               </select>
             </div>
             <div className="option">
+              <h4 className="sort">Sort by Time to Make</h4>
+              <select
+                  className="date-filter"
+                  onChange={(e) => props.handleFilter('timeCookFilter', e.target.value)}
+                >
+                  <option value="none" >none</option>
+                  <option value="Short - less than 1 hour">Short - less than 1 hour</option>
+                  <option value="Average - less than 2 hours">Average - less than 2 hours</option>
+                  <option value="Long - over 2 hours">Long - over 2 hours</option>
+              </select>
+            </div>
+            <div className="option">
               <h4 className="sort">Sort by User</h4>
               <select
                   className="user-filter"
-                  onChange={(e) => props.filterUsers(e.target.value)}
+                  onChange={(e) => props.handleFilter('userFilter', e.target.value)}
                 >
                   <option value="none">none</option>
                   {users}
@@ -92,14 +123,17 @@ function DisplayUI (props) {
             </div>
     </div>
     <ul className="recipe-list">
-      {recipes.map((recipe, index) =>
-
-        <RecipeItem
-          key={index}
-          recipe={recipe}
-          {...props}
-        />
+      {props.loading && <h4 className="loading">loading ...</h4>}
+      {noRecipes ? <h4>there are no recipes for this category or categories</h4> :
+        recipes.map((recipe, index) =>
+          <RecipeItem
+            key={index}
+            recipe={recipe}
+            user={props.user}
+            {...props}
+          />
       )}
+
 		</ul>
 
   </React.Fragment>

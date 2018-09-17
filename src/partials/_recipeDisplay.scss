@@ -37,6 +37,24 @@ $lightBlue: lighten($secondary-light, 20%);
       order: 2;
     }
   }
+  .topBarAccount {
+
+    background-color:$third;
+    display: flex;
+    h4 {
+      letter-spacing: 1.5px;
+      padding: 0.5rem;
+      &:first-child {
+        color: white;
+      }
+      &:nth-child(2){
+        border: 1px solid $third;
+        background-color: white;
+
+      }
+    }
+  }
+
 }
 .sb-close {
   position: absolute;
@@ -132,7 +150,10 @@ $lightBlue: lighten($secondary-light, 20%);
 
 }
 
-
+.loading {
+  text-align: center;
+  margin-top: 2rem;
+}
 .display-recipes {
   margin: 0 auto;
   height: 100%;
@@ -182,17 +203,10 @@ $lightBlue: lighten($secondary-light, 20%);
           box-shadow: $box-shadow-deep;
           transition: all .5s ease-in-out;
           transform: scale(1.1);
-          // .bgImage {
-          //   transition: all .5s ease-in-out;
-
-          //   z-index: 1;
-          //   opacity: 0.4;
-          // }
           .title-block {
             transition: all .5s ease-in-out;
             background: transparent;
             > * {
-              //z-index: 2;
               color: darken($body-primary, 20%);
               font-weight: bold;
               transition: all .5s ease-in-out;
@@ -206,24 +220,42 @@ $lightBlue: lighten($secondary-light, 20%);
           color: $heading-secondary;
           font-size: 1rem;
           font-weight: 300;
-          padding: 15px;
+          padding: 1rem;
 
         }
         .title-block {
           background: #fff;
           text-decoration: none;
           font-weight: bold;
-          font-size: 16px;
           display: flex;
           flex-direction: column;
-          text-align: center;
           transition: all .5s ease-in;
+          padding: 0 2rem 1rem 2rem;
           .title {
             font-family: 'Playfair Display', serif;
             font-weight: bold;
             font-size: 20px;
-            padding-bottom: 5px;
             transition: all .5s ease-in;
+          }
+          h3 {
+            padding: 1rem 0 1rem 0;
+            &:after {
+              content: "";
+              display: block;
+              padding-top: 1rem;
+              width: 60%;
+              border-bottom: 2px solid $third;
+            }
+
+          }
+          h4 {
+            padding: 0;
+            letter-spacing: 1px;
+            font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
+            span {
+              // font-family: 'Playfair Display', serif;
+              padding-left: 0.5rem;
+            }
           }
         }
         .category {

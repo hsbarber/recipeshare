@@ -20,6 +20,15 @@
 
 header {
     background-color: $secondary;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $medium-large) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+    }
     a {
         display: flex;
         align-items: center;
@@ -34,6 +43,33 @@ header {
         }
         @media (min-width: $large) {
             margin-left: 5rem;
+        }
+    }
+    ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        border-top: 2px solid white;
+        align-items: center;
+        justify-content: center;
+        li {
+            list-style-type: none;
+            padding: 1rem 2rem 1rem 0;
+
+            a {
+                color: white;
+                margin-left: 0;
+                &:hover {
+                    color: $primary;
+                }
+            }
+            @media (min-width: $medium-large) {
+                padding: 0 3rem 0 0;
+            }
+        }
+        @media (min-width: $medium-large) {
+            margin-right: 1rem;
+            border-top: none;
         }
     }
 

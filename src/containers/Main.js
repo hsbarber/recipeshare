@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
 import {  Switch, Route } from 'react-router-dom'
-import firebase, { auth, provider } from '../firebase.js'
+import firebase, { auth, db } from '../firebase/firebase'
+import AuthUserContext from '../components/AuthUserContext';
+import Header from '../components/Header'
 import RecipeMaker from './RecipeMaker'
 import FullRecipe from '../components/FullRecipe'
+import SignUp from '../components/SignUp';
+import SignIn from '../components/SignIn';
+import PasswordForget from '../components/PasswordForget';
+import Account from '../components/Account';
+import * as routes from '../constants/routes';
+import withAuthentication from '../components/withAuthentication';
 
 
 // a function to help with reordering dragEnd result
@@ -18,6 +26,8 @@ class Main extends Component {
 	    super();
 	    this.state = {
 			user: null,
+			users: null,
+			authCopyUser: null,
 			title: '',
 			//imageupload
 			image: '',
@@ -37,11 +47,12 @@ class Main extends Component {
 			formValid: false,
 			errors: {},
 			errorAnimate: false,
+			loading: true,
+			loadingUser: true,
 			//recipes array
 			recipes: [],
 		}
-			this.login = this.login.bind(this);
-    		this.logout = this.logout.bind(this);
+			this.changeUser = this.changeUser.bind(this);
 			this.handleUploadStart = this.handleUploadStart.bind(this);
 			this.handleProgress = this.handleProgress.bind(this);
 			this.handleUploadError = this.handleUploadError.bind(this);
@@ -54,22 +65,44 @@ class Main extends Component {
 			this.handleRemove = this.handleRemove.bind(this);
 			this.onDragEnd = this.onDragEnd.bind(this);
 			this.onDragEndSteps = this.onDragEndSteps.bind(this);
-  	}
+	  }
+
 	componentDidMount() {
-		//Persisting Login Across Refresh
-    	auth.onAuthStateChanged((user) => {
-			if (user) {
-			this.setState({ user });
+		auth.onAuthStateChanged(authCopyUser => {
+			authCopyUser
+			  ? this.setState({ authCopyUser})
+
+			  : this.setState({ authCopyUser: null });
+		  });
+		const usersRef = firebase.database().ref('users');
+		usersRef.on('value', (snapshot) => {
+			let users = snapshot.val();
+			let newUsers = []
+			for (let user in users) {
+				newUsers.push({
+				email: users[user].email ,
+				username: users[user].username,
+				})
 			}
+			this.setState({ users: newUsers })
+			let usersArray = this.state.users;
+			usersArray.forEach(user => {
+				if ( this.state.authCopyUser != null && user.email === this.state.authCopyUser.email) {
+					this.setState({ user: user.username, loadingUser: false });
+				}
+			})
 		});
+
+
 		const recipesRef = firebase.database().ref('recipes');
 	    recipesRef.on('value', (snapshot) => {
 	      	let recipes = snapshot.val();
-	      	let newState = [];
+			  let newState = [];
+			  //console.log(recipesRef);
 	      	for (let recipe in recipes) {
 				newState.push({
-							id: recipe,
-							user: recipes[recipe].user,
+				id: recipe,
+				user: recipes[recipe].user,
 				title: recipes[recipe].title,
 							imageURL: recipes[recipe].imageURL,
 				category: recipes[recipe].category,
@@ -82,29 +115,12 @@ class Main extends Component {
 				});
 	      	}
 			this.setState({
-				recipes: newState
+				recipes: newState,
+				loading: false
 			});
 	    });
 	}
-	logout() {
-		auth.signOut()
-			.then(() => {
-			this.setState({
-				user: null
-			});
-		});
-	}
-  	login() {
-      auth.signInWithPopup(provider)
-          .then((result) => {
-          const user = result.user;
-          this.setState({
-              user
-          });
-          });
-	}
-	//IMAGE UPLOAD
-
+	changeUser = (user) => this.setState({user: user});
 	handleUploadStart = () => this.setState({isUploading: true, progress: 0});
 	handleProgress = (progress) => this.setState({progress});
 	handleUploadError = (error) => {
@@ -156,9 +172,10 @@ class Main extends Component {
 	//SUBMIT THE RECIPE FORM, ADDS INDIVIDUAL STATES TO RECIPE ARRAY
 	handleSubmit(e) {
 		e.preventDefault();
+
 		const recipesRef = firebase.database().ref('recipes');
 		const recipe = {
-			user: this.state.user.email,
+			user: this.state.user,
 			title: this.state.title,
 			imageURL: this.state.imageURL,
 			category: this.state.category,
@@ -172,7 +189,6 @@ class Main extends Component {
 		if (this.validateForm()) {
 			recipesRef.push(recipe);
 			this.setState({
-				//user: '',
 				title: '',
 				imageURL: '',
 				category: 'American',
@@ -289,49 +305,73 @@ class Main extends Component {
 	}
 	render() {
 	    return (
-		    <Switch>
-		      	<Route exact path='/' render={(props)=>
-					<RecipeMaker
-							{...props}
-							login={this.login}
-							logout={this.logout}
-							user={this.state.user}
-							title={this.state.title}
-							//form validation
-							errorAnimate={this.state.errorAnimate}
-							errors={this.state.errors}
-							//image upload
-							imageURL={this.state.imageURL}
-							isUploading={this.state.isUploading}
-							progress={this.state.progress}
-							error={this.state.error}
-							handleUploadStart = {this.handleUploadStart}
-							handleProgress={this.handleProgress}
-							handleUploadError={this.handleUploadError}
-							handleUploadSuccess={this.handleUploadSuccess}
-							// form states
-							category={this.state.category}
-							recipeTime={this.state.recipeTime}
-							notes={this.state.notes}
-							link={this.state.link}
-							steps={this.state.steps}
-							ingredients={this.state.ingredients}
-							recipes={this.state.recipes}
-							//handle functions
-							handleSelect={this.handleSelect}
-							handleChange={this.handleChange}
-							handleSubmit={this.handleSubmit}
-							addItemArray={this.addItemArray}
-							remove={this.handleRemove}
-							//react-dnd-beautiful functions
-							onDragEnd={this.onDragEnd}
-							onDragEndSteps={this.onDragEndSteps}
-		      		/>
-				}/>
-				<Route path='/:title' component={(props) => <FullRecipe {...props} recipes={this.state.recipes}/>} />
-		    </Switch>
+		<React.Fragment>
+			<Header />
+				<Switch>
+					<Route
+						exact path={routes.SIGN_UP}
+						component={SignUp}
+					/>
+					<Route
+						exact path={routes.SIGN_IN}
+						render={()=> <SignIn changeUser={this.changeUser} user={this.state.user}
+							authCopyUser={this.state.authCopyUser} users={this.state.users}
+						/>}
+					/>
+					<Route
+						exact path={routes.PASSWORD_FORGET}
+						component={PasswordForget}
+					/>
+					<Route
+						exact path={routes.ACCOUNT}
+						render={()=> <Account user={this.state.user} />}
+					/>
+					<Route exact path='/' render={(props)=>
+						<RecipeMaker
+								{...props}
+								login={this.login}
+								logout={this.logout}
+								loading={this.state.loading}
+								loadingUser={this.state.loadingUser}
+								user={this.state.user}
+								users={this.state.users}
+								title={this.state.title}
+								//form validation
+								errorAnimate={this.state.errorAnimate}
+								errors={this.state.errors}
+								//image upload
+								imageURL={this.state.imageURL}
+								isUploading={this.state.isUploading}
+								progress={this.state.progress}
+								error={this.state.error}
+								handleUploadStart = {this.handleUploadStart}
+								handleProgress={this.handleProgress}
+								handleUploadError={this.handleUploadError}
+								handleUploadSuccess={this.handleUploadSuccess}
+								// form states
+								category={this.state.category}
+								recipeTime={this.state.recipeTime}
+								notes={this.state.notes}
+								link={this.state.link}
+								steps={this.state.steps}
+								ingredients={this.state.ingredients}
+								recipes={this.state.recipes}
+								//handle functions
+								handleSelect={this.handleSelect}
+								handleChange={this.handleChange}
+								handleSubmit={this.handleSubmit}
+								addItemArray={this.addItemArray}
+								remove={this.handleRemove}
+								//react-dnd-beautiful functions
+								onDragEnd={this.onDragEnd}
+								onDragEndSteps={this.onDragEndSteps}
+						/>
+					}/>
+					<Route path='/:title' component={(props) => <FullRecipe {...props} recipes={this.state.recipes}/>} />
+				</Switch>
+		</React.Fragment>
 	    )
 	}
 }
 
-export default Main
+export default withAuthentication(Main);

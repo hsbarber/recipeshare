@@ -17,55 +17,70 @@ $bg-light: rgb(244, 244, 244);
         border-bottom: 2px solid white;
         align-self: center;
         text-align: center;
+        h1 {
+            letter-spacing: 1rem;
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+        }
         h2 {
             letter-spacing: 0.5rem;
             font-style: italic;
             font-family: 'Playfair Display', serif;
             margin: 0;
         }
-        h1 {
-            letter-spacing: 1rem;
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-        }
+
     }
-    .collapse {
-        display: flex;
-        justify-content: center;
-        margin: 0 0 2rem 0;
-        span {
+    .recipeIntro-Options {
+        .collapse {
             display: flex;
-            align-items: center;
-            h3 {
-                color: white;
-                cursor: pointer;
-                margin: 0;
-                text-align: center;
+            justify-content: center;
+            margin: 0 0 2rem 0;
+            span {
+                display: flex;
+                align-items: center;
+                h3 {
+                    color: white;
+                    cursor: pointer;
+                    margin: 0;
+                    text-align: center;
+
+                }
+                svg {
+                    height: 1.5rem;
+                    margin-top: 0.5rem;
+                    margin-left: 1rem;
+                    cursor: pointer;
+                    path {
+                        fill: white;
+                    }
+                }
             }
-            svg {
-                height: 1.5rem;
-                margin-top: 0.5rem;
-                margin-left: 1rem;
-                cursor: pointer;
-                path {
-                    fill: white;
+        }
+        h3 {
+            text-align: center;
+            color: white;
+            a {
+                color: $third;
+                text-decoration: none;
+                &:hover {
+                    color: lighten($third, 20%);
                 }
             }
         }
     }
 }
 
-.form {
+.rForm {
     margin-bottom: 4rem;
 }
 
-.form p {
+.rForm p {
     font-size: 10px;
 }
-.form h4 {
+.rForm h4 {
     margin-bottom: 1rem;
 }
-.form--bg {
+.rForm--bg {
     border-radius: 8px;
     padding: 1rem 0.5rem;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
@@ -81,30 +96,29 @@ $bg-light: rgb(244, 244, 244);
         padding: 2rem;
     }
 }
-.form input, textarea {
+.rForm input, textarea {
     color: $body-primary;
     padding: 0.8rem;
     font-size: 16px;
     border: 1px solid $body-light;
 }
-.form button {
+.rForm button {
     border-radius: 0;
     width: 100%;
 }
-.formErrors {
+.rFormErrors {
     margin: 1rem;
 }
-.form--input {
+.rForm--input {
     display: flex;
     flex-direction: column;
     margin: 0 1rem;
-    f
     input {
         width: 100%;
     }
 }
 
-.form--img {
+.rForm--img {
     display: flex;
     flex-direction: column;
     padding: 4rem 0;
@@ -120,7 +134,7 @@ $bg-light: rgb(244, 244, 244);
             margin: 0 1rem 0 0;
         }
     }
-    .form--img-input {
+    .rForm--img-input {
         input[type="file" i] {
             width: 80%;
         }
@@ -132,7 +146,7 @@ $bg-light: rgb(244, 244, 244);
         }
     }
 }
-.form--select {
+.rForm--select {
     display: flex;
     align-items: center;
     padding: 4rem 0;
@@ -151,7 +165,7 @@ $bg-light: rgb(244, 244, 244);
         width: 40%;
     }
 }
-.form--input-vertical {
+.rForm--input-vertical {
     display: flex;
     flex-direction: column;
     padding: 4rem 0;
@@ -192,7 +206,7 @@ $bg-light: rgb(244, 244, 244);
     }
 }
 
-.form--list {
+.rForm--list {
     margin: 0;
     padding: 0;
     li {

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import AuthUserContext from './AuthUserContext';
 import CategoryAPI from '../categories'
 import ImageUpload from './ImageUpload.js';
 import ListForm from './ListForm.js';
@@ -16,7 +18,7 @@ function RecipeForm (props) {
   const recipeTime = [
 		{text: "Short - less than 1 hour"},
 		{text: "Average - less than 2 hours"},
-    {text: "long - over 2 hours"}
+    {text: "Long - over 2 hours"}
   ];
   const recipeTimeSelect = recipeTime.slice(1).map((time, index) => {
     return <option key={index} value={time.text}>{time.text}</option>
@@ -28,44 +30,51 @@ function RecipeForm (props) {
           <h2>Build a</h2>
           <h1>Recipe</h1>
         </div>
-        <div className="collapse" >
-          {props.collapse ? <span onClick={props.toggleCollapse}><h3>Open Recipe Form </h3><ChevronDown /></span>  : <span onClick={props.toggleCollapse}><h3>Close Recipe Form </h3><Remove /></span> }
+        <div className="recipeIntro-Options">
+        <AuthUserContext.Consumer>
+          {authUser => authUser ?
+            <div className="collapse" >
+              {props.collapse ? <span onClick={props.toggleCollapse}><h3>Open Recipe Form </h3><ChevronDown /></span>  : <span onClick={props.toggleCollapse}><h3>Close Recipe Form </h3><Remove /></span> }
+            </div>
+            : <h3><Link to={'/signin'}>Sign In</Link> or <Link to={'/signup'}>Sign Up</Link> to Build a Recipe</h3>
+          }
+          </AuthUserContext.Consumer>
         </div>
       </div>
-      <section className="form">
+      <section className="rForm">
         <AnimateHeight
           duration={ 500 }
           height={props.collapse ? "0" : "auto"}
         >
-         <form className="form--bg"  onSubmit={props.handleSubmit}>
-              <div className="form--input">
+         <form className="rForm--bg"  onSubmit={props.handleSubmit}>
+              <div className="rForm--input">
                 <input className="title" type="text" name="title" placeholder="What's the title of your recipe?" onChange={(e) => props.handleChange(e)} value={props.title}/>
               </div>
               <div className="errorMsg">{props.errors.title}</div>
               <ImageUpload {...props} />
-              <div className="form--select">
+              <div className="rForm--select">
                 <h4>Choose a recipe category</h4>
                 <select value={props.category}  onChange={(e) => props.handleSelect(e, "category")}>
                   <option defaultValue="American">American</option>
                   {CategorySelect}
                 </select>
               </div>
-              <div className="form--select">
+              <div className="rForm--select">
                 <h4>Choose a an approximate time to make</h4>
                 <select value={props.recipeTime} onChange={(e) => props.handleSelect(e, "recipeTime")}>
                   <option defaultValue="Short - less than 1 hour">Short - less than 1 hour</option>
                   {recipeTimeSelect}
                 </select>
               </div>
-              <div className="form--input-vertical">
+              <div className="rForm--input-vertical">
                 <h4>Add any Recipe Notes</h4>
                 <textarea  name="notes" value={props.notes} onChange={(e) => props.handleChange(e)}/>
               </div>
-              <div className="form--input-vertical">
+              <div className="rForm--input-vertical">
                 <h4>Add a link to original recipe</h4>
                 <input name="link" value={props.link} onChange={(e) => props.handleChange(e)}/>
               </div>
-              <div className="form--input-vertical">
+              <div className="rForm--input-vertical">
                 <h4>Add your ingredients</h4>
                 <ListForm
                   addItemArray={props.addItemArray}
@@ -79,7 +88,7 @@ function RecipeForm (props) {
                   name="ingredients"
                 />
               </div>
-              <div className="form--input-vertical">
+              <div className="rForm--input-vertical">
                 <h4>Add the steps to your recipe</h4>
                 <ListForm
                   addItemArray={props.addItemArray}

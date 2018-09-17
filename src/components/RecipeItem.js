@@ -20,13 +20,13 @@ function RecipeItem(props) {
                         </div>
             }
             <h3 className="category">{category}</h3>
-            <div className="title-block"><h3 className="title">{title}</h3><h3>{props.user.displayName}</h3></div>
+        <div className="title-block"><h3 className="title">{title}</h3>{user && <h4>by<span>{user}</span></h4>}</div>
             </Link>
-            {user === props.user.email ?
+            {user ? user === props.user &&
                 <p className="remove" onClick={() => props.toggleModal(id)}>Remove Recipe {props.isModalOpen && props.recipe.id === props.removeID ?
                      <span className="down"><ChevronDown color="#273762"/></span> : <span className="up"><ChevronDown  color="#273762"/></span>} </p>
-              : null}
-
+                     : ''
+            }
 
             {props.recipe.id === props.removeID &&
                 <AnimateHeight

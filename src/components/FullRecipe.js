@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from './Header';
 
 function FullRecipe(props){
 
@@ -64,7 +63,6 @@ function FullRecipe(props){
     return (
 
       <React.Fragment>
-        <Header />
         {List}
       </React.Fragment>
     )

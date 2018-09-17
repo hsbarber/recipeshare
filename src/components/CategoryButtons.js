@@ -6,17 +6,18 @@ function CategoryButtons (props) {
 	const CategoryLinks = props.displayCategory.map((category, index) => {
 		return (
 			<div key={index}>
-				<Checkbox name={category.text} onChange={() => props.handleFilter(index)} />
+
+				<Checkbox value={category.text} checked={category.isChecked} onChange={(event) => props.handleCheck(event)} />
 				<label>
 				{category.text}
 				</label>
 			</div>
 		)
 		})
-
   	return (
 		<div className="CategoryLinks">
-		{CategoryLinks}
+			<button  disabled={props.categoryChecked === false} onClick={props.handleAllChecked}>uncheck all</button>
+			{CategoryLinks}
 		</div>
     )
 

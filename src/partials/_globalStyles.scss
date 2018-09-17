@@ -13,28 +13,27 @@ body {
   }
   h2 {
     font-family: 'Playfair Display', serif;
-    font-size: calc(18px + (36 - 18) * ((100vw - 300px) / (1600 - 300)));
+    font-size: calc(24px + (36 - 24) * ((100vw - 300px) / (1600 - 300)));
   }
   h3 {
     font-family: 'Playfair Display', serif;
-    font-size: calc(14px + (28 - 14) * ((100vw - 300px) / (1600 - 300)));
+    font-size: calc(18px + (28 - 18) * ((100vw - 300px) / (1600 - 300)));
     color: $body-primary;
   }
   h4 {
-    //font-family: 'Playfair Display', serif;
-    font-family: 'Open Sans', sans-serif;
-    font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: calc(14px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
     color: $body-primary;
     margin: 0;
   }
 
-  .container {
+  .container-bg {
     background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url('img/cuttingboard.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     padding-bottom: 4rem;
-
+    z-index: -2;
   }
 
   button {

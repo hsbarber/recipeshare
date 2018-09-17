@@ -98,16 +98,19 @@
             margin-top: 0;
         }
         .fullRecipe--bBlock-ingredients{
+            flex: 1;
             p {
                 padding: 0.75rem 0;
             }
         }
         .fullRecipe--bBlock-steps{
+
             p {
                 padding: 0.75rem 0;
             }
             @media (min-width: $medium-large) {
                 margin-left: 6rem;
+                flex: 2;
             }
         }
     }

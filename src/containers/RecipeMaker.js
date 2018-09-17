@@ -1,18 +1,27 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import firebase from '../firebase.js'
-import RecipeForm from '../components/RecipeForm.js';
+import { firebase } from '../firebase'
+import RecipeForm from '../components/RecipeForm';
+import UserInfo from '../components/userInfo';
+import AuthUserContext from '../components/AuthUserContext';
 import DisplayUI from '../components/DisplayUI';
 import CategoryAPI from '../categories';
 import Menu from '../icons/Menu';
 import Remove from '../icons/Remove';
 import RecipeIcon from '../icons/RecipeIcon';
 
+const UserList = ({users}) =>
+<div>
+  {Object.keys(users).map(key =>
+    <div key={key}>{users[key].username}</div>
+  )}
+</div>
 
 class RecipeMaker extends Component {
   constructor() {
     super();
     this.state = {
+    //user: null,
     collapse: true,
     sideBar: false,
     //filtering of recipe items
@@ -25,18 +34,21 @@ class RecipeMaker extends Component {
     sorted: false,
     sorting: 'none',
     userFilter: 'none',
+    timeCookFilter: 'none',
     //remove recipe items
     isModalOpen: false,
 		removeID: ''
     }
     this.toggleCollapse = this.toggleCollapse.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
+    //this.handleFilter = this.handleFilter.bind(this);
+    this.handleAllChecked = this.handleAllChecked.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
     this.toggleCategoryButtons = this.toggleCategoryButtons.bind(this);
     this.toggleDate = this.toggleDate.bind(this);
     this.toggleTitle = this.toggleTitle.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSort = this.handleSort.bind(this);
-    this.filterUsers = this.filterUsers.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
    }
 
@@ -70,121 +82,106 @@ class RecipeMaker extends Component {
 		this.setState({ removeID: id });
 		this.setState({ isModalOpen: !this.state.isModalOpen });
 	}
-
-  // setFilter (category) {
-  //   this.setState((state) => ({
-  //     filters: Object.assign({}, state.filters, { [category]: !state.filters[category] })
-  //   }));
+  // handleFilter(index, e) {
+  //     let newItems = this.state.displayCategory.slice();
+  //     newItems[index].checked = !newItems[index].checked
+  //     let checked = this.state.displayCategory.find(function (obj) { return obj.checked === true; });
+  //     checked ? this.setState({ categoryChecked: true }) : this.setState({ categoryChecked: false })
+  //     this.setState({
+  //       displayCategory: newItems,
+  //     })
   // }
-  handleFilter(index, e) {
-      let newItems = this.state.displayCategory.slice();
-      newItems[index].checked = !newItems[index].checked
-      let checked = this.state.displayCategory.find(function (obj) { return obj.checked === true; });
-      checked ? this.setState({ categoryChecked: true }) : this.setState({ categoryChecked: false })
-      this.setState({
-        displayCategory: newItems,
-      })
+  handleAllChecked ()  {
+    let checkedCategories = this.state.displayCategory;
+    for (var item of checkedCategories) {
+      item.isChecked = false;
+    }
+    this.setState({displayCategory: checkedCategories})
+    this.setState({ categoryChecked: false })
+
+  }
+  handleCheck (event) {
+    let checkedCategories = this.state.displayCategory;
+    checkedCategories.forEach(category => {
+       if (category.text === event.target.value)
+       category.isChecked =  event.target.checked
+    })
+    this.setState({displayCategory: checkedCategories })
+    let checked = this.state.displayCategory.find(function (obj) { return obj.isChecked === true; });
+    checked ? this.setState({ categoryChecked: true }) : this.setState({ categoryChecked: false })
   }
   handleSort(name) {
     //this.setState({ sorted: true })
     this.setState({ sorting: name })
   }
-  filterUsers(name) {
-    this.setState({userFilter: name})
+  handleFilter(state, name) {
+    this.setState({[state]: name})
   }
   deselectFilters() {
     this.setState({ sorted: !this.state.sorted })
     this.setState({ categoryChecked: !this.state.categoryChecked })
   }
-    //const item = e.target.name;
-    //const isChecked = e.target.checked;
-    //this.setState(prevState => ({ checkedItems: prevState.checkedItems.set( item, isChecked) }));
-    //const filtered = recipes.map(recipe => recipe.category);
-        //recipe.category.map(category => categoryArray.indexOf(category) < 0 && categoryArray.push(category)));
-    // const filtered = this.state.checkedItems.forEach(array =>
-    //   array.filter(item => item[0])
-    // )
-    //const filteredResults = this.state.cards.filter( result => !this.state.filterOut.includes(result.category) )
-    //Array.from(props.checkedItems).filter( item => !item.includes(category) )
-    //const filtered = Array.from(this.state.checkedItems).map(thing => thing.filter(cat => cat[1] === true));
-    //console.log(filtered);
-    //this.setState({displayCategory: this.state.checkedItems});
+
   render() {
-
     return (
-    <div className="app">
+    <React.Fragment>
+      <section className="container-bg">
+            <RecipeForm
+              toggleCollapse={this.toggleCollapse}
+              collapse={this.state.collapse}
+              {...this.props}
+            />
+      </section>
+      <section id="top-bar">
+        <div className="browse">
+          <span onClick={this.toggleSidebar}>{this.state.sideBar ? <Remove color="#273762"/> : <Menu color="#273762"/>}</span>
+          <h3>Browse Recipes</h3>
+        </div>
+        <AuthUserContext.Consumer>
+        {(authUser) => authUser && <div className="topBarAccount"><h4>Account</h4><h4>{this.props.loadingUser && "loading ..."}{this.props.user}</h4></div>}
+        </AuthUserContext.Consumer>
+        {/* { !!users && <UserInfo users={this.props.users} newUser={this.newUser} /> } */}
+      </section>
+      <section className='display-recipes'>
 
-          {this.props.user ?
-          <React.Fragment>
-            <section className="container">
-              <div className="appTitle"> <RecipeIcon /> <h3>Recipe Share</h3></div>
-
-              <div className="formWrapper">
-                  <RecipeForm
-                    toggleCollapse={this.toggleCollapse}
-                    collapse={this.state.collapse}
-                    {...this.props}
-                  />
-              </div>
-            </section>
-            <div id="top-bar">
-              <div className="browse">
-                <span onClick={this.toggleSidebar}>{this.state.sideBar ? <Remove color="#273762"/> : <Menu color="#273762"/>}</span>
-                <h3>Browse Recipes</h3>
-              </div>
-              <div className="login">
-                <div className="logged-in-as"><p>Logged in as - {this.props.user.displayName || this.props.user.email}</p> </div>
-                <button className="logIn-Out" onClick={this.props.logout}>Log Out</button>
-                {/* <div className='user-profile'>
-                  <img src={this.props.user.photoURL} />
-                </div> */}
-              </div>
-            </div>
-            <section className='display-recipes'>
-
-              <DisplayUI
-              setCategory={this.setCategory}
-              displayCategory={this.state.displayCategory}
-              recipes={this.props.recipes}
-              user={this.props.user}
-              filtered={this.state.filtered}
-              handleFilter={this.handleFilter}
-              toggleCategoryButtons={this.toggleCategoryButtons}
-              toggleCheckbox={this.toggleCheckbox}
-              removeID={this.state.removeID}
-              removeRecipe={this.removeRecipe}
-              isModalOpen={this.state.isModalOpen}
-              toggleModal={this.toggleModal}
-              toggleTitle={this.toggleTitle}
-              categoryChecked={this.state.categoryChecked}
-              checkedItems={this.state.checkedItems}
-              userChecked={this.state.userChecked}
-              sorted={this.state.sorted}
-              sorting={this.state.sorting}
-              handleSort={this.handleSort}
-              userFilter={this.state.userFilter}
-              filterUsers={this.filterUsers}
-              toggleSidebar={this.toggleSidebar}
-              sideBar={this.state.sideBar}
-              />
-            </section>
-          </React.Fragment>
-          : <div>
-             <p>You must be logged in to see the Recipe Maker and list.</p>
-             <button onClick={this.props.login}>Log In</button>
-            </div>
-           }
-    </div>
+        <DisplayUI
+          authUser={this.props.authUser}
+          setCategory={this.setCategory}
+          displayCategory={this.state.displayCategory}
+          recipes={this.props.recipes}
+          user={this.props.user}
+          filtered={this.state.filtered}
+          //handleFilter={this.handleFilter}
+          handleAllChecked={this.handleAllChecked}
+          handleCheck={this.handleCheck}
+          toggleCategoryButtons={this.toggleCategoryButtons}
+          toggleCheckbox={this.toggleCheckbox}
+          removeID={this.state.removeID}
+          removeRecipe={this.removeRecipe}
+          isModalOpen={this.state.isModalOpen}
+          toggleModal={this.toggleModal}
+          toggleTitle={this.toggleTitle}
+          categoryChecked={this.state.categoryChecked}
+          checkedItems={this.state.checkedItems}
+          userChecked={this.state.userChecked}
+          sorted={this.state.sorted}
+          sorting={this.state.sorting}
+          handleSort={this.handleSort}
+          handleFilter={this.handleFilter}
+          userFilter={this.state.userFilter}
+          timeCookFilter={this.state.timeCookFilter}
+          toggleSidebar={this.toggleSidebar}
+          sideBar={this.state.sideBar}
+          loading={this.props.loading}
+        />
+      </section>
+    </React.Fragment>
     )
   }
 }
 
 RecipeMaker.propTypes = {
-  user: PropTypes.shape({
-      displayName: PropTypes.string,
-      email: PropTypes.string,
-      photoURL: PropTypes.string
-  }),
+  user: PropTypes.string,
   login: PropTypes.func,
   logout: PropTypes.func,
   toggleDate: PropTypes.func,

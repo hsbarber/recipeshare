@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FileUploader from 'react-firebase-file-uploader';
-import firebase from '../firebase.js'
+import firebase from '../firebase/firebase'
 
 function ImageUpload (props) {
     return (
-        <div className="form--img">
+        <div className="rForm--img">
 
             <h4>Upload a recipe image</h4>
 
-            <div className="form--img-input">
+            <div className="rForm--img-input">
                 {props.isUploading &&
                 <p>Progress: {props.progress}</p>
                 }
