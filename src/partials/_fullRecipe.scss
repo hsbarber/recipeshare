@@ -1,4 +1,21 @@
 @import "variables";
+
+button.fullRecipe--edit {
+    // margin-top: 3rem;
+    // margin-left: 3rem;
+    border-radius: 0;
+    &:hover {
+        background-color: darken($primary, 20%);
+        box-shadow: none;
+    }
+    @media (min-width: $medium-large) {
+        margin-top: 3rem;
+        margin-left: 3rem;
+    }
+    @media (min-width: $large) {
+        margin-left: 5rem;
+    }
+}
 .fullRecipe {
     h1, h2, p {
         color: $body-primary;

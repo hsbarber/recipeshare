@@ -2,14 +2,12 @@ import React from 'react';
 
 import { auth } from '../firebase';
 
-const SignOutButton = () =>
+const SignOutButton = (props) =>
 
   <button
     type="button"
-    onClick={() => {
-      auth.doSignOut()
-
-    }}
+    onClick=
+    {() => { auth.doSignOut(); props.changeUser(null);}}
   >
     Sign Out
   </button>

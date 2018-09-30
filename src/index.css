@@ -34,7 +34,7 @@ h4 {
 
 button {
   cursor: pointer;
-  background: linear-gradient(to right, #8F44AB, #803d99);
+  background-color: #8F44AB;
   border-radius: 8px;
   border: none;
   min-width: 120px;
@@ -43,11 +43,21 @@ button {
   padding: 1rem;
   transition: 0.5s ease-in-out; }
   button:hover {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+    background-color: #522762; }
 
 button[disabled] {
   opacity: 0.25;
   cursor: not-allowed; }
+
+button.submit {
+  background-color: #F3C40F; }
+  button.submit:hover {
+    background-color: #957707; }
+
+button.delete {
+  background-color: #E24C3F; }
+  button.delete:hover {
+    background-color: #a22419; }
 
 .recipeIntro {
   display: flex;
@@ -336,6 +346,19 @@ header {
         margin-right: 1rem;
         border-top: none; } }
 
+button.fullRecipe--edit {
+  border-radius: 0; }
+  button.fullRecipe--edit:hover {
+    background-color: #522762;
+    box-shadow: none; }
+  @media (min-width: 900px) {
+    button.fullRecipe--edit {
+      margin-top: 3rem;
+      margin-left: 3rem; } }
+  @media (min-width: 1200px) {
+    button.fullRecipe--edit {
+      margin-left: 5rem; } }
+
 .fullRecipe h1, .fullRecipe h2, .fullRecipe p {
   color: #5F5F5F; }
 
@@ -501,7 +524,7 @@ header {
   #sidebar .option {
     display: flex;
     flex-direction: column;
-    padding: 0 4rem 2rem 4rem;
+    padding: 0 2rem 2rem 2rem;
     align-items: center;
     margin: 2rem 0;
     border-bottom: 2px solid #abb8dd; }
@@ -747,3 +770,134 @@ header {
     padding: 0.8rem;
     font-size: 16px;
     border: 1px solid #e7e7e7; }
+
+.update-form {
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-x: hidden; }
+  .update-form .submit-Block {
+    background: #e7e7e7;
+    margin-top: 1rem;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .update-form .submit-Block h4 {
+      margin-right: 2rem; }
+  .update-form h2 {
+    margin-left: 1rem; }
+  .update-form h3 {
+    margin-left: 1rem; }
+
+.editRecipe-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0; }
+  .editRecipe-title .cancel-Update {
+    align-self: center;
+    margin-right: 1rem; }
+  @media (min-width: 1200px) {
+    .editRecipe-title {
+      margin: 0; } }
+
+.editRecipe-Column > *, .editRecipe-Column--List > *, .editRecipe-Column--Image > * {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  border-top: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+  border-right: 1px solid #e7e7e7; }
+  .editRecipe-Column > *:last-child, .editRecipe-Column--List > *:last-child, .editRecipe-Column--Image > *:last-child {
+    border-bottom: 1px solid #e7e7e7; }
+  .editRecipe-Column > * > *, .editRecipe-Column--List > * > *, .editRecipe-Column--Image > * > * {
+    border-left: 1px solid #e7e7e7; }
+    .editRecipe-Column > * > *:first-child, .editRecipe-Column--List > * > *:first-child, .editRecipe-Column--Image > * > *:first-child {
+      border-left: none; }
+  @media (min-width: 600px) {
+    .editRecipe-Column > *, .editRecipe-Column--List > *, .editRecipe-Column--Image > * {
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-gap: 20px; } }
+
+.editRecipe-Column .select, .editRecipe-Column--List .select, .editRecipe-Column--Image .select {
+  display: flex; }
+  .editRecipe-Column .select > div, .editRecipe-Column--List .select > div, .editRecipe-Column--Image .select > div {
+    flex-direction: row; }
+  .editRecipe-Column .select > div > select, .editRecipe-Column--List .select > div > select, .editRecipe-Column--Image .select > div > select {
+    margin: 0 auto; }
+
+.editRecipe-Column p, .editRecipe-Column--List p, .editRecipe-Column--Image p {
+  margin: 0;
+  padding: 1rem;
+  align-self: center; }
+
+.editRecipe-Column button, .editRecipe-Column--List button, .editRecipe-Column--Image button {
+  align-self: center;
+  margin: 1rem;
+  min-width: 100px;
+  font-size: 12px; }
+
+.editRecipe-Column > div > div, .editRecipe-Column--List > div > div, .editRecipe-Column--Image > div > div {
+  width: 100%;
+  display: flex;
+  align-items: center; }
+  @media (max-width: 600px) {
+    .editRecipe-Column > div > div, .editRecipe-Column--List > div > div, .editRecipe-Column--Image > div > div {
+      flex-direction: column; } }
+
+.editRecipe-Column span, .editRecipe-Column--List span, .editRecipe-Column--Image span {
+  font-weight: bold; }
+
+.editRecipe-Column input, .editRecipe-Column--List input, .editRecipe-Column--Image input, .editRecipe-Column textarea, .editRecipe-Column--List textarea, .editRecipe-Column--Image textarea {
+  border: none;
+  padding: 1rem;
+  font-size: 18px; }
+  .editRecipe-Column input:focus, .editRecipe-Column--List input:focus, .editRecipe-Column--Image input:focus, .editRecipe-Column textarea:focus, .editRecipe-Column--List textarea:focus, .editRecipe-Column--Image textarea:focus {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed; }
+
+.editRecipe-Column--List > * {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 20px; }
+
+.editRecipe-image > * {
+  margin-left: 1rem; }
+
+.editRecipe-Column--Image > * {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px; }
+  .editRecipe-Column--Image > * h4 {
+    margin-left: 1rem;
+    margin-top: 1rem; }
+  @media (min-width: 1200px) {
+    .editRecipe-Column--Image > * {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr; }
+      .editRecipe-Column--Image > * h4, .editRecipe-Column--Image > * input {
+        align-self: center;
+        justify-self: center;
+        margin-top: 0; } }
+
+.editRecipe-Column--Image > div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+  .editRecipe-Column--Image > div > div input {
+    border: 1px solid #e7e7e7; }
+  .editRecipe-Column--Image > div > div img {
+    width: 200px; }
+
+@media (max-width: 350px) {
+  .editRecipe-Column--Image p.update-image-note {
+    align-self: flex-start; } }
+
+.editRecipe-selectedIMG {
+  display: flex;
+  align-items: center; }
+  .editRecipe-selectedIMG span {
+    font-weight: bold;
+    margin-right: 1rem; }
+  .editRecipe-selectedIMG img {
+    max-width: 300px; }

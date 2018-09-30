@@ -1,0 +1,172 @@
+
+
+.update-form {
+    max-width: 800px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    .submit-Block {
+        background: $body-light;
+        margin-top: 1rem;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h4 {
+            margin-right: 2rem;
+        }
+    }
+    h2 {
+        margin-left: 1rem;
+    }
+    h3 {
+        margin-left: 1rem;
+    }
+}
+.editRecipe-title {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+    .cancel-Update {
+        align-self: center;
+        margin-right: 1rem;
+    }
+    @media(min-width: $large) {
+        margin: 0
+    }
+}
+.editRecipe-Column {
+    > * {
+        display: grid;
+        grid-template-columns: 1fr ;
+        grid-gap: 10px;
+        border-top: 1px solid $body-light;
+        border-left: 1px solid $body-light;
+        border-right: 1px solid $body-light;
+        &:last-child {
+            border-bottom: 1px solid $body-light;
+        }
+        > * {
+            border-left: 1px solid $body-light;
+            &:first-child {
+                border-left: none;
+            }
+        }
+        @media(min-width: $medium) {
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-gap: 20px;
+        }
+    }
+    .select {
+        display: flex;
+
+        > div {
+            flex-direction: row;
+        }
+        > div > select  {
+            margin: 0 auto;
+
+        }
+    }
+    p {
+        margin: 0;
+        padding: 1rem;
+        align-self: center;
+    }
+    button {
+        align-self: center;
+        margin: 1rem;
+        min-width: 100px;
+        font-size: 12px;
+    }
+
+    > div > div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        @media (max-width: $medium) {
+            flex-direction: column;
+        }
+    }
+    span {
+        font-weight: bold;
+    }
+    input, textarea {
+        border: none;
+        padding: 1rem;
+        font-size: 18px;
+        &:focus {
+            outline: none;
+            border-color: #9ecaed;
+            box-shadow: 0 0 10px #9ecaed;
+        }
+    }
+
+}
+.editRecipe-Column--List {
+    > * {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 20px;
+    }
+
+    @extend .editRecipe-Column
+}
+.editRecipe-image {
+    > * {
+        margin-left: 1rem;
+    }
+}
+.editRecipe-Column--Image {
+    > * {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+        h4 {
+            margin-left: 1rem;
+            margin-top: 1rem;
+        }
+        @media(min-width: $large) {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            h4, input {
+                align-self: center;
+                justify-self: center;
+                margin-top: 0;
+            }
+        }
+    }
+    > div > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        input {
+            border: 1px solid $body-light;
+        }
+        img {
+            width: 200px;
+        }
+        // justify-content: flex-start;
+        //justify-content: center;
+
+    }
+    p.update-image-note {
+        //align-self: flex-start;
+        //justify-content: flex-start;
+        @media (max-width: $small) {
+            align-self: flex-start;
+        }
+    }
+    @extend .editRecipe-Column
+}
+.editRecipe-selectedIMG {
+    display: flex;
+    align-items: center;
+    span {
+        font-weight: bold;
+        margin-right: 1rem;
+    }
+    img {
+        max-width: 300px;
+    }
+}

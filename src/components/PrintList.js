@@ -28,7 +28,7 @@ function PrintList ({list, dragEnd, remove, name}) {
         <ul
           ref={provided.innerRef}
           style={getListStyle(snapshot.isDraggingOver)}
-          className={"form--list"}
+          className={"rForm--list"}
         >
           {list.map((item, index) => (
             <Draggable key={item.id} draggableId={item.id} index={index}>

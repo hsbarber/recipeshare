@@ -26,7 +26,7 @@ function ImageUpload (props) {
                     onUploadSuccess={props.handleUploadSuccess}
                     onProgress={props.handleProgress}
                 />
-                <p>*Image looks best at width of 1200px or larger</p>
+                <p className="image-note">*Image looks best at width of 1200px or larger</p>
             </div>
 
         </div>

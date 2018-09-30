@@ -38,7 +38,8 @@ body {
 
   button {
     cursor: pointer;
-    background: linear-gradient(to right, $primary, darken($primary, 5%));
+    // background: linear-gradient(to right, $primary, darken($primary, 5%));
+    background-color: $primary;
     border-radius: 8px;
     border: none;
     min-width: 120px;
@@ -47,7 +48,7 @@ body {
     padding: 1rem;
     transition: 0.5s ease-in-out;
     &:hover {
-      box-shadow: $box-shadow-hover;
+      background-color: darken($primary, 20%);
 
     }
 
@@ -55,5 +56,17 @@ body {
   button[disabled] {
     opacity: 0.25;
     cursor: not-allowed;
+  }
+  button.submit {
+    background-color: $fifth;
+    &:hover {
+      background-color: darken($fifth, 20%);
+    }
+  }
+  button.delete {
+    background-color: $fourth;
+    &:hover {
+      background-color: darken($fourth, 20%);
+    }
   }
 

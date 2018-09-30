@@ -3,12 +3,13 @@ import { Link, withRouter, } from 'react-router-dom';
 import firebase, { auth, db } from '../firebase/firebase';
 import * as routes from '../constants/routes';
 
-const SignUp = ({history}) =>
+const SignUp = ({history, changeUser}) =>
     <div className="container-bg">
         <div className="form--container">
                 <div className="form">
                     <h2>SignUp</h2>
-                    <SignUpForm history={history} />
+                    <SignUpForm history={history}
+                    changeUser={changeUser}/>
                 </div>
         </div>
     </div>
@@ -44,12 +45,16 @@ class SignUpForm extends Component {
           } = this.state;
           const {
             history,
-          } = this.props;
+            changeUser,
+            } = this.props;
           auth.createUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
                 doCreateUser(authUser.uid, username, email)
                     .then(() => {
                         this.setState({ ...signUpState});
+                        changeUser(username)
+                    })
+                    .then(() => {
                         history.push(routes.HOME);
                     })
                     .catch(error => {

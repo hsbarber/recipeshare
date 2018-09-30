@@ -108,7 +108,7 @@ function RecipeForm (props) {
               >
               {props.errorAnimate && <div className="errorMsg--form">{props.errors.form}</div>}
               </AnimateHeight>
-              <button>Add Recipe</button>
+              <button className="submit">Add Recipe</button>
           </form>
 
         </AnimateHeight>

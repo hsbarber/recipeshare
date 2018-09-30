@@ -5,11 +5,11 @@ import * as routes from '../constants/routes';
 import RecipeIcon from '../icons/RecipeIcon';
 import SignOutButton from './SignOut';
 
-const Header = () =>
+const Header = (props) =>
  	<div>
     <AuthUserContext.Consumer>
     {authUser => authUser
-      ? <NavigationAuth />
+      ? <NavigationAuth changeUser={props.changeUser}/>
       : <NavigationNonAuth />
     }
   </AuthUserContext.Consumer>
@@ -25,9 +25,8 @@ const NavigationAuth = (props) =>
 	<header>
 		<Logo />
 		<ul>
-			<li><Link to={routes.HOME}>Home</Link></li>
 			<li><Link to={routes.ACCOUNT}>Account</Link></li>
-			<li><SignOutButton /></li>
+			<li><SignOutButton changeUser={props.changeUser}/></li>
 		</ul>
 	</header>
 
