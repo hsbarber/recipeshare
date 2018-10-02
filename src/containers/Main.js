@@ -51,6 +51,7 @@ class Main extends Component {
 			errorAnimate: false,
 			loading: true,
 			loadingUser: true,
+			editRecipe: null,
 			editable: '',
 			canEdit: false,
 			editID: [],
@@ -319,21 +320,31 @@ class Main extends Component {
 		});
 	}
 	getRecipe (name) {
+		const recipes = this.state.recipes;
+		const filterRecipes = recipes.filter(recipe => {
+			if (recipe.id === name) {
+				return recipe
+			}
+		})
+		//this will make a deep copy of the filterRecipes array, so there is not reference to recipes array
+		const newRecipe = JSON.parse(JSON.stringify(filterRecipes ));
+		console.log(newRecipe);
 		this.setState({
+			editRecipe: newRecipe,
 			editable: name,
 			canEdit: true
 		});
 	}
 	updateRecipe(e, id) {
 		e.preventDefault();
-		let recipeMatch = this.state.recipes.filter(recipe => {
-			if (recipe.id === id ) {
-			return recipe
-		}
-		})
-		console.log(recipeMatch)
-		return firebase.database().ref(`/recipes/${id}`).set(recipeMatch[0]),
+		const editRecipe = this.state.editRecipe;
+		console.log(editRecipe)
+		return firebase.database().ref(`/recipes/${id}`).set(editRecipe[0]),
+		this.setState({
+			canEdit: false
+		}),
 		alert("Updates submitted");
+
 
 	}
 	onEdit(id) {
@@ -357,7 +368,7 @@ class Main extends Component {
 	}
 	onDelete(e, id, itemID, name) {
 		e.preventDefault();
-		let recipes = this.state.recipes;
+		let recipes = this.state.editRecipe;
 		// Find the right recipe in the array of recipes with an id
 		let recipeMatch = recipes.filter(recipe => {
 			if (recipe.id === id ) {
@@ -385,7 +396,7 @@ class Main extends Component {
 	}
 	onEditSubmit( e, id, value, name) {
 		e.preventDefault();
-		let recipes = this.state.recipes;
+		let recipes = this.state.editRecipe;
 		// Find the right recipe in the array of recipes with an id and
 		// then assign the recipe's property the new value
 		recipes = recipes.map(recipe => {
@@ -397,11 +408,11 @@ class Main extends Component {
 		})
 		this.removeID(name);
 		//update the state of recipes array with new value
-		this.setState({recipes});
+		this.setState({editRecipe: recipes});
 	}
 	onArraySubmit (e, id, itemID, value, name) {
 		e.preventDefault();
-		let recipes = this.state.recipes;
+		let recipes = this.state.editRecipe;
 		// Find the right recipe in the array of recipes with an id
 		let recipeMatch = recipes.filter(recipe => {
 			if (recipe.id === id ) {
@@ -518,6 +529,10 @@ class Main extends Component {
 					 <Route path='/:title' component={(props) =>
 							<FullRecipe
 							{...props}
+							title={this.state.title}
+							category={this.state.category}
+							recipeTime={this.state.recipeTime}
+							editRecipe={this.state.editRecipe}
 							editable={this.state.editable}
 							canEdit={this.state.canEdit}
 							getRecipe={this.getRecipe}

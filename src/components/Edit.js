@@ -35,14 +35,14 @@ class Edit extends React.Component {
     }
 
     render() {
-
-        const recipes = this.props.recipes.filter((recipe) => {
-            if (recipe.id === this.props.editable)
-            return recipe
-        })
-         const form = recipes.map((recipe) => {
+        // let newRecipe = [];
+        // const recipes = this.props.recipes.filter((recipe) => {
+        //     if (recipe.id === this.props.editable)
+        //     return recipe
+        // })
+        // newRecipe = recipes;
+         const form = this.props.editRecipe.map((recipe) => {
             return (
-            <React.Fragment>
 
                 <div className="update-form--container" key={recipe.id}>
                     {/* <button onClick={this.props.getRecipe(null)}>Cancel</button> */}
@@ -272,7 +272,6 @@ class Edit extends React.Component {
                         <div className="submit-Block"><h4>Submit the Updates:</h4> <button className="submit">submit</button></div>
                     </form>
                 </div>
-            </React.Fragment>
             )
         })
         return (

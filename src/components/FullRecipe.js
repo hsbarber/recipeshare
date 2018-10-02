@@ -16,7 +16,7 @@ function FullRecipe(props){
         const List = rec.map((recipe) => {
           return (
             props.canEdit & props.editable === recipe.id ?
-              <Edit {...props} />
+              <Edit {...props} key={recipe.id} />
               :
                       <div key={recipe.id}>
                       <AuthUserContext.Consumer>
