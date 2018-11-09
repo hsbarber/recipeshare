@@ -724,7 +724,7 @@ button.fullRecipe--edit {
 
 .form {
   position: relative;
-  max-width: 600px;
+  max-width: 800px;
   width: 100%;
   margin: 4rem 2rem;
   padding: 2rem;
@@ -733,28 +733,40 @@ button.fullRecipe--edit {
   align-items: center;
   z-index: 1;
   border-radius: 8px; }
-  .form:after {
-    content: '';
-    width: 100%;
-    height: 100%;
-    background-color: #e7e7e7;
-    opacity: 0.6;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    border-radius: 8px; }
   .form h2 {
-    margin: 0;
-    padding: 0 1rem 0; }
+    margin: 0 0 4rem 0;
+    color: #FFFFFF; }
 
 .form--elements {
-  width: 80%;
-  padding: 1rem 0;
+  position: relative;
   display: flex;
   flex-direction: column;
-  position: relative;
+  align-items: flex-start;
   z-index: 2; }
+  @media (min-width: 900px) {
+    .form--elements {
+      flex-direction: row; } }
+  .form--elements .form--elements-block {
+    margin: 0 0 4rem 0;
+    padding: 2rem;
+    position: relative; }
+    @media (min-width: 900px) {
+      .form--elements .form--elements-block {
+        margin: 0 4rem 4rem 0; } }
+    .form--elements .form--elements-block input {
+      margin-bottom: 1rem;
+      width: 80%; }
+    .form--elements .form--elements-block:after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-color: #e7e7e7;
+      opacity: 0.6;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      border-radius: 8px; }
   .form--elements > * {
     margin-bottom: 1rem;
     display: flex;

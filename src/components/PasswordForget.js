@@ -19,6 +19,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
+
 class PasswordForget extends Component {
   constructor(props) {
     super(props);
@@ -29,9 +30,10 @@ class PasswordForget extends Component {
   onSubmit = (event) => {
     const { email } = this.state;
 
-    auth.sendPasswordResetEmail(email)
+    auth.doPasswordReset(email)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
+        console.log("sent");
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
@@ -57,7 +59,7 @@ class PasswordForget extends Component {
           placeholder="Email Address"
         />
         <button disabled={isInvalid} type="submit">
-          Reset My Password
+          Send Email to Reset Password
         </button>
 
         { error && <p>{error.message}</p> }
