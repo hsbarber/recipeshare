@@ -13,8 +13,7 @@ const SignInPage = ({ history, users, changeUser }) =>
         <SignIn history={history} users={users}
         changeUser={changeUser}
         />
-        <PasswordForgetLink />
-        <SignUpLink />
+
       </div>
     </div>
   </div>
@@ -91,7 +90,8 @@ class SignIn extends Component {
       email === '';
 
     return (
-      <form className="form--elements" onSubmit={this.onSubmit}>
+      <form className="form--inputs" onSubmit={this.onSubmit}>
+        <h4>Welcome Back, sign in to continue to RecipeShare</h4>
         <input
           value={email}
           onChange={event => this.setState(byPropKey('email', event.target.value))}
@@ -107,7 +107,8 @@ class SignIn extends Component {
         <button disabled={isInvalid} type="submit">
           Sign In
         </button>
-
+        <PasswordForgetLink />
+        <SignUpLink />
         { error && <p>{error.message}</p> }
       </form>
     );

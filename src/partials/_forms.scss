@@ -18,6 +18,59 @@
       margin: 0 0 4rem 0;
       color: $heading-primary;
     }
+    button {
+      align-self: center;
+      width: 80%;
+      border-radius: 60px;
+    }
+    input {
+      color: $body-primary;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      font-size: 16px;
+      border: 1px solid #e7e7e7;
+    }
+    //makes background color of inputs white with a little reduction of opacity
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px white inset;
+      opacity: 0.8;
+    }
+  }
+  //form styling for sign in and sign up
+  .form--inputs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    padding: 2rem;
+    width: 100%;
+    @media (min-width: $medium) {
+      width: 40%;
+    }
+    h4 {
+      margin: 0 0 2rem 0;
+    }
+
+    &:after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-color: $body-light;
+      opacity: 0.6;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      border-radius: 8px;
+    }
+  }
+  //form styling for password forget page;
+  .form--pwforget {
+    @extend .form--inputs;
+    form {
+      display: flex;
+      flex-direction: column;
+    }
   }
   .form--elements {
     position: relative;
@@ -28,15 +81,17 @@
     @media (min-width: $medium-large) {
       flex-direction: row;
     }
+
+    //form styling for accounts page
     .form--elements-block {
       margin: 0 0 4rem 0;
       padding: 2rem;
       position: relative;
+      text-align: center;
       @media (min-width: $medium-large) {
         margin: 0 4rem 4rem 0;
       }
       input {
-        margin-bottom: 1rem;
         width: 80%;
       }
       &:after {
@@ -66,10 +121,5 @@
             }
         }
     }
-    input {
-      color: #5F5F5F;
-      padding: 0.8rem;
-      font-size: 16px;
-      border: 1px solid #e7e7e7;
-    }
+
   }

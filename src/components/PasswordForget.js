@@ -5,9 +5,17 @@ import { auth } from '../firebase';
 import * as routes from '../constants/routes';
 
 const PasswordForgetPage = () =>
-  <div>
-    <h1>PasswordForget</h1>
-    <PasswordForget />
+  <div className="container-bg">
+    <div className="form--container">
+        <div className="form">
+            <h2>Password Forget</h2>
+
+            <div className="form--pwforget">
+              <h4>Enter your email address to have an email sent to reset your password.</h4>
+              <PasswordForget />
+            </div>
+        </div>
+    </div>
   </div>
 
 const byPropKey = (propertyName, value) => () => ({

@@ -736,6 +736,47 @@ button.fullRecipe--edit {
   .form h2 {
     margin: 0 0 4rem 0;
     color: #FFFFFF; }
+  .form button {
+    align-self: center;
+    width: 80%;
+    border-radius: 60px; }
+  .form input {
+    color: #5F5F5F;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 16px;
+    border: 1px solid #e7e7e7; }
+  .form input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    opacity: 0.8; }
+
+.form--inputs, .form--pwforget {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  padding: 2rem;
+  width: 100%; }
+  @media (min-width: 600px) {
+    .form--inputs, .form--pwforget {
+      width: 40%; } }
+  .form--inputs h4, .form--pwforget h4 {
+    margin: 0 0 2rem 0; }
+  .form--inputs:after, .form--pwforget:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: #e7e7e7;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 8px; }
+
+.form--pwforget form {
+  display: flex;
+  flex-direction: column; }
 
 .form--elements {
   position: relative;
@@ -749,12 +790,12 @@ button.fullRecipe--edit {
   .form--elements .form--elements-block {
     margin: 0 0 4rem 0;
     padding: 2rem;
-    position: relative; }
+    position: relative;
+    text-align: center; }
     @media (min-width: 900px) {
       .form--elements .form--elements-block {
         margin: 0 4rem 4rem 0; } }
     .form--elements .form--elements-block input {
-      margin-bottom: 1rem;
       width: 80%; }
     .form--elements .form--elements-block:after {
       content: '';
@@ -777,11 +818,6 @@ button.fullRecipe--edit {
       margin-bottom: 1rem; }
       .form--elements > * > *:last-child {
         margin-bottom: 0; }
-  .form--elements input {
-    color: #5F5F5F;
-    padding: 0.8rem;
-    font-size: 16px;
-    border: 1px solid #e7e7e7; }
 
 .update-form {
   max-width: 800px;

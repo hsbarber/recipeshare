@@ -81,7 +81,8 @@ class SignUpForm extends Component {
             email === '' ||
             username === '';
         return (
-            <form className="form--elements" onSubmit={this.onSubmit}>
+            <form className="form--inputs" onSubmit={this.onSubmit}>
+                <h4>Sign up to access RecipeShare</h4>
                 <input
                     value={username}
                     onChange={event => this.setState(byPropKey('username', event.target.value))}

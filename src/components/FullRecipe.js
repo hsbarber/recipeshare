@@ -19,10 +19,11 @@ function FullRecipe(props){
               <Edit {...props} key={recipe.id} />
               :
                       <div key={recipe.id}>
-                      <AuthUserContext.Consumer>
-                        {(authUser) => authUser.email === recipe.email && <button className="fullRecipe--edit" onClick={() => props.getRecipe(recipe.id)}>Edit</button>}
-                      </AuthUserContext.Consumer>
-                        {/* <Link to={routes.EDIT}><button className="fullRecipe--edit" onClick={() => props.getRecipe(recipe.id)}>Edit</button></Link> */}
+                        {props.authUser &&
+                          <AuthUserContext.Consumer>
+                            {(authUser) => authUser.email === recipe.email && <button className="fullRecipe--edit" onClick={() => props.getRecipe(recipe.id)}>Edit</button>}
+                          </AuthUserContext.Consumer>
+                        }
                         <div  className="fullRecipe">
 
 
