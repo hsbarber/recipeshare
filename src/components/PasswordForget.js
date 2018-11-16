@@ -7,7 +7,7 @@ import * as routes from '../constants/routes';
 const PasswordForgetPage = () =>
   <div className="container-bg">
     <div className="form--container">
-        <div className="form">
+            <div className="form">
             <h2>Password Forget</h2>
 
             <div className="form--pwforget">

@@ -1,14 +1,14 @@
 import React from 'react';
+import { Spring, Transition }  from 'react-spring'
 import AuthUserContext from './AuthUserContext';
 import { PasswordForget } from './PasswordForget';
 import PasswordChange from './PasswordChange';
 import withAuthorization from './withAuthorization';
 
+
 const Account = (props) =>
     <AuthUserContext.Consumer>
-    {
-    authUser =>
-
+    { authUser =>
     <div className="container-bg">
         <div className="form--container">
             <div className="form">
@@ -28,6 +28,8 @@ const Account = (props) =>
     </div>
     }
     </AuthUserContext.Consumer>
+
+
 
 const authCondition = (authUser) => !!authUser;
 

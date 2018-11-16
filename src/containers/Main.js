@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {  Switch, Route, Router, withRouter } from 'react-router-dom'
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import firebase, { auth, db } from '../firebase/firebase'
 import AuthUserContext from '../components/AuthUserContext';
 import Header from '../components/Header';
@@ -22,6 +23,10 @@ const reorder = (list, startIndex, endIndex) => {
 	return result;
 };
 
+const firstChild = props => {
+	const childrenArray = React.Children.toArray(props.children);
+	return childrenArray[0] || null;
+};
 class Main extends Component {
 	constructor() {
 	    super();
@@ -326,13 +331,13 @@ class Main extends Component {
 				return recipe
 			}
 		})
-		//this will make a deep copy of the filterRecipes array, so there is not reference to recipes array
+		//this will make a deep copy of the filterRecipes array, so there is not a reference to recipes array
 		const newRecipe = JSON.parse(JSON.stringify(filterRecipes ));
 		console.log(newRecipe);
 		this.setState({
 			editRecipe: newRecipe,
 			editable: name,
-			canEdit: true
+			canEdit: !this.state.canEdit
 		});
 	}
 	updateRecipe(e, id) {
@@ -434,136 +439,112 @@ class Main extends Component {
 		this.setState({...recipes, recipeMatch});
 
 	}
-
 	render() {
 	    return (
-		<React.Fragment>
-			<Header changeUser={this.changeUser}/>
-				<Switch>
-					{/* <Route
-						exact path={routes.EDIT}
-						component={(props)=> <Edit {...props} editable={this.state.editable}
-						 updateRecipe={this.updateRecipe}
-						 recipes={this.state.recipes}
-						 title={this.state.title}
-						 category={this.state.category}
-						 recipeTime={this.state.recipeTime}
-						 link={this.state.link}
-						 notes={this.state.notes}
-						 //image upload
-						 imageURL={this.state.imageURL}
-						 isUploading={this.state.isUploading}
-						 progress={this.state.progress}
-						 error={this.state.error}
-						 handleUploadStart = {this.handleUploadStart}
-						 handleProgress={this.handleProgress}
-						 handleUploadError={this.handleUploadError}
-						 handleUploadSuccess={this.handleUploadSuccess}
-						 handleSelect={this.handleSelect}
-						 handleChange={this.handleChange}
-						 onEditSubmit={this.onEditSubmit}
-						 onArraySubmit={this.onArraySubmit}
-						 editID={this.state.editID}
-						 onEdit={this.onEdit}
-						 onCancel={this.onCancel}
-						 onDelete={this.onDelete}
-						 />}
-					/> */}
-					<Route
-						exact path={routes.SIGN_UP}
-						render={()=> <SignUp changeUser={this.changeUser} />}
-					/>
-					<Route
-						exact path={routes.SIGN_IN}
-						render={()=> <SignIn changeUser={this.changeUser} users={this.state.users} />}
-					/>
-					<Route
-						exact path={routes.PASSWORD_FORGET}
-						component={PasswordForget}
-					/>
-					<Route
-						exact path={routes.ACCOUNT}
-						render={()=> <Account user={this.state.user} />}
-					/>
-					<Route exact path='/' render={(props)=>
-						<RecipeMaker
-								{...props}
-								login={this.login}
-								logout={this.logout}
-								loading={this.state.loading}
-								loadingUser={this.state.loadingUser}
-								user={this.state.user}
-								users={this.state.users}
-								title={this.state.title}
-								//form validation
-								errorAnimate={this.state.errorAnimate}
-								errors={this.state.errors}
-								//image upload
-								imageURL={this.state.imageURL}
-								isUploading={this.state.isUploading}
-								progress={this.state.progress}
-								error={this.state.error}
-								handleUploadStart = {this.handleUploadStart}
-								handleProgress={this.handleProgress}
-								handleUploadError={this.handleUploadError}
-								handleUploadSuccess={this.handleUploadSuccess}
-								// form states
-								category={this.state.category}
-								recipeTime={this.state.recipeTime}
-								notes={this.state.notes}
-								link={this.state.link}
-								steps={this.state.steps}
-								ingredients={this.state.ingredients}
-								recipes={this.state.recipes}
-								//handle functions
-								handleSelect={this.handleSelect}
-								handleChange={this.handleChange}
-								handleSubmit={this.handleSubmit}
-								addItemArray={this.addItemArray}
-								remove={this.handleRemove}
-								//react-dnd-beautiful functions
-								onDragEnd={this.onDragEnd}
-								onDragEndSteps={this.onDragEndSteps}
-						/>
-					}/>
-					 <Route path='/:title' component={(props) =>
-							<FullRecipe
-							{...props}
-							title={this.state.title}
-							category={this.state.category}
-							recipeTime={this.state.recipeTime}
-							editRecipe={this.state.editRecipe}
-							editable={this.state.editable}
-							canEdit={this.state.canEdit}
-							getRecipe={this.getRecipe}
-							handleChange={this.handleChange}
-							handleSelect={this.handleSelect}
-							recipes={this.state.recipes}
-							updateRecipe={this.updateRecipe}
-							onEditSubmit={this.onEditSubmit}
-							onArraySubmit={this.onArraySubmit}
-							editID={this.state.editID}
-							onEdit={this.onEdit}
-							onCancel={this.onCancel}
-							onDelete={this.onDelete}
-							imageURL={this.state.imageURL}
-							isUploading={this.state.isUploading}
-							progress={this.state.progress}
-							error={this.state.error}
-							handleUploadStart = {this.handleUploadStart}
-							handleProgress={this.handleProgress}
-							handleUploadError={this.handleUploadError}
-							handleUploadSuccess={this.handleUploadSuccess}
-							/>
-						}
-					/>
+			<React.Fragment>
+				<Header changeUser={this.changeUser}/>
+					<Switch>
+								<Route
+									exact path={routes.SIGN_UP}
+									render={()=> <SignUp changeUser={this.changeUser} />}
+								/>
+								<Route
+									exact path={routes.SIGN_IN}
+									render={()=> <SignIn changeUser={this.changeUser} users={this.state.users} />}
+								/>
+								<Route
+									exact path={routes.PASSWORD_FORGET}
+									component={PasswordForget}
+								/>
+								<Route
+									exact path={routes.ACCOUNT}
+									render={()=> <Account user={this.state.user} />}
+								/>
+								<Route exact path='/' render={(props)=>
+									<RecipeMaker
+											{...props}
+											login={this.login}
+											logout={this.logout}
+											loading={this.state.loading}
+											loadingUser={this.state.loadingUser}
+											user={this.state.user}
+											users={this.state.users}
+											title={this.state.title}
+											//form validation
+											errorAnimate={this.state.errorAnimate}
+											errors={this.state.errors}
+											//image upload
+											imageURL={this.state.imageURL}
+											isUploading={this.state.isUploading}
+											progress={this.state.progress}
+											error={this.state.error}
+											handleUploadStart = {this.handleUploadStart}
+											handleProgress={this.handleProgress}
+											handleUploadError={this.handleUploadError}
+											handleUploadSuccess={this.handleUploadSuccess}
+											// form states
+											category={this.state.category}
+											recipeTime={this.state.recipeTime}
+											notes={this.state.notes}
+											link={this.state.link}
+											steps={this.state.steps}
+											ingredients={this.state.ingredients}
+											recipes={this.state.recipes}
+											//handle functions
+											handleSelect={this.handleSelect}
+											handleChange={this.handleChange}
+											handleSubmit={this.handleSubmit}
+											addItemArray={this.addItemArray}
+											remove={this.handleRemove}
+											//react-dnd-beautiful functions
+											onDragEnd={this.onDragEnd}
+											onDragEndSteps={this.onDragEndSteps}
+									/>
+								}/>
+								<Route path='/:title' render={(props)=>
+									<FullRecipe
 
-
-
-				</Switch>
-		</React.Fragment>
-	    )
+										{...props}
+										authCopyUser={this.state.authCopyUser}
+										title={this.state.title}
+										category={this.state.category}
+										recipeTime={this.state.recipeTime}
+										editRecipe={this.state.editRecipe}
+										editable={this.state.editable}
+										canEdit={this.state.canEdit}
+										getRecipe={this.getRecipe}
+										handleChange={this.handleChange}
+										handleSelect={this.handleSelect}
+										recipes={this.state.recipes}
+										updateRecipe={this.updateRecipe}
+										onEditSubmit={this.onEditSubmit}
+										onArraySubmit={this.onArraySubmit}
+										editID={this.state.editID}
+										onEdit={this.onEdit}
+										onCancel={this.onCancel}
+										onDelete={this.onDelete}
+										imageURL={this.state.imageURL}
+										isUploading={this.state.isUploading}
+										progress={this.state.progress}
+										error={this.state.error}
+										handleUploadStart = {this.handleUploadStart}
+										handleProgress={this.handleProgress}
+										handleUploadError={this.handleUploadError}
+										handleUploadSuccess={this.handleUploadSuccess}
+									/>
+								}/>
+							</Switch>
+			</React.Fragment>
+	    );
 	}
 }
-
 export default withAuthentication(Main);
+
+{/* <Route render={({ location }) => (
+					<TransitionGroup>
+						<CSSTransition
+							timeout={300}
+							classNames='fade'
+							key={location.key}
+						>
+							<Switch location={location}> */}

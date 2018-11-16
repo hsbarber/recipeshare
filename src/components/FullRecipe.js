@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Transition }  from 'react-spring'
 import AuthUserContext from '../components/AuthUserContext';
 import Edit from './Edit';
 
@@ -17,12 +18,11 @@ function FullRecipe(props){
           return (
             props.canEdit & props.editable === recipe.id ?
               <Edit {...props} key={recipe.id} />
+
               :
                       <div key={recipe.id}>
-                        {props.authUser &&
-                          <AuthUserContext.Consumer>
-                            {(authUser) => authUser.email === recipe.email && <button className="fullRecipe--edit" onClick={() => props.getRecipe(recipe.id)}>Edit</button>}
-                          </AuthUserContext.Consumer>
+                        {props.authCopyUser &&
+                            <button className="fullRecipe--edit" onClick={() => props.getRecipe(recipe.id)}>Edit</button>
                         }
                         <div  className="fullRecipe">
 
@@ -72,12 +72,15 @@ function FullRecipe(props){
         )
     })
     return (
-
-      <React.Fragment>
-
-          {List}
-
-      </React.Fragment>
+        <Transition
+          items={List}
+          from={{ transform: 'translate3d(0,-60px,0)', opacity: 0 }}
+          enter={{ transform: 'translate3d(0,0px,0)', opacity: 1 }}
+          leave={{ transform: 'translate3d(0,-60px,0)', opacity: 0 }}>
+          {List =>
+            List && (props => <div style={props}>{List}</div>)
+          }
+        </Transition>
     )
 
 }
@@ -86,7 +89,17 @@ FullRecipe.propTypes = {
   title: PropTypes.object,
   recipe: PropTypes.arrayOf(PropTypes.string)
 }
+
 export default FullRecipe;
+
+// items={List}
+//           // from={{transform: 'translate3d(0,60px,0)', opacity: 0 }}
+//           // to={{ transform: 'translate3d(0,0px,0)', opacity: 1 }}
+//           from={{ position: 'absolute', opacity: 0 }}
+//           enter={{ opacity: 1 }}
+//           leave={{ opacity: 0 }}>
+//         >
+//           {({ transform, opacity }) => <div style={{ transform, opacity }}>{List}</div>}
 
 // const name = rec.map(r => r.title);
 //       const Ingredients = rec.map(r => r.ingred.map(food =>

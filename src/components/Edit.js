@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
+import { Transition }  from 'react-spring'
 import CategoryAPI from '../categories'
 import FileUploader from 'react-firebase-file-uploader';
 import firebase from '../firebase/firebase'
@@ -34,7 +37,7 @@ class Edit extends React.Component {
         this.setState({deleted: newDelete});
     }
 
-    render() {
+    render(history) {
         // let newRecipe = [];
         // const recipes = this.props.recipes.filter((recipe) => {
         //     if (recipe.id === this.props.editable)
@@ -45,10 +48,13 @@ class Edit extends React.Component {
             return (
 
                 <div className="update-form--container" key={recipe.id}>
+                        <button onClick={() => this.props.getRecipe(null)} className="cancel-Update submit">Cancel</button>
+
                     {/* <button onClick={this.props.getRecipe(null)}>Cancel</button> */}
                     <form className="update-form" onSubmit={(e) => {this.props.history.push('/'); this.props.updateRecipe(e, recipe.id)}}>
                         <div className="editRecipe-title">
-                            <h2>Update the Recipe</h2><button className="cancel-Update submit" onClick={() => this.props.getRecipe(null)}>Cancel</button>
+                            <h2>Update the Recipe</h2>
+
                         </div>
                         {/* TITLE UPDATE */}
                         <div className="editRecipe-Column">
@@ -275,9 +281,16 @@ class Edit extends React.Component {
             )
         })
         return (
-            <div>
-                {form}
-            </div>
+            <Transition
+                items={form}
+                from={{ transform: 'translate3d(0,60px,0)', opacity: 0 }}
+                enter={{ transform: 'translate3d(0,0px,0)', opacity: 1 }}
+                leave={{ transform: 'translate3d(0,-60px,0)', opacity: 0 }}>
+                {form =>
+                    form && (props => <div style={props}>
+                        {form}</div>)
+                }
+            </Transition>
         )
     }
 }
