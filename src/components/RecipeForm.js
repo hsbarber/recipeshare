@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Spring }  from 'react-spring'
 import AuthUserContext from './AuthUserContext';
 import CategoryAPI from '../categories'
 import ImageUpload from './ImageUpload.js';
@@ -25,22 +26,32 @@ function RecipeForm (props) {
   })
     return (
     <div>
-      <div className="recipeIntro">
-        <div className="recipeIntro-title">
-          <h2>Build a</h2>
-          <h1>Recipe</h1>
-        </div>
-        <div className="recipeIntro-Options">
-        <AuthUserContext.Consumer>
-          {authUser => authUser ?
-            <div className="collapse" >
-              {props.collapse ? <span onClick={props.toggleCollapse}><h3>Open Recipe Form </h3><ChevronDown /></span>  : <span onClick={props.toggleCollapse}><h3>Close Recipe Form </h3><Remove /></span> }
+
+
+        <div className="recipeIntro">
+          <Spring
+            from={{ transform: 'translate3d(0,60px,0)', opacity: 0 }}
+            to={{transform: 'translate3d(0,0,0)', opacity: 1 }}
+          >
+          {props =>
+            <div className="recipeIntro-title" style={props}>
+              <h2>Build a</h2>
+              <h1>Recipe</h1>
             </div>
-            : <h3><Link to={'/signin'}>Sign In</Link> or <Link to={'/signup'}>Sign Up</Link> to Build a Recipe</h3>
           }
-          </AuthUserContext.Consumer>
+          </Spring>
+          <div className="recipeIntro-Options">
+          <AuthUserContext.Consumer>
+            {authUser => authUser ?
+              <div className="collapse" >
+                {props.collapse ? <span onClick={props.toggleCollapse}><h3>Open Recipe Form </h3><ChevronDown /></span>  : <span onClick={props.toggleCollapse}><h3>Close Recipe Form </h3><Remove /></span> }
+              </div>
+              : <h3><Link to={'/signin'}>Sign In</Link> or <Link to={'/signup'}>Sign Up</Link> to Build a Recipe</h3>
+            }
+            </AuthUserContext.Consumer>
+          </div>
         </div>
-      </div>
+
       <section className="rForm">
         <AnimateHeight
           duration={ 500 }

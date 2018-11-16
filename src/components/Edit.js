@@ -37,7 +37,7 @@ class Edit extends React.Component {
         this.setState({deleted: newDelete});
     }
 
-    render(history) {
+    render() {
         // let newRecipe = [];
         // const recipes = this.props.recipes.filter((recipe) => {
         //     if (recipe.id === this.props.editable)
@@ -48,13 +48,15 @@ class Edit extends React.Component {
             return (
 
                 <div className="update-form--container" key={recipe.id}>
-                        <button onClick={() => this.props.getRecipe(null)} className="cancel-Update submit">Cancel</button>
+                    {/* Cancel Button - returns to recipe */}
 
-                    {/* <button onClick={this.props.getRecipe(null)}>Cancel</button> */}
-                    <form className="update-form" onSubmit={(e) => {this.props.history.push('/'); this.props.updateRecipe(e, recipe.id)}}>
+
+                    <form className="update-form" onSubmit={(e) => {this.props.history.push(`/${recipe.title.split(' ').join('')}`); this.props.updateRecipe(e, recipe.id)}}>
                         <div className="editRecipe-title">
                             <h2>Update the Recipe</h2>
-
+                            <Link className="cancel-Update" to={`/${recipe.title.split(' ').join('')}`}>
+                                <button  className="submit">Cancel</button>
+                            </Link>
                         </div>
                         {/* TITLE UPDATE */}
                         <div className="editRecipe-Column">
@@ -281,16 +283,17 @@ class Edit extends React.Component {
             )
         })
         return (
-            <Transition
-                items={form}
-                from={{ transform: 'translate3d(0,60px,0)', opacity: 0 }}
-                enter={{ transform: 'translate3d(0,0px,0)', opacity: 1 }}
-                leave={{ transform: 'translate3d(0,-60px,0)', opacity: 0 }}>
-                {form =>
-                    form && (props => <div style={props}>
-                        {form}</div>)
-                }
-            </Transition>
+            <React.Fragment>
+                <Transition
+                    items={form}
+                    from={{ transform: 'translate3d(0,60px,0)', opacity: 0 }}
+                    enter={{ transform: 'translate3d(0,0px,0)', opacity: 1 }}
+                    leave={{ transform: 'translate3d(0,60px,0)', opacity: 0 }}>
+                    {form =>
+                        form && (props => <div style={props}>{form}</div>)
+                    }
+                </Transition>
+            </React.Fragment>
         )
     }
 }

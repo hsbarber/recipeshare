@@ -84,13 +84,6 @@ section.route-section {
   top: 0;
   left: 0; }
 
-.animated-page-wrapper {
-  position: absolute;
-  top: 62px;
-  left: 0;
-  width: 100%;
-  height: 100%; }
-
 .recipeIntro {
   display: flex;
   flex-direction: column;
@@ -361,7 +354,8 @@ header {
     margin: 0;
     border-top: 2px solid white;
     align-items: center;
-    justify-content: center; }
+    justify-content: center;
+    margin-right: 0; }
     header ul li {
       list-style-type: none;
       padding: 1rem 2rem 1rem 0; }
@@ -371,25 +365,22 @@ header {
         header ul li a:hover {
           color: #8F44AB; }
       @media (min-width: 900px) {
-        header ul li {
-          padding: 0 3rem 0 0; } }
+        header ul li:nth-child(2) {
+          margin-right: 3rem;
+          padding-right: 0; } }
+      @media (min-width: 1200px) {
+        header ul li:nth-child(2) {
+          margin-right: 5rem; } }
     @media (min-width: 900px) {
       header ul {
-        margin-right: 1rem;
         border-top: none; } }
 
-button.fullRecipe--edit {
-  border-radius: 0; }
-  button.fullRecipe--edit:hover {
+.fullRecipe--edit {
+  display: flex;
+  justify-content: flex-start; }
+  .fullRecipe--edit button:hover {
     background-color: #522762;
     box-shadow: none; }
-  @media (min-width: 900px) {
-    button.fullRecipe--edit {
-      margin-top: 3rem;
-      margin-left: 3rem; } }
-  @media (min-width: 1200px) {
-    button.fullRecipe--edit {
-      margin-left: 5rem; } }
 
 .fullRecipe h1, .fullRecipe h2, .fullRecipe p {
   color: #5F5F5F; }
@@ -869,13 +860,14 @@ button.fullRecipe--edit {
   .update-form h3 {
     margin-left: 1rem; }
 
+a.cancel-Update {
+  align-self: center;
+  margin-right: 1rem; }
+
 .editRecipe-title {
   display: flex;
   justify-content: space-between;
   margin: 2rem 0; }
-  .editRecipe-title .cancel-Update {
-    align-self: center;
-    margin-right: 1rem; }
   @media (min-width: 1200px) {
     .editRecipe-title {
       margin: 0; } }

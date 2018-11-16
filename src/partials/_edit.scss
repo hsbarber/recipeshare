@@ -22,14 +22,15 @@
         margin-left: 1rem;
     }
 }
+a.cancel-Update {
+    align-self: center;
+    margin-right: 1rem;
+}
 .editRecipe-title {
     display: flex;
     justify-content: space-between;
     margin: 2rem 0;
-    .cancel-Update {
-        align-self: center;
-        margin-right: 1rem;
-    }
+
     @media(min-width: $large) {
         margin: 0
     }

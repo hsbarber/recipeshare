@@ -52,6 +52,7 @@ header {
         border-top: 2px solid white;
         align-items: center;
         justify-content: center;
+        margin-right: 0;
         li {
             list-style-type: none;
             padding: 1rem 2rem 1rem 0;
@@ -63,12 +64,18 @@ header {
                     color: $primary;
                 }
             }
-            @media (min-width: $medium-large) {
-                padding: 0 3rem 0 0;
+
+            &:nth-child(2) {
+                @media (min-width: $medium-large) {
+                    margin-right: 3rem;
+                    padding-right: 0;
+                }
+                @media (min-width: $large) {
+                    margin-right: 5rem;
+                }
             }
         }
         @media (min-width: $medium-large) {
-            margin-right: 1rem;
             border-top: none;
         }
     }

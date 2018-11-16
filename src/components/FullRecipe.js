@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 import { Transition }  from 'react-spring'
 import AuthUserContext from '../components/AuthUserContext';
 import Edit from './Edit';
@@ -16,15 +17,13 @@ function FullRecipe(props){
 
         const List = rec.map((recipe) => {
           return (
-            props.canEdit & props.editable === recipe.id ?
-              <Edit {...props} key={recipe.id} />
+            // props.canEdit & props.editable === recipe.id ?
+            //   <Edit {...props} key={recipe.id} />
 
-              :
+            //   :
                       <div key={recipe.id}>
-                        {props.authCopyUser &&
-                            <button className="fullRecipe--edit" onClick={() => props.getRecipe(recipe.id)}>Edit</button>
-                        }
-                        <div  className="fullRecipe">
+
+                        <div className="fullRecipe">
 
 
                               <div className="fullRecipe--tBlock">
@@ -35,6 +34,15 @@ function FullRecipe(props){
                                     {recipe.recipeTime && <p><span>Time to Cook</span><span>{recipe.recipeTime}</span></p>}
                                     {recipe.link && <a href={recipe.link}>Link to Original Recipe</a>}
                                     <p>{recipe.notes}</p>
+                                    {props.authCopyUser &&
+                                        <div className="fullRecipe--edit">
+                                          <Link to={`/${title.split(' ').join('')}-edit`}>
+                                            <button onClick={() => props.getRecipe(recipe.id)}>
+                                              Edit
+                                            </button>
+                                          </Link>
+                                        </div>
+                                    }
                                   </div>
                                 </div>
                                 {recipe.imageURL ?
@@ -74,7 +82,7 @@ function FullRecipe(props){
     return (
         <Transition
           items={List}
-          from={{ transform: 'translate3d(0,-60px,0)', opacity: 0 }}
+          from={{ transform: 'translate3d(0,60px,0)', opacity: 0 }}
           enter={{ transform: 'translate3d(0,0px,0)', opacity: 1 }}
           leave={{ transform: 'translate3d(0,-60px,0)', opacity: 0 }}>
           {List =>
@@ -82,7 +90,6 @@ function FullRecipe(props){
           }
         </Transition>
     )
-
 }
 FullRecipe.propTypes = {
   recipes: PropTypes.array,

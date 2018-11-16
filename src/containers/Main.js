@@ -56,7 +56,7 @@ class Main extends Component {
 			errorAnimate: false,
 			loading: true,
 			loadingUser: true,
-			editRecipe: null,
+			editRecipe: [],
 			editable: '',
 			canEdit: false,
 			editID: [],
@@ -86,6 +86,14 @@ class Main extends Component {
 	  }
 
 	componentDidMount() {
+		this.hydrateStateWithLocalStorage();
+
+		// add event listener to save state to localStorage
+		// when user leaves/refreshes the page
+		window.addEventListener(
+			"beforeunload",
+		this.saveStateToLocalStorage.bind(this));
+
 		auth.onAuthStateChanged(authCopyUser => {
 			authCopyUser
 			  ? this.setState({ authCopyUser})
@@ -138,6 +146,42 @@ class Main extends Component {
 				loading: false
 			});
 	    });
+	}
+	componentWillUnmount() {
+		window.removeEventListener(
+		  "beforeunload",
+		  this.saveStateToLocalStorage.bind(this)
+		);
+
+		// saves if component has a chance to unmount
+		this.saveStateToLocalStorage();
+	}
+	//local storage - when component mounts, set state from local storage
+	hydrateStateWithLocalStorage() {
+		// for every item in state
+		for (let key in this.state) {
+		  // if the key exists in localStorage
+		  if (localStorage.hasOwnProperty(key)) {
+			// get the key's value from localStorage
+			let value = localStorage.getItem(key);
+
+			// parse the localStorage string and setState
+			try {
+			  value = JSON.parse(value);
+			  this.setState({ [key]: value });
+			} catch (e) {
+			  // handle empty string
+			  this.setState({ [key]: value });
+			}
+		  }
+		}
+	}
+	//local storage - when component unmounts, save state to local storage
+	saveStateToLocalStorage() {
+		// for every item in state, save to ls
+		for (let key in this.state) {
+		  localStorage.setItem(key, JSON.stringify(this.state[key]));
+		}
 	}
 	changeUser = (user) => this.setState({user: user});
 	handleUploadStart = () => this.setState({isUploading: true, progress: 0});
@@ -499,6 +543,37 @@ class Main extends Component {
 											//react-dnd-beautiful functions
 											onDragEnd={this.onDragEnd}
 											onDragEndSteps={this.onDragEndSteps}
+									/>
+								}/>
+								<Route path='/:title-edit' render={(props)=>
+									<Edit
+										{...props}
+										authCopyUser={this.state.authCopyUser}
+										title={this.state.title}
+										category={this.state.category}
+										recipeTime={this.state.recipeTime}
+										editRecipe={this.state.editRecipe}
+										editable={this.state.editable}
+										canEdit={this.state.canEdit}
+										getRecipe={this.getRecipe}
+										handleChange={this.handleChange}
+										handleSelect={this.handleSelect}
+										recipes={this.state.recipes}
+										updateRecipe={this.updateRecipe}
+										onEditSubmit={this.onEditSubmit}
+										onArraySubmit={this.onArraySubmit}
+										editID={this.state.editID}
+										onEdit={this.onEdit}
+										onCancel={this.onCancel}
+										onDelete={this.onDelete}
+										imageURL={this.state.imageURL}
+										isUploading={this.state.isUploading}
+										progress={this.state.progress}
+										error={this.state.error}
+										handleUploadStart = {this.handleUploadStart}
+										handleProgress={this.handleProgress}
+										handleUploadError={this.handleUploadError}
+										handleUploadSuccess={this.handleUploadSuccess}
 									/>
 								}/>
 								<Route path='/:title' render={(props)=>
