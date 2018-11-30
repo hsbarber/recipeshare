@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import firebase from '../firebase/firebase'
+import { Spring }  from 'react-spring'
 import RecipeForm from '../components/RecipeForm';
 import UserInfo from '../components/userInfo';
 import AuthUserContext from '../components/AuthUserContext';

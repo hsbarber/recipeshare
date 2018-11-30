@@ -842,35 +842,43 @@ header {
       .form--elements > * > *:last-child {
         margin-bottom: 0; }
 
-.update-form {
+p.update-form--error {
+  color: #E24C3F;
+  text-align: center;
+  padding: 2rem 0; }
+
+.update-form--container {
   max-width: 800px;
   margin: 0 auto;
   overflow-x: hidden; }
-  .update-form .submit-Block {
-    background: #e7e7e7;
-    margin-top: 1rem;
-    padding: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-    .update-form .submit-Block h4 {
-      margin-right: 2rem; }
-  .update-form h2 {
-    margin-left: 1rem; }
-  .update-form h3 {
-    margin-left: 1rem; }
 
-a.cancel-Update {
-  align-self: center;
-  margin-right: 1rem; }
-
-.editRecipe-title {
+.update-form--header {
   display: flex;
   justify-content: space-between;
-  margin: 2rem 0; }
-  @media (min-width: 1200px) {
-    .editRecipe-title {
-      margin: 0; } }
+  margin: 1rem 0;
+  padding: 0 1rem; }
+  @media (min-width: 900px) {
+    .update-form--header {
+      padding: 0; } }
+
+.update-form .submit-Block {
+  background: #e7e7e7;
+  margin-top: 1rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .update-form .submit-Block h4 {
+    margin-right: 2rem; }
+
+.update-form h2 {
+  margin-left: 1rem; }
+
+.update-form h3 {
+  margin-left: 1rem; }
+
+a.cancel-Update {
+  align-self: center; }
 
 .editRecipe-Column > *, .editRecipe-Column--List > *, .editRecipe-Column--Image > * {
   display: grid;

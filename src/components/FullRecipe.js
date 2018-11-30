@@ -34,7 +34,8 @@ function FullRecipe(props){
                                     {recipe.recipeTime && <p><span>Time to Cook</span><span>{recipe.recipeTime}</span></p>}
                                     {recipe.link && <a href={recipe.link}>Link to Original Recipe</a>}
                                     <p>{recipe.notes}</p>
-                                    {props.authCopyUser &&
+                                    <AuthUserContext.Consumer>
+                                    { authUser => authUser && props.user === recipe.user &&
                                         <div className="fullRecipe--edit">
                                           <Link to={`/${title.split(' ').join('')}-edit`}>
                                             <button onClick={() => props.getRecipe(recipe.id)}>
@@ -43,6 +44,7 @@ function FullRecipe(props){
                                           </Link>
                                         </div>
                                     }
+                                    </AuthUserContext.Consumer>
                                   </div>
                                 </div>
                                 {recipe.imageURL ?

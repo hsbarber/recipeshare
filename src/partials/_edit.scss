@@ -1,9 +1,24 @@
 
-
-.update-form {
+p.update-form--error {
+    color: $fourth;
+    text-align: center;
+    padding: 2rem 0;
+}
+.update-form--container {
     max-width: 800px;
     margin: 0 auto;
     overflow-x: hidden;
+}
+.update-form--header {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    padding: 0 1rem;
+    @media(min-width: $medium-large) {
+        padding: 0;
+    }
+}
+.update-form {
     .submit-Block {
         background: $body-light;
         margin-top: 1rem;
@@ -24,17 +39,16 @@
 }
 a.cancel-Update {
     align-self: center;
-    margin-right: 1rem;
 }
-.editRecipe-title {
-    display: flex;
-    justify-content: space-between;
-    margin: 2rem 0;
+// .editRecipe-title {
+//     display: flex;
+//     justify-content: space-between;
+//     margin: 2rem 0;
 
-    @media(min-width: $large) {
-        margin: 0
-    }
-}
+//     @media(min-width: $large) {
+//         margin: 0
+//     }
+// }
 .editRecipe-Column {
     > * {
         display: grid;

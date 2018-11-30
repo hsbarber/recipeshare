@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import {  Switch, Route, Router, withRouter } from 'react-router-dom'
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import firebase, { auth, db } from '../firebase/firebase'
-import AuthUserContext from '../components/AuthUserContext';
+import {  Switch, Route } from 'react-router-dom'
+import firebase, { auth } from '../firebase/firebase'
 import Header from '../components/Header';
 import RecipeMaker from './RecipeMaker';
 import FullRecipe from '../components/FullRecipe';
@@ -32,6 +30,7 @@ class Main extends Component {
 	    super();
 	    this.state = {
 			user: null,
+			email: null,
 			users: null,
 			authCopyUser: null,
 			title: '',
@@ -62,6 +61,8 @@ class Main extends Component {
 			editID: [],
 			//recipes array
 			recipes: [],
+			// pending: true,
+            // loggedIn: null
 		}
 			this.changeUser = this.changeUser.bind(this);
 			this.handleUploadStart = this.handleUploadStart.bind(this);
@@ -84,7 +85,6 @@ class Main extends Component {
 			this.onArraySubmit = this.onArraySubmit.bind(this);
 			this.onEditSubmit = this.onEditSubmit.bind(this);
 	  }
-
 	componentDidMount() {
 		this.hydrateStateWithLocalStorage();
 
@@ -183,7 +183,10 @@ class Main extends Component {
 		  localStorage.setItem(key, JSON.stringify(this.state[key]));
 		}
 	}
-	changeUser = (user) => this.setState({user: user});
+	changeUser = (user, email) => this.setState({
+		user: user,
+		email: email
+	});
 	handleUploadStart = () => this.setState({isUploading: true, progress: 0});
 	handleProgress = (progress) => this.setState({progress});
 	handleUploadError = (error) => {
@@ -381,13 +384,13 @@ class Main extends Component {
 		this.setState({
 			editRecipe: newRecipe,
 			editable: name,
-			canEdit: !this.state.canEdit
+			canEdit: true
 		});
 	}
 	updateRecipe(e, id) {
 		e.preventDefault();
 		const editRecipe = this.state.editRecipe;
-		console.log(editRecipe)
+		console.log("updated")
 		return firebase.database().ref(`/recipes/${id}`).set(editRecipe[0]),
 		this.setState({
 			canEdit: false
@@ -409,7 +412,8 @@ class Main extends Component {
 		// updated with a new state
 		let editArray = [...this.state.editID];
         const remove = editArray.filter(e => e !== name);
-        this.setState({editID: remove });
+		this.setState({editID: remove });
+		console.log("removeID");
 	}
 	onCancel(e, name) {
         e.preventDefault();
@@ -445,6 +449,7 @@ class Main extends Component {
 	}
 	onEditSubmit( e, id, value, name) {
 		e.preventDefault();
+
 		let recipes = this.state.editRecipe;
 		// Find the right recipe in the array of recipes with an id and
 		// then assign the recipe's property the new value
@@ -457,6 +462,7 @@ class Main extends Component {
 		})
 		this.removeID(name);
 		//update the state of recipes array with new value
+
 		this.setState({editRecipe: recipes});
 	}
 	onArraySubmit (e, id, itemID, value, name) {
@@ -483,6 +489,7 @@ class Main extends Component {
 		this.setState({...recipes, recipeMatch});
 
 	}
+
 	render() {
 	    return (
 			<React.Fragment>
@@ -545,7 +552,7 @@ class Main extends Component {
 											onDragEndSteps={this.onDragEndSteps}
 									/>
 								}/>
-								<Route path='/:title-edit' render={(props)=>
+								<Route exact path='/:title-edit' render={(props)=>
 									<Edit
 										{...props}
 										authCopyUser={this.state.authCopyUser}
@@ -574,8 +581,44 @@ class Main extends Component {
 										handleProgress={this.handleProgress}
 										handleUploadError={this.handleUploadError}
 										handleUploadSuccess={this.handleUploadSuccess}
-									/>
-								}/>
+										user={this.state.user}
+
+									/>}
+								/>
+								{/* <Route path='/:title-edit'
+									render={(props)=>
+										<Edit
+										{...props}
+										authCopyUser={this.state.authCopyUser}
+										title={this.state.title}
+										category={this.state.category}
+										recipeTime={this.state.recipeTime}
+										editRecipe={this.state.editRecipe}
+										editable={this.state.editable}
+										canEdit={this.state.canEdit}
+										getRecipe={this.getRecipe}
+										handleChange={this.handleChange}
+										handleSelect={this.handleSelect}
+										recipes={this.state.recipes}
+										updateRecipe={this.updateRecipe}
+										onEditSubmit={this.onEditSubmit}
+										onArraySubmit={this.onArraySubmit}
+										editID={this.state.editID}
+										onEdit={this.onEdit}
+										onCancel={this.onCancel}
+										onDelete={this.onDelete}
+										imageURL={this.state.imageURL}
+										isUploading={this.state.isUploading}
+										progress={this.state.progress}
+										error={this.state.error}
+										handleUploadStart = {this.handleUploadStart}
+										handleProgress={this.handleProgress}
+										handleUploadError={this.handleUploadError}
+										handleUploadSuccess={this.handleUploadSuccess}
+										user={this.state.user}
+										/>
+									}
+								/> */}
 								<Route path='/:title' render={(props)=>
 									<FullRecipe
 
@@ -606,6 +649,7 @@ class Main extends Component {
 										handleProgress={this.handleProgress}
 										handleUploadError={this.handleUploadError}
 										handleUploadSuccess={this.handleUploadSuccess}
+										user={this.state.user}
 									/>
 								}/>
 							</Switch>

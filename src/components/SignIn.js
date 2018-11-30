@@ -62,7 +62,7 @@ class SignIn extends Component {
         console.log(users);
         users.forEach(user => {
           if (user.email === authUser.email) {
-              changeUser(user.username)
+              changeUser(user.username, user.email)
           }
         })
       }

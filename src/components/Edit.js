@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom';
+import withCorrectAccount from './withCorrectAccount';
 import { Transition }  from 'react-spring'
 import CategoryAPI from '../categories'
 import FileUploader from 'react-firebase-file-uploader';
 import firebase from '../firebase/firebase'
+import { doPasswordUpdate } from '../firebase/auth';
 
 const recipeTime = [
     {text: "Short - less than 1 hour"},
@@ -26,9 +28,18 @@ class Edit extends React.Component {
       super();
 	    this.state = {
             deleted: [],
+            editRecipe: [],
+            editable: '',
+            canEdit: false,
         }
         this.inputRefs = [];
         this.deleteList = this.deleteList.bind(this);
+    }
+    componentDidMount(props) {
+        this.props.recipes.filter(rec => {
+            if(rec.user === this.props.user)
+                this.setState({canEdit: true});
+        });
     }
     deleteList(id) {
         let newDelete = this.state.deleted;
@@ -36,6 +47,24 @@ class Edit extends React.Component {
         console.log(newDelete);
         this.setState({deleted: newDelete});
     }
+    // getRecipe () {
+    //     const title = this.props.match.params.title;
+	// 	const recipes = this.props.recipes;
+	// 	const filterRecipes = recipes.filter(recipe => {
+	// 		if (recipe.title.split(' ').join('') === title) {
+	// 			return recipe
+	// 		}
+	// 	})
+	// 	//this will make a deep copy of the filterRecipes array, so there is not a reference to recipes array
+	// 	const newRecipe = JSON.parse(JSON.stringify(filterRecipes ));
+	// 	console.log(newRecipe);
+	// 	this.setState({
+	// 		editRecipe: newRecipe,
+	// 		editable: title,
+	// 		canEdit: !this.state.canEdit
+	// 	});
+    // }
+
 
     render() {
         // let newRecipe = [];
@@ -44,20 +73,27 @@ class Edit extends React.Component {
         //     return recipe
         // })
         // newRecipe = recipes;
+
+        const title = this.props.match.params.title;
+        //console.log(title);
+        const findRecipe = this.props.editRecipe.filter(rec => {
+            if(rec.title.split(' ').join('') === title) {
+                return rec;
+        }});
+
          const form = this.props.editRecipe.map((recipe) => {
             return (
 
                 <div className="update-form--container" key={recipe.id}>
-                    {/* Cancel Button - returns to recipe */}
-
-
+                    <div className="update-form--header">
+                        <h2>Update the Recipe</h2>
+                        {/* Cancel Button - returns to recipe */}
+                        <Link className="cancel-Update" to={`/${recipe.title.split(' ').join('')}`}>
+                            <button className="submit">Cancel</button>
+                        </Link>
+                    </div>
                     <form className="update-form" onSubmit={(e) => {this.props.history.push(`/${recipe.title.split(' ').join('')}`); this.props.updateRecipe(e, recipe.id)}}>
-                        <div className="editRecipe-title">
-                            <h2>Update the Recipe</h2>
-                            <Link className="cancel-Update" to={`/${recipe.title.split(' ').join('')}`}>
-                                <button  className="submit">Cancel</button>
-                            </Link>
-                        </div>
+
                         {/* TITLE UPDATE */}
                         <div className="editRecipe-Column">
                             {this.props.editID.indexOf("title") > -1 ?
@@ -286,7 +322,7 @@ class Edit extends React.Component {
             <React.Fragment>
                 <Transition
                     items={form}
-                    from={{ transform: 'translate3d(0,60px,0)', opacity: 0 }}
+                    from={{ transform: 'translate3d(0,-60px,0)', opacity: 0 }}
                     enter={{ transform: 'translate3d(0,0px,0)', opacity: 1 }}
                     leave={{ transform: 'translate3d(0,60px,0)', opacity: 0 }}>
                     {form =>
@@ -297,5 +333,4 @@ class Edit extends React.Component {
         )
     }
 }
-
-export default Edit;
+export default withCorrectAccount(Edit);
