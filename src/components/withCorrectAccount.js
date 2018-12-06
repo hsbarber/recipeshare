@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom';
 import AuthUserContext from './AuthUserContext';
+import AuthInfoContext from './AuthInfoContext';
 import { auth } from '../firebase/firebase'
 import * as routes from '../constants/routes';
 
@@ -42,58 +43,13 @@ const withCorrectAccount = (Component) => {
             return (
                 <div>
                     {this.state.loggedIn && recipeTitles.indexOf(this.props.match.params.title) >= 0 ?
-                        <Component {...this.props} />
+                            <Component {...this.props} />
                         :
                         <h1>Component not found!</h1>
                     }
                 </div>
             )
         }
-    // render() {
-    //   return (
-    //     <AuthUserContext.Consumer>
-    //       {authUser => authUser ?
-
-    //       <Component
-
-    //       {...this.props}
-    //         authCopyUser={this.props.authCopyUser}
-    //         title={this.props.title}
-    //         category={this.props.category}
-    //         recipeTime={this.props.recipeTime}
-    //         editRecipe={this.props.editRecipe}
-    //         editable={this.props.editable}
-    //         canEdit={this.props.canEdit}
-    //         getRecipe={this.props.getRecipe}
-    //         handleChange={this.props.handleChange}
-    //         handleSelect={this.props.handleSelect}
-    //         recipes={this.props.recipes}
-    //         updateRecipe={this.props.updateRecipe}
-    //         onEditSubmit={this.props.onEditSubmit}
-    //         onArraySubmit={this.props.onArraySubmit}
-    //         editID={this.props.editID}
-    //         onEdit={this.props.onEdit}
-    //         onCancel={this.props.onCancel}
-    //         onDelete={this.props.onDelete}
-    //         imageURL={this.props.imageURL}
-    //         isUploading={this.props.isUploading}
-    //         progress={this.props.progress}
-    //         error={this.props.error}
-    //         handleUploadStart = {this.props.handleUploadStart}
-    //         handleProgress={this.props.handleProgress}
-    //         handleUploadError={this.props.handleUploadError}
-    //         handleUploadSuccess={this.props.handleUploadSuccess}
-    //         user={this.props.user}
-
-
-
-
-
-
-    //       /> : null}
-    //     </AuthUserContext.Consumer>
-    //   );
-    // }
     }
     return withRouter(withCorrectAccount);
 }

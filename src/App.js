@@ -8,10 +8,10 @@ import Main from './containers/Main'
 const App = () => (
   <Router>
     <ScrollTop>
-
-      <Main />
+        <Main />
     </ScrollTop>
   </Router>
+
 )
 
 export default App;
