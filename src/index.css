@@ -84,6 +84,15 @@ section.route-section {
   top: 0;
   left: 0; }
 
+.component-error {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+  .component-error h4:nth-child(2) {
+    margin: 2rem 0; }
+
 .recipeIntro {
   display: flex;
   flex-direction: column;
@@ -566,13 +575,17 @@ header {
       color: #abb8dd;
       border: 1px solid #abb8dd;
       width: calc(100px + (150 - 100) * ((100vw - 300px) / (1600 - 300))); }
-    #sidebar .option h4.category {
-      color: #abb8dd;
-      cursor: pointer; }
-      #sidebar .option h4.category div {
+    #sidebar .option button.category {
+      background-color: transparent;
+      border-radius: 0;
+      min-width: 0;
+      width: auto; }
+      #sidebar .option button.category div {
         display: flex;
         align-items: center; }
-        #sidebar .option h4.category div svg {
+        #sidebar .option button.category div h4 {
+          color: #abb8dd; }
+        #sidebar .option button.category div svg {
           height: 1rem;
           margin-top: 0.25rem;
           margin-left: 1rem; }
@@ -706,13 +719,14 @@ header {
         margin-top: 1rem;
         transition: 0.5s ease-in-out;
         color: #273762;
-        cursor: pointer;
+        background-color: transparent;
         display: flex;
-        align-items: center; }
+        align-items: center;
+        padding: 1rem 0; }
         .display-recipes ul.recipe-list li .remove span {
+          margin-left: 1rem;
           transition: 0.3s all cubic-bezier(1, 0.25, 0.25, 0.8);
-          will-change: transform;
-          margin-left: 1rem; }
+          will-change: transform; }
           .display-recipes ul.recipe-list li .remove span.up {
             transform: rotate(0deg);
             margin-top: 0.5rem; }

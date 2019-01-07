@@ -112,13 +112,17 @@ $lightBlue: lighten($secondary-light, 20%);
         border: 1px solid $lightBlue;
         width: calc(100px + (150 - 100) * ((100vw - 300px) / (1600 - 300)));
       }
-      h4.category {
-        color: $lightBlue;
-        //padding-top: 2rem;
-        cursor: pointer;
+      button.category {
+        background-color: transparent;
+        border-radius: 0;
+        min-width: 0;
+        width: auto;
         div {
           display: flex;
           align-items: center;
+            h4 {
+              color: $lightBlue;
+            }
             svg {
               height: 1rem;
               margin-top: 0.25rem;
@@ -286,14 +290,14 @@ $lightBlue: lighten($secondary-light, 20%);
         margin-top: 1rem;
         transition: 0.5s ease-in-out;
         color: $secondary;
-        cursor: pointer;
+        background-color: transparent;
         display: flex;
         align-items: center;
-
+        padding: 1rem 0;
         span {
+          margin-left: 1rem;
           transition: .3s all cubic-bezier(1, 0.25, 0.25, .8);
           will-change: transform;
-          margin-left: 1rem;
 
           &.up {
             transform: rotate(0deg);
@@ -312,6 +316,7 @@ $lightBlue: lighten($secondary-light, 20%);
     }
   }
 }
+
 .deleteDrop {
   p {
     text-align: center;

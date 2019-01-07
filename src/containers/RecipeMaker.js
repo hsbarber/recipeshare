@@ -1,47 +1,35 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import firebase from '../firebase/firebase'
-import { Spring }  from 'react-spring'
+import firebase from '../firebase/firebase';
 import RecipeForm from '../components/RecipeForm';
-import UserInfo from '../components/userInfo';
 import AuthUserContext from '../components/AuthUserContext';
 import DisplayUI from '../components/DisplayUI';
 import CategoryAPI from '../categories';
 import Menu from '../icons/Menu';
 import Remove from '../icons/Remove';
-import RecipeIcon from '../icons/RecipeIcon';
-
-const UserList = ({users}) =>
-<div>
-  {Object.keys(users).map(key =>
-    <div key={key}>{users[key].username}</div>
-  )}
-</div>
 
 class RecipeMaker extends Component {
   constructor() {
     super();
     this.state = {
-    //user: null,
-    collapse: true,
-    sideBar: false,
-    //filtering of recipe items
-    selectedCat: '',
-    filtered: false,
-    dateChange: false,
-    titleChange: false,
-    displayCategory: CategoryAPI.all(),
-    categoryChecked: false,
-    sorted: false,
-    sorting: 'none',
-    userFilter: 'none',
-    timeCookFilter: 'none',
-    //remove recipe items
-    isModalOpen: false,
-		removeID: ''
-    }
+      // user: null,
+      collapse: true,
+      sideBar: false,
+      // filtering of recipe items
+      filtered: false,
+      dateChange: false,
+      titleChange: false,
+      displayCategory: CategoryAPI.all(),
+      categoryChecked: false,
+      sorted: false,
+      sorting: 'none',
+      userFilter: 'none',
+      timeCookFilter: 'none',
+      // remove recipe items
+      isModalOpen: false,
+      removeID: '',
+    };
     this.toggleCollapse = this.toggleCollapse.bind(this);
-    //this.handleFilter = this.handleFilter.bind(this);
     this.handleAllChecked = this.handleAllChecked.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.toggleCategoryButtons = this.toggleCategoryButtons.bind(this);
@@ -51,148 +39,185 @@ class RecipeMaker extends Component {
     this.handleSort = this.handleSort.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
-   }
+    this.removeRecipe = this.removeRecipe.bind(this);
+  }
+
+  removeRecipe = recipeId => {
+    const recipeRef = firebase.database().ref(`/recipes/${recipeId}`);
+    recipeRef.remove();
+  };
 
   toggleCollapse() {
-		this.setState({collapse: !this.state.collapse});
+    const { collapse } = this.state;
+    this.setState({ collapse: !collapse });
   }
+
+  toggleModal(id) {
+    const { isModalOpen } = this.state;
+    this.setState({ removeID: id });
+    this.setState({ isModalOpen: !isModalOpen });
+  }
+
   toggleSidebar() {
-    this.setState({sideBar: !this.state.sideBar});
+    const { sideBar } = this.state;
+    this.setState({ sideBar: !sideBar });
   }
-	toggleCategoryButtons() {
-		this.setState({
-			filtered: !this.state.filtered,
-		});
-	}
-	toggleDate(name) {
-		this.setState({
-      dateChange: !this.state.dateChange,
-      recipeDisplay: name
-		});
+
+  toggleCategoryButtons() {
+    const { filtered } = this.state;
+    this.setState({
+      filtered: !filtered,
+    });
   }
+
+  toggleDate() {
+    const { dateChange } = this.state;
+    this.setState({
+      dateChange: !dateChange,
+    });
+  }
+
   toggleTitle() {
-		this.setState({
-			titleChange: !this.state.titleChange
-		});
-	}
-	removeRecipe(recipeId) {
-	    const recipeRef = firebase.database().ref(`/recipes/${recipeId}`);
-	    recipeRef.remove();
-	 }
-	toggleModal(id) {
-		this.setState({ removeID: id });
-		this.setState({ isModalOpen: !this.state.isModalOpen });
-	}
-  // handleFilter(index, e) {
-  //     let newItems = this.state.displayCategory.slice();
-  //     newItems[index].checked = !newItems[index].checked
-  //     let checked = this.state.displayCategory.find(function (obj) { return obj.checked === true; });
-  //     checked ? this.setState({ categoryChecked: true }) : this.setState({ categoryChecked: false })
-  //     this.setState({
-  //       displayCategory: newItems,
-  //     })
-  // }
-  handleAllChecked ()  {
-    let checkedCategories = this.state.displayCategory;
-    for (var item of checkedCategories) {
+    const { titleChange } = this.state;
+    this.setState({
+      titleChange: !titleChange,
+    });
+  }
+
+  handleAllChecked() {
+    const { displayCategory } = this.state;
+    for (const item of displayCategory) {
       item.isChecked = false;
     }
-    this.setState({displayCategory: checkedCategories})
-    this.setState({ categoryChecked: false })
+    this.setState({ displayCategory });
+    this.setState({ categoryChecked: false });
+  }
 
+  handleCheck(event) {
+    const { displayCategory } = this.state;
+    displayCategory.forEach(category => {
+      if (category.text === event.target.value)
+        category.isChecked = event.target.checked;
+    });
+    this.setState({ displayCategory });
+    const checked = displayCategory.find(obj => obj.isChecked === true);
+    if (checked) {
+      this.setState({ categoryChecked: true });
+    } else {
+      this.setState({ categoryChecked: false });
+    }
   }
-  handleCheck (event) {
-    let checkedCategories = this.state.displayCategory;
-    checkedCategories.forEach(category => {
-       if (category.text === event.target.value)
-       category.isChecked =  event.target.checked
-    })
-    this.setState({displayCategory: checkedCategories })
-    let checked = this.state.displayCategory.find(function (obj) { return obj.isChecked === true; });
-    checked ? this.setState({ categoryChecked: true }) : this.setState({ categoryChecked: false })
-  }
+
   handleSort(name) {
-    //this.setState({ sorted: true })
-    this.setState({ sorting: name })
+    // this.setState({ sorted: true })
+    this.setState({ sorting: name });
   }
+
   handleFilter(state, name) {
-    this.setState({[state]: name})
+    this.setState({ [state]: name });
   }
+
   deselectFilters() {
-    this.setState({ sorted: !this.state.sorted })
-    this.setState({ categoryChecked: !this.state.categoryChecked })
+    const { sorted, categoryChecked } = this.state;
+    this.setState({ sorted: !sorted });
+    this.setState({ categoryChecked: !categoryChecked });
   }
 
   render() {
+    const {
+      collapse,
+      sideBar,
+      displayCategory,
+      categoryChecked,
+      filtered,
+      removeID,
+      isModalOpen,
+      checkedItems,
+      userChecked,
+      sorted,
+      sorting,
+      userFilter,
+      timeCookFilter,
+    } = this.state;
+    const { loadingUser, user, authUser, recipes, loading } = this.props;
     return (
-    <React.Fragment>
-      <section className="container-bg">
-            <RecipeForm
-              toggleCollapse={this.toggleCollapse}
-              collapse={this.state.collapse}
-              {...this.props}
-            />
-      </section>
-      <section id="top-bar">
-        <div className="browse">
-          <span onClick={this.toggleSidebar}>{this.state.sideBar ? <Remove color="#273762"/> : <Menu color="#273762"/>}</span>
-          <h3>Browse Recipes</h3>
-        </div>
-        <AuthUserContext.Consumer>
-        {(authUser) => authUser && <div className="topBarAccount"><h4>Account</h4><h4>{this.props.loadingUser && "loading ..."}{this.props.user}</h4></div>}
-        </AuthUserContext.Consumer>
-        {/* { !!users && <UserInfo users={this.props.users} newUser={this.newUser} /> } */}
-      </section>
-      <section className='display-recipes'>
-
-        <DisplayUI
-          authUser={this.props.authUser}
-          setCategory={this.setCategory}
-          displayCategory={this.state.displayCategory}
-          recipes={this.props.recipes}
-          user={this.props.user}
-          filtered={this.state.filtered}
-          //handleFilter={this.handleFilter}
-          handleAllChecked={this.handleAllChecked}
-          handleCheck={this.handleCheck}
-          toggleCategoryButtons={this.toggleCategoryButtons}
-          toggleCheckbox={this.toggleCheckbox}
-          removeID={this.state.removeID}
-          removeRecipe={this.removeRecipe}
-          isModalOpen={this.state.isModalOpen}
-          toggleModal={this.toggleModal}
-          toggleTitle={this.toggleTitle}
-          categoryChecked={this.state.categoryChecked}
-          checkedItems={this.state.checkedItems}
-          userChecked={this.state.userChecked}
-          sorted={this.state.sorted}
-          sorting={this.state.sorting}
-          handleSort={this.handleSort}
-          handleFilter={this.handleFilter}
-          userFilter={this.state.userFilter}
-          timeCookFilter={this.state.timeCookFilter}
-          toggleSidebar={this.toggleSidebar}
-          sideBar={this.state.sideBar}
-          loading={this.props.loading}
-        />
-      </section>
-    </React.Fragment>
-    )
+      <React.Fragment>
+        <section className="container-bg">
+          <RecipeForm
+            toggleCollapse={this.toggleCollapse}
+            collapse={collapse}
+            {...this.props}
+          />
+        </section>
+        <section id="top-bar">
+          <div className="browse">
+            <span
+              role="button"
+              tabIndex={0}
+              onKeyDown={this.toggleSidebar}
+              onClick={this.toggleSidebar}
+            >
+              {sideBar ? <Remove color="#273762" /> : <Menu color="#273762" />}
+            </span>
+            <h3>Browse Recipes</h3>
+          </div>
+          <AuthUserContext.Consumer>
+            {authUser =>
+              authUser && (
+                <div className="topBarAccount">
+                  <h4>Account</h4>
+                  <h4>
+                    {loadingUser && 'loading ...'}
+                    {user}
+                  </h4>
+                </div>
+              )
+            }
+          </AuthUserContext.Consumer>
+          {/* { !!users && <UserInfo users={this.props.users} newUser={this.newUser} /> } */}
+        </section>
+        <section className="display-recipes">
+          <DisplayUI
+            user={user}
+            recipes={recipes}
+            authUser={authUser}
+            loading={loading}
+            setCategory={this.setCategory}
+            displayCategory={displayCategory}
+            filtered={filtered}
+            handleAllChecked={this.handleAllChecked}
+            handleCheck={this.handleCheck}
+            toggleCategoryButtons={this.toggleCategoryButtons}
+            toggleCheckbox={this.toggleCheckbox}
+            removeID={removeID}
+            removeRecipe={this.removeRecipe}
+            isModalOpen={isModalOpen}
+            toggleModal={this.toggleModal}
+            toggleTitle={this.toggleTitle}
+            categoryChecked={categoryChecked}
+            checkedItems={checkedItems}
+            userChecked={userChecked}
+            sorted={sorted}
+            sorting={sorting}
+            handleSort={this.handleSort}
+            handleFilter={this.handleFilter}
+            userFilter={userFilter}
+            timeCookFilter={timeCookFilter}
+            toggleSidebar={this.toggleSidebar}
+            sideBar={sideBar}
+          />
+        </section>
+      </React.Fragment>
+    );
   }
 }
 
+export default RecipeMaker;
 RecipeMaker.propTypes = {
   user: PropTypes.string,
-  login: PropTypes.func,
-  logout: PropTypes.func,
   toggleDate: PropTypes.func,
   dateChange: PropTypes.bool,
   toggleCategoryButtons: PropTypes.func,
   filtered: PropTypes.bool,
   selectedCat: PropTypes.string,
-}
-export default RecipeMaker
-
-
-
-
+};

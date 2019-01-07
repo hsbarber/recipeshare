@@ -3,20 +3,20 @@ import AuthUserContext from './AuthUserContext';
 import { db } from '../firebase/firebase';
 import withAuthorization from './withAuthorization';
 
-let newArray = [];
-const UserFilter = (props) =>
-    <div>
-        {props.users.filter(user => {
-                if (user.username === "samuel") {
-                    {props.newUser(user.username)}
-                }
-            })
+const newArray = [];
+const UserFilter = props => (
+  <div>
+    {props.users.filter(user => {
+      if (user.username === 'samuel') {
+        {
+          props.newUser(user.username);
         }
-    </div>
-
+      }
+    })}
+  </div>
+);
 
 // const UserInfo = (props) =>
-
 
 //  	<div>
 //         <AuthUserContext.Consumer>
@@ -32,19 +32,23 @@ const UserFilter = (props) =>
 //     </div>
 
 // export default UserInfo;
-const UserInfo = (props) =>
-    <div>
-        <AuthUserContext.Consumer>
-        {
-        authUser =>
+const UserInfo = props => (
+  <div>
+    <AuthUserContext.Consumer>
+      {authUser => (
         <div>
-            <UserFilter users={props.users} authUser={authUser} newUser={props.newUser}/>
-            <h4>{props.user}</h4>
+          <UserFilter
+            users={props.users}
+            authUser={authUser}
+            newUser={props.newUser}
+          />
+          <h4>{props.user}</h4>
         </div>
-        }
-        </AuthUserContext.Consumer>
-    </div>
+      )}
+    </AuthUserContext.Consumer>
+  </div>
+);
 
-//const authCondition = (authUser) => !!authUser;
+// const authCondition = (authUser) => !!authUser;
 
 export default UserInfo;

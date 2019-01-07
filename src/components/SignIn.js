@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { PasswordForgetLink } from './PasswordForget';
 import { SignUpLink } from './SignUp';
 import { auth } from '../firebase';
 import * as routes from '../constants/routes';
 
-const SignInPage = ({ history, users, changeUser }) =>
+const SignIn = ({ history, users, changeUser }) => (
   <div className="container-bg">
     <div className="form--container">
       <div className="form">
         <h2>Sign In</h2>
-        <SignIn history={history} users={users}
-        changeUser={changeUser}
-        />
-
+        <SignInForm history={history} users={users} changeUser={changeUser} />
       </div>
     </div>
   </div>
-const byPropKey = (propertyName, value) => () => ({
-  [propertyName]: value,
-});
+);
+SignIn.propTypes = {
+  history: PropTypes.object,
+  users: PropTypes.instanceOf(Array),
+  changeUser: PropTypes.func,
+};
+
+// const byPropKey = (propertyName, value) => () => ({
+//   [propertyName]: value,
+// });
 
 const signInState = {
   email: '',
@@ -27,80 +32,60 @@ const signInState = {
   error: null,
 };
 
-class SignIn extends Component {
+class SignInForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...signInState};
+    this.state = { ...signInState };
   }
-  // componentDidUpdate() {
-  //   const { users } = this.props;
-  //     users.forEach(user => {
-  //         if ( this.props.authCopyUser !== null && user.email === this.props.authCopyUser.email) {
-  //           //this.setState({ user: user.username });
-  //           console.log(user.username)
-  //           {() => this.props.changeUser(user.username)}
-  //         }
-  //     })
-  // }
 
-  onSubmit = (event) => {
+  onSubmit = event => {
     event.preventDefault();
-    const {
-      email,
-      password,
-    } = this.state;
-    const {
-      history,
-      users,
-      changeUser,
-    } = this.props;
+    const { email, password } = this.state;
+    const { users, changeUser, history } = this.props;
 
-    auth.doSignInWithEmailAndPassword(email, password)
-    .then((authUser) => {
-      this.setState({ ...signInState });
-      if (authUser) {
-        console.log(users);
-        users.forEach(user => {
-          if (user.email === authUser.email) {
-              changeUser(user.username, user.email)
-          }
-        })
-      }
+    auth
+      .doSignInWithEmailAndPassword(email, password)
+      .then(authUser => {
+        this.setState({ ...signInState });
+        if (authUser) {
+          users.forEach(user => {
+            if (user.email === authUser.email) {
+              changeUser(user.username, user.email);
+            }
+          });
+        }
+      })
+      .then(() => {
+        history.push(routes.HOME);
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+  };
 
-    })
-    .then(() => {
-     history.push(routes.HOME);
-    })
-    .catch(error => {
-      this.setState(byPropKey('error', error));
-    });
-
-
-  }
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
-    const {
-      email,
-      password,
-      error,
-    } = this.state;
+    const { email, password, error } = this.state;
 
-    const isInvalid =
-      password === '' ||
-      email === '';
+    const isInvalid = password === '' || email === '';
 
     return (
       <form className="form--inputs" onSubmit={this.onSubmit}>
         <h4>Welcome Back, sign in to continue to RecipeShare</h4>
         <input
+          name="email"
           value={email}
-          onChange={event => this.setState(byPropKey('email', event.target.value))}
+          onChange={this.onChange}
           type="text"
           placeholder="Email Address"
         />
         <input
+          name="password"
           value={password}
-          onChange={event => this.setState(byPropKey('password', event.target.value))}
+          onChange={this.onChange}
           type="password"
           placeholder="Password"
         />
@@ -109,14 +94,18 @@ class SignIn extends Component {
         </button>
         <PasswordForgetLink />
         <SignUpLink />
-        { error && <p>{error.message}</p> }
+        {error && <p>{error.message}</p>}
       </form>
     );
   }
 }
 
-export default withRouter(SignInPage);
+export default withRouter(SignIn);
 
-export {
-  SignIn,
+export { SignInForm };
+
+SignInForm.propTypes = {
+  history: PropTypes.object,
+  users: PropTypes.instanceOf(Array),
+  changeUser: PropTypes.func,
 };
