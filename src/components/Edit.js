@@ -4,8 +4,6 @@ import withCorrectAccount from './withCorrectAccount';
 import EditForm from './EditForm';
 
 class Edit extends React.Component {
-  componentWillMount() {}
-
   render() {
     const form = <EditForm {...this.props} />;
 
@@ -23,4 +21,4 @@ class Edit extends React.Component {
     );
   }
 }
-export default withCorrectAccount(Edit);
+export default Edit;

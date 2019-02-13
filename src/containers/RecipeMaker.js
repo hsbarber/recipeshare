@@ -27,7 +27,7 @@ class RecipeMaker extends Component {
       timeCookFilter: 'none',
       // remove recipe items
       isModalOpen: false,
-      removeID: '',
+      removeID: {},
     };
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.handleAllChecked = this.handleAllChecked.bind(this);
@@ -53,9 +53,9 @@ class RecipeMaker extends Component {
   }
 
   toggleModal(id) {
-    const { isModalOpen } = this.state;
-    this.setState({ removeID: id });
-    this.setState({ isModalOpen: !isModalOpen });
+    const { removeID } = { ...this.state };
+    removeID[id] = !removeID[id];
+    this.setState({ removeID });
   }
 
   toggleSidebar() {
@@ -139,7 +139,7 @@ class RecipeMaker extends Component {
       userFilter,
       timeCookFilter,
     } = this.state;
-    const { loadingUser, user, authUser, recipes, loading } = this.props;
+    const { user, authUser, recipes, loading } = this.props;
     return (
       <React.Fragment>
         <section className="container-bg">
@@ -166,10 +166,7 @@ class RecipeMaker extends Component {
               authUser && (
                 <div className="topBarAccount">
                   <h4>Account</h4>
-                  <h4>
-                    {loadingUser && 'loading ...'}
-                    {user}
-                  </h4>
+                  <h4>{user}</h4>
                 </div>
               )
             }
@@ -215,6 +212,9 @@ class RecipeMaker extends Component {
 export default RecipeMaker;
 RecipeMaker.propTypes = {
   user: PropTypes.string,
+  authUser: PropTypes.object,
+  recipes: PropTypes.instanceOf(Array),
+  loading: PropTypes.bool,
   toggleDate: PropTypes.func,
   dateChange: PropTypes.bool,
   toggleCategoryButtons: PropTypes.func,

@@ -28,7 +28,7 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      user: null,
+      user: JSON.parse(localStorage.getItem('user')),
       email: null,
       users: null,
       authCopyUser: null,
@@ -53,7 +53,6 @@ class Main extends Component {
       errors: {},
       errorAnimate: false,
       loading: true,
-      loadingUser: true,
       editID: '',
       // recipes array
       recipes: [],
@@ -99,7 +98,7 @@ class Main extends Component {
       const { authCopyUser, users } = this.state;
       users.forEach(user => {
         if (authCopyUser != null && user.email === authCopyUser.email) {
-          this.setState({ user: user.username, loadingUser: false });
+          this.setState({ user: user.username });
         }
       });
     });
@@ -190,11 +189,13 @@ class Main extends Component {
     });
   }
 
-  changeUser = (user, email) =>
+  changeUser = (user, email) => {
+    localStorage.setItem('user', JSON.stringify(user));
     this.setState({
       user,
       email,
     });
+  };
 
   handleProgress = progress => this.setState({ progress });
 
@@ -389,7 +390,6 @@ class Main extends Component {
       user,
       users,
       loading,
-      loadingUser,
       title,
       errorAnimate,
       errors,
@@ -441,7 +441,6 @@ class Main extends Component {
                 login={this.login}
                 logout={this.logout}
                 loading={loading}
-                loadingUser={loadingUser}
                 user={user}
                 users={users}
                 title={title}

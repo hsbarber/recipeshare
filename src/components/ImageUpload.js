@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FileUploader from 'react-firebase-file-uploader';
 import firebase from '../firebase/firebase';
+import 'firebase/storage';
 
 function ImageUpload(props) {
   const {

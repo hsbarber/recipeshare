@@ -47,6 +47,7 @@ function RecipeForm(props) {
     steps,
     onDragEndSteps,
     errorAnimate,
+    authCopyUser,
   } = props;
   return (
     <div>

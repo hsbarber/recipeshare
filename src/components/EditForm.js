@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import FileUploader from 'react-firebase-file-uploader';
 import CategoryAPI from '../categories';
 import firebase from '../firebase/firebase';
+import AuthUserContext from './AuthUserContext';
+import * as routes from '../constants/routes';
 
 const recipeTime = [
   { text: 'Short - less than 1 hour' },
@@ -28,8 +30,9 @@ class EditForm extends Component {
     super();
     this.state = {
       deleted: [],
-      editRecipe: [],
-      canEdit: false,
+      // editRecipe: [],
+      editRecipe: JSON.parse(localStorage.getItem('editRecipe')),
+      canEdit: true,
       editID: [],
     };
     this.inputRefs = [];
@@ -42,35 +45,58 @@ class EditForm extends Component {
     this.onEditSubmit = this.onEditSubmit.bind(this);
   }
 
-  componentWillMount() {
-    const { recipes, match } = this.props;
+  componentDidMount() {
+    const { recipes, match, user } = this.props;
+    const { editRecipe } = this.state;
     const { title } = match.params;
     // filter recipes array to only be the array with same title as router title
     const findRecipe = recipes.filter(recipe =>
       recipe.title.replace(/\s/g, '') === title ? recipe : null
     );
+
     // create a deep copy  of the findRecipe array
     const newRecipe = JSON.parse(JSON.stringify(findRecipe));
-    // set state of editRecipe to copied array
-    this.setState({
-      editRecipe: newRecipe,
-      canEdit: true,
-    });
-  }
-
-  componentDidMount() {
-    this.hydrateStateWithLocalStorage();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener(
-      'beforeunload',
-      this.saveStateToLocalStorage.bind(this)
+    const findCorrect = recipes.filter(recipe =>
+      recipe.user === user ? recipe : null
     );
-
-    // saves if component has a chance to unmount
-    this.saveStateToLocalStorage();
+    console.log(findCorrect);
+    const recipeTitles = findCorrect.map(rec => rec.title.split(' ').join(''));
+    // set state of editRecipe to copied array
+    if (recipeTitles.indexOf(match.params.title) >= 0) {
+      localStorage.setItem('editRecipe', JSON.stringify(newRecipe));
+      this.setState({
+        editRecipe: newRecipe,
+      });
+    } else {
+      this.setState({
+        editRecipe,
+      });
+      // if (recipeTitles.indexOf(match.params.title) >= 0) {
+      //   this.setState({
+      //     canEdit: true,
+      //   });
+      // } else {
+      //   this.setState({
+      //     canEdit: false,
+      //   });
+      // }
+      // localStorage.removeItem('editRecipe');
+    }
   }
+
+  // componentDidMount() {}
+
+  // componentWillUnmount() {
+  //   const { editRecipe } = this.state;
+  //   localStorage.setItem('editRecipe', JSON.stringify(editRecipe));
+  //   // window.removeEventListener(
+  //   //   'beforeunload',
+  //   //   this.saveStateToLocalStorage.bind(this)
+  //   // );
+
+  //   // // saves if component has a chance to unmount
+  //   // this.saveStateToLocalStorage();
+  // }
 
   onEdit(id) {
     // on clicking the edit button, take the passed id
@@ -83,7 +109,7 @@ class EditForm extends Component {
 
   onEditSubmit(e, id, value, name) {
     e.preventDefault();
-    const editRecipe = this.state;
+    const { editRecipe } = this.state;
     let recipes = editRecipe;
     // Find the right recipe in the array of recipes with an id and
     // then assign the recipe's property the new value
@@ -141,7 +167,7 @@ class EditForm extends Component {
     // this function filters the editID array to form a new
     // array without the item clicked. Then, the editID state
     // updated with a new state
-    const editID = this.state;
+    const { editID } = this.state;
     const editArray = [...editID];
     const remove = editArray.filter(e => e !== name);
     this.setState({ editID: remove });
@@ -213,8 +239,11 @@ class EditForm extends Component {
       onArraySubmit,
       deleteList,
     } = this;
-    const { editRecipe, editID, deleted } = this.state;
+    const { canEdit, editRecipe, editID, deleted } = this.state;
     const {
+      user,
+      match,
+      recipes,
       history,
       category,
       handleSelect,
@@ -227,7 +256,8 @@ class EditForm extends Component {
       handleUploadSuccess,
       handleProgress,
     } = this.props;
-    return editRecipe.map(recipe => (
+
+    const returnedRecipe = editRecipe.map(recipe => (
       <div className="update-form--container" key={recipe.id}>
         <div className="update-form--header">
           <h2>Update the Recipe</h2>
@@ -300,7 +330,7 @@ class EditForm extends Component {
               </div>
             )}
             {/* CATEGORY UPDATE */}
-            <div className="select">
+            <div className="select categorySelect">
               <div>
                 <p>
                   <span>Category</span>: {recipe.category}
@@ -664,12 +694,22 @@ class EditForm extends Component {
         </form>
       </div>
     ));
+    const recipeError = (
+      <div className="component-error">
+        <h1>Page not found!</h1>
+        <h4>You may need to sign in to access this page.</h4>
+        <h4>
+          <Link to={routes.SIGN_IN}>Sign In</Link>
+        </h4>
+      </div>
+    );
+    return <React.Fragment>{returnedRecipe}</React.Fragment>;
   }
 }
-
 export default EditForm;
 
 EditForm.propTypes = {
+  user: PropTypes.object,
   recipes: PropTypes.instanceOf(Array),
   match: PropTypes.object,
   history: PropTypes.object,
