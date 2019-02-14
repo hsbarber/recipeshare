@@ -21,4 +21,4 @@ class Edit extends React.Component {
     );
   }
 }
-export default Edit;
+export default withCorrectAccount(Edit);

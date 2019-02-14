@@ -131,6 +131,11 @@ class Main extends Component {
     });
   }
 
+  componentDidUpdate() {
+    const { recipes } = this.state;
+    localStorage.setItem('recipes', JSON.stringify(recipes));
+  }
+
   componentWillUnmount() {
     window.removeEventListener(
       'beforeunload',

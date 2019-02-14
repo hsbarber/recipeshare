@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import FileUploader from 'react-firebase-file-uploader';
 import CategoryAPI from '../categories';
 import firebase from '../firebase/firebase';
-import AuthUserContext from './AuthUserContext';
 import * as routes from '../constants/routes';
 
 const recipeTime = [
@@ -26,13 +25,11 @@ const CategorySelect = CategoryShift.map((category, index) => (
   </option>
 ));
 class EditForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       deleted: [],
-      // editRecipe: [],
-      editRecipe: JSON.parse(localStorage.getItem('editRecipe')),
-      canEdit: true,
+      editRecipe: props.editRecipe,
       editID: [],
     };
     this.inputRefs = [];
@@ -45,44 +42,44 @@ class EditForm extends Component {
     this.onEditSubmit = this.onEditSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const { recipes, match, user } = this.props;
-    const { editRecipe } = this.state;
-    const { title } = match.params;
-    // filter recipes array to only be the array with same title as router title
-    const findRecipe = recipes.filter(recipe =>
-      recipe.title.replace(/\s/g, '') === title ? recipe : null
-    );
+  //   componentDidMount() {
+  //     // const { recipes, match, user, correctRecipe } = this.props;
+  //     // const { editRecipe } = this.state;
+  //     // const { title } = match.params;
+  //     // console.log(correctRecipe);
+  //     // // filter recipes array to only be the array with same title as router title
+  //     // const findRecipe = recipes.filter(recipe =>
+  //     //   recipe.title.replace(/\s/g, '') === title ? recipe : null
+  //     // );
 
-    // create a deep copy  of the findRecipe array
-    const newRecipe = JSON.parse(JSON.stringify(findRecipe));
-    const findCorrect = recipes.filter(recipe =>
-      recipe.user === user ? recipe : null
-    );
-    console.log(findCorrect);
-    const recipeTitles = findCorrect.map(rec => rec.title.split(' ').join(''));
-    // set state of editRecipe to copied array
-    if (recipeTitles.indexOf(match.params.title) >= 0) {
-      localStorage.setItem('editRecipe', JSON.stringify(newRecipe));
-      this.setState({
-        editRecipe: newRecipe,
-      });
-    } else {
-      this.setState({
-        editRecipe,
-      });
-      // if (recipeTitles.indexOf(match.params.title) >= 0) {
-      //   this.setState({
-      //     canEdit: true,
-      //   });
-      // } else {
-      //   this.setState({
-      //     canEdit: false,
-      //   });
-      // }
-      // localStorage.removeItem('editRecipe');
-    }
-  }
+  //     // // create a deep copy  of the findRecipe array
+  //     // const newRecipe = JSON.parse(JSON.stringify(findRecipe));
+  //     // const findCorrect = recipes.filter(recipe =>
+  //     //   recipe.user === user ? recipe : null
+  //     // );
+  //     // const recipeTitles = findCorrect.map(rec => rec.title.split(' ').join(''));
+  //     // // set state of editRecipe to copied array
+  //     // if (recipeTitles.indexOf(match.params.title) >= 0) {
+  //     //   localStorage.setItem('editRecipe', JSON.stringify(newRecipe));
+  //     //   this.setState({
+  //     //     editRecipe: newRecipe,
+  //     //   });
+  //     // } else {
+  //     //   this.setState({
+  //     //     editRecipe,
+  //     //   });
+  //     // if (recipeTitles.indexOf(match.params.title) >= 0) {
+  //     //   this.setState({
+  //     //     canEdit: true,
+  //     //   });
+  //     // } else {
+  //     //   this.setState({
+  //     //     canEdit: false,
+  //     //   });
+  //     // }
+  //     // localStorage.removeItem('editRecipe');
+  //   }
+  // }
 
   // componentDidMount() {}
 
@@ -174,51 +171,17 @@ class EditForm extends Component {
   }
 
   updateRecipe(e, id) {
+    console.log(id);
     e.preventDefault();
     const { editRecipe } = this.state;
+
     return (
       firebase
         .database()
         .ref(`/recipes/${id}`)
         .set(editRecipe[0]),
-      this.setState({
-        canEdit: false,
-      }),
       alert('Updates submitted')
     );
-  }
-
-  // local storage - when component mounts, set state from local storage
-  hydrateStateWithLocalStorage() {
-    // for each item in state
-    Object.keys(this.state).forEach(key => {
-      // if the key exists in localStorage
-      if (localStorage.hasOwnProperty.call(key)) {
-        // get the key's value from localStorage
-        let value = localStorage.getItem(key);
-
-        // parse the localStorage string and setState
-        try {
-          value = JSON.parse(value);
-          this.setState({ [key]: value });
-        } catch (e) {
-          // handle empty string
-          this.setState({ [key]: value });
-        }
-      }
-    });
-  }
-
-  // local storage - when component unmounts, save state to local storage
-  saveStateToLocalStorage() {
-    const { state } = this;
-    // for every item in state, save to ls
-    Object.keys(state).forEach(key => {
-      localStorage.setItem(key, JSON.stringify(state[key]));
-    });
-    // for (const key in this.state) {
-    //   localStorage.setItem(key, JSON.stringify(this.state[key]));
-    // }
   }
 
   deleteList(id) {
@@ -239,11 +202,8 @@ class EditForm extends Component {
       onArraySubmit,
       deleteList,
     } = this;
-    const { canEdit, editRecipe, editID, deleted } = this.state;
+    const { editRecipe, editID, deleted } = this.state;
     const {
-      user,
-      match,
-      recipes,
       history,
       category,
       handleSelect,
@@ -687,31 +647,20 @@ class EditForm extends Component {
           </div>
           <div className="submit-Block">
             <h4>Submit the Updates:</h4>{' '}
-            <button type="button" className="submit">
+            <button type="submit" className="submit">
               submit
             </button>
           </div>
         </form>
       </div>
     ));
-    const recipeError = (
-      <div className="component-error">
-        <h1>Page not found!</h1>
-        <h4>You may need to sign in to access this page.</h4>
-        <h4>
-          <Link to={routes.SIGN_IN}>Sign In</Link>
-        </h4>
-      </div>
-    );
     return <React.Fragment>{returnedRecipe}</React.Fragment>;
   }
 }
 export default EditForm;
 
 EditForm.propTypes = {
-  user: PropTypes.object,
-  recipes: PropTypes.instanceOf(Array),
-  match: PropTypes.object,
+  editRecipe: PropTypes.instanceOf(Array),
   history: PropTypes.object,
   category: PropTypes.string,
   recipeTime: PropTypes.string,
