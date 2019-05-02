@@ -1,0 +1,334 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecipeItem recipe matches snapshot 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <FullRecipe
+    match={
+      Object {
+        "isExact": true,
+        "params": Object {
+          "path": "/:title",
+          "title": "RoastedButternutSquashSoup",
+          "url": "/RoastedButternutSquashSoup",
+        },
+      }
+    }
+    recipes={
+      Array [
+        Object {
+          "category": "Mediterranean",
+          "email": "haganb3@gmail.com",
+          "id": "-LKsBjUcn-7KrbxFIlJa",
+          "imageURL": "https://firebasestorage.googleapis.com/v0/b/recipes-cc787.appspot.com/o/images%2F3a92e118-0760-4bfc-92b6-d1176a1889d4.jpg?alt=media&token=f9e3c5e5-6766-41be-a35e-d026f1075826",
+          "ingredients": Array [
+            Object {
+              "content": "butter",
+              "id": 1535319837489,
+            },
+            Object {
+              "content": "bread",
+              "id": 1535319837488,
+            },
+            Object {
+              "content": "cheese",
+              "id": 1535319837487,
+            },
+          ],
+          "link": undefined,
+          "notes": "easy soup with squash and butter and sage.",
+          "recipeTime": undefined,
+          "steps": Array [
+            Object {
+              "content": "heat up",
+              "id": 1535319837491,
+            },
+            Object {
+              "content": "STIR",
+              "id": 1535319837492,
+            },
+            Object {
+              "content": "serve",
+              "id": 1535319837493,
+            },
+          ],
+          "time": 1535319939642,
+          "title": "Roasted Butternut Squash Soup",
+          "user": "hagan",
+        },
+      ]
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": [Function],
+      "enter": Object {
+        "opacity": 1,
+        "transform": "translate3d(0,0px,0)",
+      },
+      "from": Object {
+        "opacity": 0,
+        "transform": "translate3d(0,60px,0)",
+      },
+      "items": Array [
+        <div>
+          <div
+            className="fullRecipe"
+          >
+            <div
+              className="fullRecipe--tBlock"
+            >
+              <div
+                className="fullRecipe--tBlock-box"
+              >
+                <div
+                  className="titleBox"
+                >
+                  <h3>
+                    Roasted Butternut Squash Soup
+                  </h3>
+                  <p>
+                    <span>
+                      Category
+                    </span>
+                    <span>
+                      Mediterranean
+                    </span>
+                  </p>
+                  <p>
+                    easy soup with squash and butter and sage.
+                  </p>
+                  <Context.Consumer>
+                    [Function]
+                  </Context.Consumer>
+                </div>
+              </div>
+              <div
+                className="fullRecipe--tBlock-image"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://firebasestorage.googleapis.com/v0/b/recipes-cc787.appspot.com/o/images%2F3a92e118-0760-4bfc-92b6-d1176a1889d4.jpg?alt=media&token=f9e3c5e5-6766-41be-a35e-d026f1075826)",
+                  }
+                }
+              />
+            </div>
+            <div
+              className="fullRecipe--bBlock"
+            >
+              <div
+                className="fullRecipe--bBlock-ingredients"
+              >
+                <h3>
+                  Ingredients
+                </h3>
+                <p>
+                  butter
+                </p>
+                <p>
+                  bread
+                </p>
+                <p>
+                  cheese
+                </p>
+              </div>
+              <div
+                className="fullRecipe--bBlock-steps"
+              >
+                <h3>
+                  Steps
+                </h3>
+                <p>
+                  <span>
+                    1
+                    .
+                  </span>
+                   
+                  heat up
+                </p>
+                <p>
+                  <span>
+                    2
+                    .
+                  </span>
+                   
+                  STIR
+                </p>
+                <p>
+                  <span>
+                    3
+                    .
+                  </span>
+                   
+                  serve
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>,
+      ],
+      "keys": [Function],
+      "leave": Object {
+        "opacity": 0,
+        "transform": "translate3d(0,-60px,0)",
+      },
+      "reset": false,
+      "unique": false,
+    },
+    "ref": null,
+    "rendered": [Function],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": [Function],
+        "enter": Object {
+          "opacity": 1,
+          "transform": "translate3d(0,0px,0)",
+        },
+        "from": Object {
+          "opacity": 0,
+          "transform": "translate3d(0,60px,0)",
+        },
+        "items": Array [
+          <div>
+            <div
+              className="fullRecipe"
+            >
+              <div
+                className="fullRecipe--tBlock"
+              >
+                <div
+                  className="fullRecipe--tBlock-box"
+                >
+                  <div
+                    className="titleBox"
+                  >
+                    <h3>
+                      Roasted Butternut Squash Soup
+                    </h3>
+                    <p>
+                      <span>
+                        Category
+                      </span>
+                      <span>
+                        Mediterranean
+                      </span>
+                    </p>
+                    <p>
+                      easy soup with squash and butter and sage.
+                    </p>
+                    <Context.Consumer>
+                      [Function]
+                    </Context.Consumer>
+                  </div>
+                </div>
+                <div
+                  className="fullRecipe--tBlock-image"
+                  style={
+                    Object {
+                      "backgroundImage": "url(https://firebasestorage.googleapis.com/v0/b/recipes-cc787.appspot.com/o/images%2F3a92e118-0760-4bfc-92b6-d1176a1889d4.jpg?alt=media&token=f9e3c5e5-6766-41be-a35e-d026f1075826)",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="fullRecipe--bBlock"
+              >
+                <div
+                  className="fullRecipe--bBlock-ingredients"
+                >
+                  <h3>
+                    Ingredients
+                  </h3>
+                  <p>
+                    butter
+                  </p>
+                  <p>
+                    bread
+                  </p>
+                  <p>
+                    cheese
+                  </p>
+                </div>
+                <div
+                  className="fullRecipe--bBlock-steps"
+                >
+                  <h3>
+                    Steps
+                  </h3>
+                  <p>
+                    <span>
+                      1
+                      .
+                    </span>
+                     
+                    heat up
+                  </p>
+                  <p>
+                    <span>
+                      2
+                      .
+                    </span>
+                     
+                    STIR
+                  </p>
+                  <p>
+                    <span>
+                      3
+                      .
+                    </span>
+                     
+                    serve
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>,
+        ],
+        "keys": [Function],
+        "leave": Object {
+          "opacity": 0,
+          "transform": "translate3d(0,-60px,0)",
+        },
+        "reset": false,
+        "unique": false,
+      },
+      "ref": null,
+      "rendered": [Function],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

@@ -59,7 +59,11 @@ function RecipeItem(props) {
         : ''}
 
       {removeID[recipe.id] && (
-        <AnimateHeight duration={500} height={removeID[recipe.id] ? 'auto' : 0}>
+        <AnimateHeight
+          className="dropDown"
+          duration={500}
+          height={removeID[recipe.id] ? 'auto' : 0}
+        >
           <div className="deleteDrop">
             <p>Are you sure you want to Delete?</p>
             <p className="deleteButtons">

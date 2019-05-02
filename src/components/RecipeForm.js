@@ -36,8 +36,10 @@ function RecipeForm(props) {
     title,
     errors,
     category,
+    categoryVal,
     recipeTime,
     handleSelect,
+    handleNewSelect,
     notes,
     link,
     addItemArray,
@@ -111,19 +113,18 @@ function RecipeForm(props) {
                 name="title"
                 placeholder="What's the title of your recipe?"
                 onChange={e => handleChange(e)}
-                value={title}
               />
             </div>
-            <div className="errorMsg">{errors.title}</div>
+            {errorAnimate && <div className="errorMsg">{errors.title}</div>}
             <ImageUpload {...props} />
             <div className="rForm--select">
               <h4>Choose a recipe category</h4>
               <select
-                value={category}
+                value={categoryVal}
                 name="category"
-                onChange={e => handleSelect(e, 'category')}
+                onChange={handleNewSelect}
               >
-                <option defaultValue="American">American</option>
+                {/* <option defaultValue="American">American</option> */}
                 {CategorySelect}
               </select>
             </div>
@@ -154,7 +155,9 @@ function RecipeForm(props) {
             <div className="rForm--input-vertical">
               <h4>Add your ingredients</h4>
               <ListForm addItemArray={addItemArray} inputName="ingredient" />
-              <div className="errorMsg">{errors.ingredients}</div>
+              {errorAnimate && (
+                <div className="errorMsg">{errors.ingredients}</div>
+              )}
               <PrintList
                 list={ingredients}
                 dragEnd={onDragEnd}
@@ -165,7 +168,7 @@ function RecipeForm(props) {
             <div className="rForm--input-vertical">
               <h4>Add the steps to your recipe</h4>
               <ListForm addItemArray={addItemArray} inputName="step" />
-              <div className="errorMsg">{errors.steps}</div>
+              {errorAnimate && <div className="errorMsg">{errors.steps}</div>}
               <PrintList
                 list={steps}
                 dragEnd={onDragEndSteps}
@@ -173,11 +176,9 @@ function RecipeForm(props) {
                 name="steps"
               />
             </div>
-            <AnimateHeight duration={500} height={errorAnimate ? 'auto' : 0}>
-              {errorAnimate && (
-                <div className="errorMsg--form">{errors.form}</div>
-              )}
-            </AnimateHeight>
+            {errorAnimate && (
+              <div className="errorMsg errorForm">{errors.form}</div>
+            )}
             <button type="submit" className="submit">
               Add Recipe
             </button>

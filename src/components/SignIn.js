@@ -78,14 +78,14 @@ class SignInForm extends Component {
         <input
           name="email"
           value={email}
-          onChange={this.onChange}
+          onChange={this.onChange.bind(this)}
           type="text"
           placeholder="Email Address"
         />
         <input
           name="password"
           value={password}
-          onChange={this.onChange}
+          onChange={this.onChange.bind(this)}
           type="password"
           placeholder="Password"
         />

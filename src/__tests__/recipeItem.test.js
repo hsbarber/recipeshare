@@ -25,28 +25,20 @@ const fakeItem = {
   ],
   time: 1535319939642,
   title: 'Roasted Butternut Squash Soup',
-  user: 'Frank',
+  user: 'hagan',
 };
 const getDefaultProps = () => ({
   toggleModal: jest.fn(),
-  isModalOpen: false,
-  removeID: '-LKsBjUcn-7KrbxFIlJa',
+  removeID: {},
   removeRecipe: jest.fn(),
-  user: 'Frank',
+  user: 'hagan',
 });
 describe('RecipeItem', () => {
-  const {
-    toggleModal,
-    isModalOpen,
-    removeID,
-    removeRecipe,
-    user,
-  } = getDefaultProps();
+  const { toggleModal, removeID, removeRecipe, user } = getDefaultProps();
   it('shallow renders without crashing', () => {
     shallow(
       <RecipeItem
         toggleModal={toggleModal}
-        isModalOpen={isModalOpen}
         removeID={removeID}
         removeRecipe={removeRecipe}
         user={user}
@@ -58,7 +50,6 @@ describe('RecipeItem', () => {
     const wrapper = shallow(
       <RecipeItem
         toggleModal={toggleModal}
-        isModalOpen={isModalOpen}
         removeID={removeID}
         removeRecipe={removeRecipe}
         user={user}
@@ -71,8 +62,7 @@ describe('RecipeItem', () => {
   it('When user does not match recipe.user, recipe dropdown not visible', () => {
     const props = {
       toggleModal: jest.fn(),
-      isModalOpen: true,
-      removeID: '-LKsBjUcn-7KrbxFIlJa',
+      removeID: {},
       removeRecipe: jest.fn(),
       user: 'John',
     };
@@ -89,38 +79,38 @@ describe('RecipeItem Toggle', () => {
   it('expect delete modal to not be visible, when removeID is blank', () => {
     const props = {
       toggleModal: jest.fn(),
-      isModalOpen: false,
-      removeID: '',
+      removeID: {},
       removeRecipe: jest.fn(),
-      user: 'Frank',
+      user: 'hagan',
     };
     const RecipeItemComponent = mount(
       <MemoryRouter>
         <RecipeItem {...props} recipe={fakeItem} />
       </MemoryRouter>
     );
-    console.log(RecipeItemComponent.debug());
-    expect(RecipeItemComponent.find('.deleteDrop')).toHaveLength(0);
+    expect(RecipeItemComponent.find('.deleteDrop').exists()).toEqual(false);
     RecipeItemComponent.unmount();
   });
   it('delete modal becomes visible after remove button is clicked on', () => {
     const props = {
       toggleModal: jest.fn(),
-      isModalOpen: false,
-      removeID: '',
+      removeID: { '-LKsBjUcn-7KrbxFIlJa': true },
       removeRecipe: jest.fn(),
-      user: 'Frank',
+      user: 'hagan',
     };
     const RecipeItemComponent = mount(
       <MemoryRouter>
         <RecipeItem {...props} recipe={fakeItem} />
       </MemoryRouter>
     );
-    console.log(RecipeItemComponent.debug());
+
     const button = RecipeItemComponent.find('.remove');
     button.simulate('click');
+
+    const dropDown = RecipeItemComponent.find('.dropDown');
     expect(props.toggleModal).toHaveBeenCalled();
-    expect(props.isModalOpen).toEqual(true);
+    expect(dropDown.find('.deleteDrop').exists()).toEqual(true);
+
     RecipeItemComponent.unmount();
   });
 });

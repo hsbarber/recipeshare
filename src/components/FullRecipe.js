@@ -49,13 +49,13 @@ function FullRecipe(props) {
               style={{ backgroundImage: `url(${recipe.imageURL})` }}
             />
           ) : (
-            <div
-              className="fullRecipe--tBlock-image"
-              style={{ backgroundColor: '#627bc0' }}
-            >
-              <h3>No Image Available</h3>
-            </div>
-          )}
+              <div
+                className="fullRecipe--tBlock-image"
+                style={{ backgroundColor: '#627bc0' }}
+              >
+                <h3>No Image Available</h3>
+              </div>
+            )}
         </div>
         <div className="fullRecipe--bBlock">
           <div className="fullRecipe--bBlock-ingredients">

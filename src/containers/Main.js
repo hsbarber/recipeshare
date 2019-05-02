@@ -42,6 +42,7 @@ class Main extends Component {
       progress: 0,
       error: '',
       // more form values
+      categoryVal: 'American',
       category: 'American',
       recipeTime: '',
       notes: '',
@@ -65,6 +66,7 @@ class Main extends Component {
     this.handleUploadError = this.handleUploadError.bind(this);
     this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleNewSelect = this.handleNewSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addItemArray = this.addItemArray.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -241,6 +243,12 @@ class Main extends Component {
     });
   }
 
+  handleNewSelect(event) {
+    this.setState({
+      categoryVal: event.target.value,
+    });
+  }
+
   // FORM CHANGE
   handleChange(e) {
     const { name } = e.target;
@@ -403,6 +411,7 @@ class Main extends Component {
       progress,
       error,
       category,
+      categoryVal,
       recipeTime,
       notes,
       link,
@@ -463,6 +472,7 @@ class Main extends Component {
                 handleUploadSuccess={this.handleUploadSuccess}
                 // form states
                 category={category}
+                categoryVal={categoryVal}
                 recipeTime={recipeTime}
                 notes={notes}
                 link={link}
@@ -471,6 +481,7 @@ class Main extends Component {
                 recipes={recipes}
                 // handle functions
                 handleSelect={this.handleSelect}
+                handleNewSelect={this.handleNewSelect}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 addItemArray={this.addItemArray}

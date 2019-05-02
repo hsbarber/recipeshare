@@ -1,0 +1,1317 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecipeForm matches snapshot 1`] = `
+<RecipeForm
+  errorAnimate={false}
+  errors={
+    Object {
+      "form": "You have errors in your form that need to be fixed before submitting",
+      "ingredients": "* You must have at least one ingredient entered.",
+      "steps": "* You must have at least one step entered.",
+      "title": "* Please enter your title.",
+    }
+  }
+  ingredients={Array []}
+  steps={Array []}
+  user="hagan"
+>
+  <div>
+    <div
+      className="recipeIntro"
+    >
+      <Spring
+        config={
+          Object {
+            "friction": 26,
+            "tension": 170,
+          }
+        }
+        force={false}
+        from={
+          Object {
+            "opacity": 0,
+            "transform": "translate3d(0,60px,0)",
+          }
+        }
+        immediate={false}
+        inject={[Function]}
+        native={false}
+        reset={false}
+        to={
+          Object {
+            "opacity": 1,
+            "transform": "translate3d(0,0,0)",
+          }
+        }
+      >
+        <div
+          className="recipeIntro-title"
+          style={
+            Object {
+              "opacity": 0,
+              "transform": "translate3d(0,60px,0)",
+            }
+          }
+        >
+          <h2>
+            Build a
+          </h2>
+          <h1>
+            Recipe
+          </h1>
+        </div>
+      </Spring>
+      <div
+        className="recipeIntro-Options"
+      >
+        <div
+          className="collapse"
+        >
+          <span
+            role="button"
+            tabIndex="0"
+          >
+            <h3>
+              Close Recipe Form 
+            </h3>
+            <Remove>
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-times fa-w-11"
+                data-icon="times"
+                data-prefix="fas"
+                role="img"
+                viewBox="0 0 352 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                />
+              </svg>
+            </Remove>
+          </span>
+        </div>
+      </div>
+    </div>
+    <section
+      className="rForm"
+    >
+      <AnimateHeight
+        animateOpacity={false}
+        animationStateClasses={
+          Object {
+            "animating": "rah-animating",
+            "animatingDown": "rah-animating--down",
+            "animatingToHeightAuto": "rah-animating--to-height-auto",
+            "animatingToHeightSpecific": "rah-animating--to-height-specific",
+            "animatingToHeightZero": "rah-animating--to-height-zero",
+            "animatingUp": "rah-animating--up",
+            "static": "rah-static",
+            "staticHeightAuto": "rah-static--height-auto",
+            "staticHeightSpecific": "rah-static--height-specific",
+            "staticHeightZero": "rah-static--height-zero",
+          }
+        }
+        applyInlineTransitions={true}
+        delay={0}
+        duration={500}
+        easing="ease"
+        height="auto"
+        style={Object {}}
+      >
+        <div
+          aria-hidden={false}
+          className="rah-static rah-static--height-auto"
+          style={
+            Object {
+              "height": "auto",
+              "overflow": "visible",
+            }
+          }
+        >
+          <div
+            style={Object {}}
+          >
+            <form
+              className="rForm--bg"
+            >
+              <div
+                className="rForm--input"
+              >
+                <input
+                  className="title"
+                  name="title"
+                  onChange={[Function]}
+                  placeholder="What's the title of your recipe?"
+                  type="text"
+                />
+              </div>
+              <ImageUpload
+                errorAnimate={false}
+                errors={
+                  Object {
+                    "form": "You have errors in your form that need to be fixed before submitting",
+                    "ingredients": "* You must have at least one ingredient entered.",
+                    "steps": "* You must have at least one step entered.",
+                    "title": "* Please enter your title.",
+                  }
+                }
+                ingredients={Array []}
+                steps={Array []}
+                user="hagan"
+              >
+                <div
+                  className="rForm--img"
+                >
+                  <h4>
+                    Upload a recipe image
+                  </h4>
+                  <div
+                    className="rForm--img-input"
+                  >
+                    <FirebaseFileUploader
+                      accept="image/*"
+                      name="image"
+                      randomizeFilename={true}
+                      storageRef={
+                        Reference {
+                          "authWrapper": AuthWrapper {
+                            "app_": FirebaseAppImpl {
+                              "INTERNAL": Object {
+                                "addAuthTokenListener": [Function],
+                                "getToken": [Function],
+                                "getUid": [Function],
+                                "removeAuthTokenListener": [Function],
+                              },
+                              "_automaticDataCollectionEnabled": false,
+                              "firebase_": Object {
+                                "INTERNAL": Object {
+                                  "ErrorFactory": [Function],
+                                  "Promise": [Function],
+                                  "createFirebaseNamespace": [Function],
+                                  "createSubscribe": [Function],
+                                  "deepExtend": [Function],
+                                  "extendNamespace": [Function],
+                                  "factories": Object {
+                                    "auth": [Function],
+                                    "database": [Function],
+                                    "storage": [Function],
+                                  },
+                                  "node": Object {
+                                    "XMLHttpRequest": [Function],
+                                    "localStorage": Storage {},
+                                    "sessionStorage": Storage {},
+                                  },
+                                  "registerService": [Function],
+                                  "removeApp": [Function],
+                                  "useAsService": [Function],
+                                },
+                                "Promise": [Function],
+                                "SDK_VERSION": "4.13.0",
+                                "User": [Function],
+                                "__esModule": true,
+                                "app": [Function],
+                                "apps": Array [
+                                  [Circular],
+                                ],
+                                "auth": [Function],
+                                "database": [Function],
+                                "default": [Circular],
+                                "initializeApp": [Function],
+                                "storage": [Function],
+                              },
+                              "isDeleted_": false,
+                              "name_": "[DEFAULT]",
+                              "options_": Object {
+                                "apiKey": "AIzaSyDG8zQdOft1RttyCNjZIdrB9ZSV4vdKPHk",
+                                "authDomain": "recipes-cc787.firebaseapp.com",
+                                "databaseURL": "https://recipes-cc787.firebaseio.com",
+                                "messagingSenderId": "449581790487",
+                                "projectId": "recipes-cc787",
+                                "storageBucket": "recipes-cc787.appspot.com",
+                              },
+                              "services_": Object {
+                                "auth": Object {
+                                  "[DEFAULT]": Object {
+                                    "apiKey": "AIzaSyDG8zQdOft1RttyCNjZIdrB9ZSV4vdKPHk",
+                                    "appName": "[DEFAULT]",
+                                    "authDomain": "recipes-cc787.firebaseapp.com",
+                                    "currentUser": null,
+                                  },
+                                },
+                                "database": Object {
+                                  "[DEFAULT]": Database {
+                                    "INTERNAL": DatabaseInternals {
+                                      "database": [Circular],
+                                    },
+                                    "repo_": Repo {
+                                      "__database": [Circular],
+                                      "app": [Circular],
+                                      "dataUpdateCount": 0,
+                                      "eventQueue_": EventQueue {
+                                        "eventLists_": Array [],
+                                        "recursionDepth_": 0,
+                                      },
+                                      "infoData_": SnapshotHolder {
+                                        "rootNode_": ChildrenNode {
+                                          "children_": SortedMap {
+                                            "comparator_": [Function],
+                                            "root_": LLRBNode {
+                                              "color": false,
+                                              "key": ".info",
+                                              "left": LLRBEmptyNode {},
+                                              "right": LLRBEmptyNode {},
+                                              "value": ChildrenNode {
+                                                "children_": SortedMap {
+                                                  "comparator_": [Function],
+                                                  "root_": LLRBNode {
+                                                    "color": false,
+                                                    "key": "connected",
+                                                    "left": LLRBEmptyNode {},
+                                                    "right": LLRBEmptyNode {},
+                                                    "value": LeafNode {
+                                                      "lazyHash_": null,
+                                                      "priorityNode_": ChildrenNode {
+                                                        "children_": SortedMap {
+                                                          "comparator_": [Function],
+                                                          "root_": LLRBEmptyNode {},
+                                                        },
+                                                        "indexMap_": IndexMap {
+                                                          "indexSet_": Object {
+                                                            ".priority": PriorityIndex {},
+                                                          },
+                                                          "indexes_": Object {
+                                                            ".priority": Object {},
+                                                          },
+                                                        },
+                                                        "lazyHash_": null,
+                                                        "priorityNode_": null,
+                                                      },
+                                                      "value_": false,
+                                                    },
+                                                  },
+                                                },
+                                                "indexMap_": IndexMap {
+                                                  "indexSet_": Object {
+                                                    ".priority": PriorityIndex {},
+                                                  },
+                                                  "indexes_": Object {
+                                                    ".priority": Object {},
+                                                  },
+                                                },
+                                                "lazyHash_": null,
+                                                "priorityNode_": null,
+                                              },
+                                            },
+                                          },
+                                          "indexMap_": IndexMap {
+                                            "indexSet_": Object {
+                                              ".priority": PriorityIndex {},
+                                            },
+                                            "indexes_": Object {
+                                              ".priority": Object {},
+                                            },
+                                          },
+                                          "lazyHash_": null,
+                                          "priorityNode_": null,
+                                        },
+                                      },
+                                      "infoSyncTree_": SyncTree {
+                                        "listenProvider_": Object {
+                                          "startListening": [Function],
+                                          "stopListening": [Function],
+                                        },
+                                        "pendingWriteTree_": WriteTree {
+                                          "allWrites_": Array [],
+                                          "lastWriteId_": -1,
+                                          "visibleWrites_": CompoundWrite {
+                                            "writeTree_": ImmutableTree {
+                                              "children": SortedMap {
+                                                "comparator_": [Function],
+                                                "root_": LLRBEmptyNode {},
+                                              },
+                                              "value": null,
+                                            },
+                                          },
+                                        },
+                                        "queryToTagMap_": Object {},
+                                        "syncPointTree_": ImmutableTree {
+                                          "children": SortedMap {
+                                            "comparator_": [Function],
+                                            "root_": LLRBEmptyNode {},
+                                          },
+                                          "value": null,
+                                        },
+                                        "tagToQueryMap_": Object {},
+                                      },
+                                      "interceptServerDataCallback_": null,
+                                      "nextWriteId_": 1,
+                                      "onDisconnect_": SparseSnapshotTree {
+                                        "children_": null,
+                                        "value_": null,
+                                      },
+                                      "persistentConnection_": PersistentConnection {
+                                        "authOverride_": undefined,
+                                        "authTokenProvider_": AuthTokenProvider {
+                                          "app_": [Circular],
+                                        },
+                                        "authToken_": null,
+                                        "connected_": false,
+                                        "establishConnectionTimer_": 2,
+                                        "firstConnection_": true,
+                                        "forceTokenRefresh_": false,
+                                        "id": 0,
+                                        "interruptReasons_": Object {},
+                                        "invalidAuthTokenCount_": 0,
+                                        "lastConnectionAttemptTime_": null,
+                                        "lastConnectionEstablishedTime_": null,
+                                        "lastSessionId": null,
+                                        "listens_": Object {},
+                                        "log_": [Function],
+                                        "maxReconnectDelay_": 300000,
+                                        "onConnectStatus_": [Function],
+                                        "onDataUpdate_": [Function],
+                                        "onDisconnectRequestQueue_": Array [],
+                                        "onServerInfoUpdate_": [Function],
+                                        "outstandingPutCount_": 0,
+                                        "outstandingPuts_": Array [],
+                                        "realtime_": null,
+                                        "reconnectDelay_": 1000,
+                                        "repoInfo_": RepoInfo {
+                                          "domain": "firebaseio.com",
+                                          "host": "recipes-cc787.firebaseio.com",
+                                          "internalHost": "recipes-cc787.firebaseio.com",
+                                          "namespace": "recipes-cc787",
+                                          "persistenceKey": "",
+                                          "secure": true,
+                                          "webSocketOnly": false,
+                                        },
+                                        "requestCBHash_": Object {},
+                                        "requestNumber_": 0,
+                                        "securityDebugCallback_": null,
+                                        "visible_": true,
+                                      },
+                                      "repoInfo_": RepoInfo {
+                                        "domain": "firebaseio.com",
+                                        "host": "recipes-cc787.firebaseio.com",
+                                        "internalHost": "recipes-cc787.firebaseio.com",
+                                        "namespace": "recipes-cc787",
+                                        "persistenceKey": "",
+                                        "secure": true,
+                                        "webSocketOnly": false,
+                                      },
+                                      "serverSyncTree_": SyncTree {
+                                        "listenProvider_": Object {
+                                          "startListening": [Function],
+                                          "stopListening": [Function],
+                                        },
+                                        "pendingWriteTree_": WriteTree {
+                                          "allWrites_": Array [],
+                                          "lastWriteId_": -1,
+                                          "visibleWrites_": CompoundWrite {
+                                            "writeTree_": ImmutableTree {
+                                              "children": SortedMap {
+                                                "comparator_": [Function],
+                                                "root_": LLRBEmptyNode {},
+                                              },
+                                              "value": null,
+                                            },
+                                          },
+                                        },
+                                        "queryToTagMap_": Object {},
+                                        "syncPointTree_": ImmutableTree {
+                                          "children": SortedMap {
+                                            "comparator_": [Function],
+                                            "root_": LLRBEmptyNode {},
+                                          },
+                                          "value": null,
+                                        },
+                                        "tagToQueryMap_": Object {},
+                                      },
+                                      "server_": PersistentConnection {
+                                        "authOverride_": undefined,
+                                        "authTokenProvider_": AuthTokenProvider {
+                                          "app_": [Circular],
+                                        },
+                                        "authToken_": null,
+                                        "connected_": false,
+                                        "establishConnectionTimer_": 2,
+                                        "firstConnection_": true,
+                                        "forceTokenRefresh_": false,
+                                        "id": 0,
+                                        "interruptReasons_": Object {},
+                                        "invalidAuthTokenCount_": 0,
+                                        "lastConnectionAttemptTime_": null,
+                                        "lastConnectionEstablishedTime_": null,
+                                        "lastSessionId": null,
+                                        "listens_": Object {},
+                                        "log_": [Function],
+                                        "maxReconnectDelay_": 300000,
+                                        "onConnectStatus_": [Function],
+                                        "onDataUpdate_": [Function],
+                                        "onDisconnectRequestQueue_": Array [],
+                                        "onServerInfoUpdate_": [Function],
+                                        "outstandingPutCount_": 0,
+                                        "outstandingPuts_": Array [],
+                                        "realtime_": null,
+                                        "reconnectDelay_": 1000,
+                                        "repoInfo_": RepoInfo {
+                                          "domain": "firebaseio.com",
+                                          "host": "recipes-cc787.firebaseio.com",
+                                          "internalHost": "recipes-cc787.firebaseio.com",
+                                          "namespace": "recipes-cc787",
+                                          "persistenceKey": "",
+                                          "secure": true,
+                                          "webSocketOnly": false,
+                                        },
+                                        "requestCBHash_": Object {},
+                                        "requestNumber_": 0,
+                                        "securityDebugCallback_": null,
+                                        "visible_": true,
+                                      },
+                                      "statsListener_": null,
+                                      "statsReporter_": StatsReporter {
+                                        "server_": PersistentConnection {
+                                          "authOverride_": undefined,
+                                          "authTokenProvider_": AuthTokenProvider {
+                                            "app_": [Circular],
+                                          },
+                                          "authToken_": null,
+                                          "connected_": false,
+                                          "establishConnectionTimer_": 2,
+                                          "firstConnection_": true,
+                                          "forceTokenRefresh_": false,
+                                          "id": 0,
+                                          "interruptReasons_": Object {},
+                                          "invalidAuthTokenCount_": 0,
+                                          "lastConnectionAttemptTime_": null,
+                                          "lastConnectionEstablishedTime_": null,
+                                          "lastSessionId": null,
+                                          "listens_": Object {},
+                                          "log_": [Function],
+                                          "maxReconnectDelay_": 300000,
+                                          "onConnectStatus_": [Function],
+                                          "onDataUpdate_": [Function],
+                                          "onDisconnectRequestQueue_": Array [],
+                                          "onServerInfoUpdate_": [Function],
+                                          "outstandingPutCount_": 0,
+                                          "outstandingPuts_": Array [],
+                                          "realtime_": null,
+                                          "reconnectDelay_": 1000,
+                                          "repoInfo_": RepoInfo {
+                                            "domain": "firebaseio.com",
+                                            "host": "recipes-cc787.firebaseio.com",
+                                            "internalHost": "recipes-cc787.firebaseio.com",
+                                            "namespace": "recipes-cc787",
+                                            "persistenceKey": "",
+                                            "secure": true,
+                                            "webSocketOnly": false,
+                                          },
+                                          "requestCBHash_": Object {},
+                                          "requestNumber_": 0,
+                                          "securityDebugCallback_": null,
+                                          "visible_": true,
+                                        },
+                                        "statsListener_": StatsListener {
+                                          "collection_": StatsCollection {
+                                            "counters_": Object {},
+                                          },
+                                          "last_": null,
+                                        },
+                                        "statsToReport_": Object {},
+                                      },
+                                      "stats_": StatsCollection {
+                                        "counters_": Object {},
+                                      },
+                                      "transactionQueueTree_": Tree {
+                                        "name_": "",
+                                        "node_": TreeNode {
+                                          "childCount": 0,
+                                          "children": Object {},
+                                          "value": null,
+                                        },
+                                        "parent_": null,
+                                      },
+                                    },
+                                    "root_": "https://recipes-cc787.firebaseio.com/",
+                                  },
+                                },
+                                "storage": Object {
+                                  "[DEFAULT]": Service {
+                                    "app_": [Circular],
+                                    "authWrapper_": [Circular],
+                                    "bucket_": Location {
+                                      "bucket": "recipes-cc787.appspot.com",
+                                      "path_": "",
+                                    },
+                                    "internals_": ServiceInternals {
+                                      "service_": [Circular],
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            "bucket_": "recipes-cc787.appspot.com",
+                            "deleted_": false,
+                            "maxOperationRetryTime_": 120000,
+                            "maxUploadRetryTime_": 60000,
+                            "pool_": XhrIoPool {},
+                            "requestMaker_": [Function],
+                            "requestMap_": RequestMap {
+                              "id_": -9007199254740991,
+                              "map_": Object {},
+                            },
+                            "service_": Service {
+                              "app_": FirebaseAppImpl {
+                                "INTERNAL": Object {
+                                  "addAuthTokenListener": [Function],
+                                  "getToken": [Function],
+                                  "getUid": [Function],
+                                  "removeAuthTokenListener": [Function],
+                                },
+                                "_automaticDataCollectionEnabled": false,
+                                "firebase_": Object {
+                                  "INTERNAL": Object {
+                                    "ErrorFactory": [Function],
+                                    "Promise": [Function],
+                                    "createFirebaseNamespace": [Function],
+                                    "createSubscribe": [Function],
+                                    "deepExtend": [Function],
+                                    "extendNamespace": [Function],
+                                    "factories": Object {
+                                      "auth": [Function],
+                                      "database": [Function],
+                                      "storage": [Function],
+                                    },
+                                    "node": Object {
+                                      "XMLHttpRequest": [Function],
+                                      "localStorage": Storage {},
+                                      "sessionStorage": Storage {},
+                                    },
+                                    "registerService": [Function],
+                                    "removeApp": [Function],
+                                    "useAsService": [Function],
+                                  },
+                                  "Promise": [Function],
+                                  "SDK_VERSION": "4.13.0",
+                                  "User": [Function],
+                                  "__esModule": true,
+                                  "app": [Function],
+                                  "apps": Array [
+                                    [Circular],
+                                  ],
+                                  "auth": [Function],
+                                  "database": [Function],
+                                  "default": [Circular],
+                                  "initializeApp": [Function],
+                                  "storage": [Function],
+                                },
+                                "isDeleted_": false,
+                                "name_": "[DEFAULT]",
+                                "options_": Object {
+                                  "apiKey": "AIzaSyDG8zQdOft1RttyCNjZIdrB9ZSV4vdKPHk",
+                                  "authDomain": "recipes-cc787.firebaseapp.com",
+                                  "databaseURL": "https://recipes-cc787.firebaseio.com",
+                                  "messagingSenderId": "449581790487",
+                                  "projectId": "recipes-cc787",
+                                  "storageBucket": "recipes-cc787.appspot.com",
+                                },
+                                "services_": Object {
+                                  "auth": Object {
+                                    "[DEFAULT]": Object {
+                                      "apiKey": "AIzaSyDG8zQdOft1RttyCNjZIdrB9ZSV4vdKPHk",
+                                      "appName": "[DEFAULT]",
+                                      "authDomain": "recipes-cc787.firebaseapp.com",
+                                      "currentUser": null,
+                                    },
+                                  },
+                                  "database": Object {
+                                    "[DEFAULT]": Database {
+                                      "INTERNAL": DatabaseInternals {
+                                        "database": [Circular],
+                                      },
+                                      "repo_": Repo {
+                                        "__database": [Circular],
+                                        "app": [Circular],
+                                        "dataUpdateCount": 0,
+                                        "eventQueue_": EventQueue {
+                                          "eventLists_": Array [],
+                                          "recursionDepth_": 0,
+                                        },
+                                        "infoData_": SnapshotHolder {
+                                          "rootNode_": ChildrenNode {
+                                            "children_": SortedMap {
+                                              "comparator_": [Function],
+                                              "root_": LLRBNode {
+                                                "color": false,
+                                                "key": ".info",
+                                                "left": LLRBEmptyNode {},
+                                                "right": LLRBEmptyNode {},
+                                                "value": ChildrenNode {
+                                                  "children_": SortedMap {
+                                                    "comparator_": [Function],
+                                                    "root_": LLRBNode {
+                                                      "color": false,
+                                                      "key": "connected",
+                                                      "left": LLRBEmptyNode {},
+                                                      "right": LLRBEmptyNode {},
+                                                      "value": LeafNode {
+                                                        "lazyHash_": null,
+                                                        "priorityNode_": ChildrenNode {
+                                                          "children_": SortedMap {
+                                                            "comparator_": [Function],
+                                                            "root_": LLRBEmptyNode {},
+                                                          },
+                                                          "indexMap_": IndexMap {
+                                                            "indexSet_": Object {
+                                                              ".priority": PriorityIndex {},
+                                                            },
+                                                            "indexes_": Object {
+                                                              ".priority": Object {},
+                                                            },
+                                                          },
+                                                          "lazyHash_": null,
+                                                          "priorityNode_": null,
+                                                        },
+                                                        "value_": false,
+                                                      },
+                                                    },
+                                                  },
+                                                  "indexMap_": IndexMap {
+                                                    "indexSet_": Object {
+                                                      ".priority": PriorityIndex {},
+                                                    },
+                                                    "indexes_": Object {
+                                                      ".priority": Object {},
+                                                    },
+                                                  },
+                                                  "lazyHash_": null,
+                                                  "priorityNode_": null,
+                                                },
+                                              },
+                                            },
+                                            "indexMap_": IndexMap {
+                                              "indexSet_": Object {
+                                                ".priority": PriorityIndex {},
+                                              },
+                                              "indexes_": Object {
+                                                ".priority": Object {},
+                                              },
+                                            },
+                                            "lazyHash_": null,
+                                            "priorityNode_": null,
+                                          },
+                                        },
+                                        "infoSyncTree_": SyncTree {
+                                          "listenProvider_": Object {
+                                            "startListening": [Function],
+                                            "stopListening": [Function],
+                                          },
+                                          "pendingWriteTree_": WriteTree {
+                                            "allWrites_": Array [],
+                                            "lastWriteId_": -1,
+                                            "visibleWrites_": CompoundWrite {
+                                              "writeTree_": ImmutableTree {
+                                                "children": SortedMap {
+                                                  "comparator_": [Function],
+                                                  "root_": LLRBEmptyNode {},
+                                                },
+                                                "value": null,
+                                              },
+                                            },
+                                          },
+                                          "queryToTagMap_": Object {},
+                                          "syncPointTree_": ImmutableTree {
+                                            "children": SortedMap {
+                                              "comparator_": [Function],
+                                              "root_": LLRBEmptyNode {},
+                                            },
+                                            "value": null,
+                                          },
+                                          "tagToQueryMap_": Object {},
+                                        },
+                                        "interceptServerDataCallback_": null,
+                                        "nextWriteId_": 1,
+                                        "onDisconnect_": SparseSnapshotTree {
+                                          "children_": null,
+                                          "value_": null,
+                                        },
+                                        "persistentConnection_": PersistentConnection {
+                                          "authOverride_": undefined,
+                                          "authTokenProvider_": AuthTokenProvider {
+                                            "app_": [Circular],
+                                          },
+                                          "authToken_": null,
+                                          "connected_": false,
+                                          "establishConnectionTimer_": 2,
+                                          "firstConnection_": true,
+                                          "forceTokenRefresh_": false,
+                                          "id": 0,
+                                          "interruptReasons_": Object {},
+                                          "invalidAuthTokenCount_": 0,
+                                          "lastConnectionAttemptTime_": null,
+                                          "lastConnectionEstablishedTime_": null,
+                                          "lastSessionId": null,
+                                          "listens_": Object {},
+                                          "log_": [Function],
+                                          "maxReconnectDelay_": 300000,
+                                          "onConnectStatus_": [Function],
+                                          "onDataUpdate_": [Function],
+                                          "onDisconnectRequestQueue_": Array [],
+                                          "onServerInfoUpdate_": [Function],
+                                          "outstandingPutCount_": 0,
+                                          "outstandingPuts_": Array [],
+                                          "realtime_": null,
+                                          "reconnectDelay_": 1000,
+                                          "repoInfo_": RepoInfo {
+                                            "domain": "firebaseio.com",
+                                            "host": "recipes-cc787.firebaseio.com",
+                                            "internalHost": "recipes-cc787.firebaseio.com",
+                                            "namespace": "recipes-cc787",
+                                            "persistenceKey": "",
+                                            "secure": true,
+                                            "webSocketOnly": false,
+                                          },
+                                          "requestCBHash_": Object {},
+                                          "requestNumber_": 0,
+                                          "securityDebugCallback_": null,
+                                          "visible_": true,
+                                        },
+                                        "repoInfo_": RepoInfo {
+                                          "domain": "firebaseio.com",
+                                          "host": "recipes-cc787.firebaseio.com",
+                                          "internalHost": "recipes-cc787.firebaseio.com",
+                                          "namespace": "recipes-cc787",
+                                          "persistenceKey": "",
+                                          "secure": true,
+                                          "webSocketOnly": false,
+                                        },
+                                        "serverSyncTree_": SyncTree {
+                                          "listenProvider_": Object {
+                                            "startListening": [Function],
+                                            "stopListening": [Function],
+                                          },
+                                          "pendingWriteTree_": WriteTree {
+                                            "allWrites_": Array [],
+                                            "lastWriteId_": -1,
+                                            "visibleWrites_": CompoundWrite {
+                                              "writeTree_": ImmutableTree {
+                                                "children": SortedMap {
+                                                  "comparator_": [Function],
+                                                  "root_": LLRBEmptyNode {},
+                                                },
+                                                "value": null,
+                                              },
+                                            },
+                                          },
+                                          "queryToTagMap_": Object {},
+                                          "syncPointTree_": ImmutableTree {
+                                            "children": SortedMap {
+                                              "comparator_": [Function],
+                                              "root_": LLRBEmptyNode {},
+                                            },
+                                            "value": null,
+                                          },
+                                          "tagToQueryMap_": Object {},
+                                        },
+                                        "server_": PersistentConnection {
+                                          "authOverride_": undefined,
+                                          "authTokenProvider_": AuthTokenProvider {
+                                            "app_": [Circular],
+                                          },
+                                          "authToken_": null,
+                                          "connected_": false,
+                                          "establishConnectionTimer_": 2,
+                                          "firstConnection_": true,
+                                          "forceTokenRefresh_": false,
+                                          "id": 0,
+                                          "interruptReasons_": Object {},
+                                          "invalidAuthTokenCount_": 0,
+                                          "lastConnectionAttemptTime_": null,
+                                          "lastConnectionEstablishedTime_": null,
+                                          "lastSessionId": null,
+                                          "listens_": Object {},
+                                          "log_": [Function],
+                                          "maxReconnectDelay_": 300000,
+                                          "onConnectStatus_": [Function],
+                                          "onDataUpdate_": [Function],
+                                          "onDisconnectRequestQueue_": Array [],
+                                          "onServerInfoUpdate_": [Function],
+                                          "outstandingPutCount_": 0,
+                                          "outstandingPuts_": Array [],
+                                          "realtime_": null,
+                                          "reconnectDelay_": 1000,
+                                          "repoInfo_": RepoInfo {
+                                            "domain": "firebaseio.com",
+                                            "host": "recipes-cc787.firebaseio.com",
+                                            "internalHost": "recipes-cc787.firebaseio.com",
+                                            "namespace": "recipes-cc787",
+                                            "persistenceKey": "",
+                                            "secure": true,
+                                            "webSocketOnly": false,
+                                          },
+                                          "requestCBHash_": Object {},
+                                          "requestNumber_": 0,
+                                          "securityDebugCallback_": null,
+                                          "visible_": true,
+                                        },
+                                        "statsListener_": null,
+                                        "statsReporter_": StatsReporter {
+                                          "server_": PersistentConnection {
+                                            "authOverride_": undefined,
+                                            "authTokenProvider_": AuthTokenProvider {
+                                              "app_": [Circular],
+                                            },
+                                            "authToken_": null,
+                                            "connected_": false,
+                                            "establishConnectionTimer_": 2,
+                                            "firstConnection_": true,
+                                            "forceTokenRefresh_": false,
+                                            "id": 0,
+                                            "interruptReasons_": Object {},
+                                            "invalidAuthTokenCount_": 0,
+                                            "lastConnectionAttemptTime_": null,
+                                            "lastConnectionEstablishedTime_": null,
+                                            "lastSessionId": null,
+                                            "listens_": Object {},
+                                            "log_": [Function],
+                                            "maxReconnectDelay_": 300000,
+                                            "onConnectStatus_": [Function],
+                                            "onDataUpdate_": [Function],
+                                            "onDisconnectRequestQueue_": Array [],
+                                            "onServerInfoUpdate_": [Function],
+                                            "outstandingPutCount_": 0,
+                                            "outstandingPuts_": Array [],
+                                            "realtime_": null,
+                                            "reconnectDelay_": 1000,
+                                            "repoInfo_": RepoInfo {
+                                              "domain": "firebaseio.com",
+                                              "host": "recipes-cc787.firebaseio.com",
+                                              "internalHost": "recipes-cc787.firebaseio.com",
+                                              "namespace": "recipes-cc787",
+                                              "persistenceKey": "",
+                                              "secure": true,
+                                              "webSocketOnly": false,
+                                            },
+                                            "requestCBHash_": Object {},
+                                            "requestNumber_": 0,
+                                            "securityDebugCallback_": null,
+                                            "visible_": true,
+                                          },
+                                          "statsListener_": StatsListener {
+                                            "collection_": StatsCollection {
+                                              "counters_": Object {},
+                                            },
+                                            "last_": null,
+                                          },
+                                          "statsToReport_": Object {},
+                                        },
+                                        "stats_": StatsCollection {
+                                          "counters_": Object {},
+                                        },
+                                        "transactionQueueTree_": Tree {
+                                          "name_": "",
+                                          "node_": TreeNode {
+                                            "childCount": 0,
+                                            "children": Object {},
+                                            "value": null,
+                                          },
+                                          "parent_": null,
+                                        },
+                                      },
+                                      "root_": "https://recipes-cc787.firebaseio.com/",
+                                    },
+                                  },
+                                  "storage": Object {
+                                    "[DEFAULT]": [Circular],
+                                  },
+                                },
+                              },
+                              "authWrapper_": [Circular],
+                              "bucket_": Location {
+                                "bucket": "recipes-cc787.appspot.com",
+                                "path_": "",
+                              },
+                              "internals_": ServiceInternals {
+                                "service_": [Circular],
+                              },
+                            },
+                            "storageRefMaker_": [Function],
+                          },
+                          "location": Location {
+                            "bucket": "recipes-cc787.appspot.com",
+                            "path_": "images",
+                          },
+                        }
+                      }
+                    >
+                      <input
+                        accept="image/*"
+                        name="image"
+                        onChange={[Function]}
+                        type="file"
+                      />
+                    </FirebaseFileUploader>
+                    <p
+                      className="image-note"
+                    >
+                      *Image looks best at width of 1200px or larger
+                    </p>
+                  </div>
+                </div>
+              </ImageUpload>
+              <div
+                className="rForm--select"
+              >
+                <h4>
+                  Choose a recipe category
+                </h4>
+                <select
+                  name="category"
+                >
+                  <option
+                    key="British"
+                    value="British"
+                  >
+                    British
+                  </option>
+                  <option
+                    key="Caribbean"
+                    value="Caribbean"
+                  >
+                    Caribbean
+                  </option>
+                  <option
+                    key="Chinese"
+                    value="Chinese"
+                  >
+                    Chinese
+                  </option>
+                  <option
+                    key="French"
+                    value="French"
+                  >
+                    French
+                  </option>
+                  <option
+                    key="German"
+                    value="German"
+                  >
+                    German
+                  </option>
+                  <option
+                    key="Greek"
+                    value="Greek"
+                  >
+                    Greek
+                  </option>
+                  <option
+                    key="Indian"
+                    value="Indian"
+                  >
+                    Indian
+                  </option>
+                  <option
+                    key="Italian"
+                    value="Italian"
+                  >
+                    Italian
+                  </option>
+                  <option
+                    key="Iranian"
+                    value="Iranian"
+                  >
+                    Iranian
+                  </option>
+                  <option
+                    key="Japanese"
+                    value="Japanese"
+                  >
+                    Japanese
+                  </option>
+                  <option
+                    key="Korean"
+                    value="Korean"
+                  >
+                    Korean
+                  </option>
+                  <option
+                    key="Lebanese"
+                    value="Lebanese"
+                  >
+                    Lebanese
+                  </option>
+                  <option
+                    key="Mediterranean"
+                    value="Mediterranean"
+                  >
+                    Mediterranean
+                  </option>
+                  <option
+                    key="Mexican"
+                    value="Mexican"
+                  >
+                    Mexican
+                  </option>
+                  <option
+                    key="Moroccan"
+                    value="Moroccan"
+                  >
+                    Moroccan
+                  </option>
+                  <option
+                    key="Polynesian"
+                    value="Polynesian"
+                  >
+                    Polynesian
+                  </option>
+                  <option
+                    key="Russian"
+                    value="Russian"
+                  >
+                    Russian
+                  </option>
+                  <option
+                    key="Scandinavian"
+                    value="Scandinavian"
+                  >
+                    Scandinavian
+                  </option>
+                  <option
+                    key="Spanish"
+                    value="Spanish"
+                  >
+                    Spanish
+                  </option>
+                  <option
+                    key="Taiwanese"
+                    value="Taiwanese"
+                  >
+                    Taiwanese
+                  </option>
+                  <option
+                    key="Thai"
+                    value="Thai"
+                  >
+                    Thai
+                  </option>
+                  <option
+                    key="Turkish"
+                    value="Turkish"
+                  >
+                    Turkish
+                  </option>
+                  <option
+                    key="Vietnamese"
+                    value="Vietnamese"
+                  >
+                    Vietnamese
+                  </option>
+                  <option
+                    key="Other"
+                    value="Other"
+                  >
+                    Other
+                  </option>
+                </select>
+              </div>
+              <div
+                className="rForm--select"
+              >
+                <h4>
+                  Choose a an approximate time to make
+                </h4>
+                <select
+                  onChange={[Function]}
+                >
+                  <option
+                    defaultValue="Short - less than 1 hour"
+                  >
+                    Short - less than 1 hour
+                  </option>
+                  <option
+                    key="Average - less than 2 hours"
+                    value="Average - less than 2 hours"
+                  >
+                    Average - less than 2 hours
+                  </option>
+                  <option
+                    key="Long - over 2 hours"
+                    value="Long - over 2 hours"
+                  >
+                    Long - over 2 hours
+                  </option>
+                </select>
+              </div>
+              <div
+                className="rForm--input-vertical"
+              >
+                <h4>
+                  Add any Recipe Notes
+                </h4>
+                <textarea
+                  name="notes"
+                  onChange={[Function]}
+                />
+              </div>
+              <div
+                className="rForm--input-vertical"
+              >
+                <h4>
+                  Add a link to original recipe
+                </h4>
+                <input
+                  name="link"
+                  onChange={[Function]}
+                />
+              </div>
+              <div
+                className="rForm--input-vertical"
+              >
+                <h4>
+                  Add your ingredients
+                </h4>
+                <ListForm
+                  inputName="ingredient"
+                >
+                  <div
+                    className="ingredients-input"
+                  >
+                    <input />
+                    <button
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Add 
+                      ingredient
+                       +
+                    </button>
+                  </div>
+                </ListForm>
+                <PrintList
+                  list={Array []}
+                  name="ingredients"
+                >
+                  <DragDropContext>
+                    <Connect(Droppable)
+                      direction="vertical"
+                      droppableId="droppable"
+                      ignoreContainerClipping={false}
+                      isDropDisabled={false}
+                      type="DEFAULT"
+                    >
+                      <Droppable
+                        direction="vertical"
+                        dispatch={[Function]}
+                        draggingOverWith={null}
+                        droppableId="droppable"
+                        ignoreContainerClipping={false}
+                        isDraggingOver={false}
+                        isDropDisabled={false}
+                        placeholder={null}
+                        type="DEFAULT"
+                      >
+                        <DroppableDimensionPublisher
+                          direction="vertical"
+                          droppableId="droppable"
+                          getDroppableRef={[Function]}
+                          ignoreContainerClipping={false}
+                          isDropDisabled={false}
+                          type="DEFAULT"
+                        >
+                          <ul
+                            className="rForm--list"
+                            style={
+                              Object {
+                                "background": "none",
+                              }
+                            }
+                          />
+                        </DroppableDimensionPublisher>
+                      </Droppable>
+                    </Connect(Droppable)>
+                  </DragDropContext>
+                </PrintList>
+              </div>
+              <div
+                className="rForm--input-vertical"
+              >
+                <h4>
+                  Add the steps to your recipe
+                </h4>
+                <ListForm
+                  inputName="step"
+                >
+                  <div
+                    className="steps-input"
+                  >
+                    <textarea />
+                    <button
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Add 
+                      step
+                       +
+                    </button>
+                  </div>
+                </ListForm>
+                <PrintList
+                  list={Array []}
+                  name="steps"
+                >
+                  <DragDropContext>
+                    <Connect(Droppable)
+                      direction="vertical"
+                      droppableId="droppable"
+                      ignoreContainerClipping={false}
+                      isDropDisabled={false}
+                      type="DEFAULT"
+                    >
+                      <Droppable
+                        direction="vertical"
+                        dispatch={[Function]}
+                        draggingOverWith={null}
+                        droppableId="droppable"
+                        ignoreContainerClipping={false}
+                        isDraggingOver={false}
+                        isDropDisabled={false}
+                        placeholder={null}
+                        type="DEFAULT"
+                      >
+                        <DroppableDimensionPublisher
+                          direction="vertical"
+                          droppableId="droppable"
+                          getDroppableRef={[Function]}
+                          ignoreContainerClipping={false}
+                          isDropDisabled={false}
+                          type="DEFAULT"
+                        >
+                          <ul
+                            className="rForm--list"
+                            style={
+                              Object {
+                                "background": "none",
+                              }
+                            }
+                          />
+                        </DroppableDimensionPublisher>
+                      </Droppable>
+                    </Connect(Droppable)>
+                  </DragDropContext>
+                </PrintList>
+              </div>
+              <button
+                className="submit"
+                type="submit"
+              >
+                Add Recipe
+              </button>
+            </form>
+          </div>
+        </div>
+      </AnimateHeight>
+    </section>
+  </div>
+</RecipeForm>
+`;

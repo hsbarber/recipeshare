@@ -290,11 +290,7 @@ section.route-section {
 .errorMsg {
   color: #E24C3F; }
 
-.errorMsg--form {
-  padding: 1rem;
-  color: #E24C3F;
-  border: 1px solid #f6c8c4;
-  border-radius: 8px;
+.errorForm {
   margin-bottom: 2rem; }
 
 .login {
